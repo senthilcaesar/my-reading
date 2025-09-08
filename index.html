@@ -1,672 +1,883 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Index</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
-        
-        :root {
-            /* Light theme colors */
-            --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f8fafc;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-muted: #718096;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
-            --accent: #667eea;
-            --accent-hover: #5a67d8;
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap");
+
+      :root {
+        /* Light theme colors */
+        --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f8fafc;
+        --text-primary: #1a202c;
+        --text-secondary: #4a5568;
+        --text-muted: #718096;
+        --border-color: #e2e8f0;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+        --accent: #667eea;
+        --accent-hover: #5a67d8;
+      }
+
+      [data-theme="dark"] {
+        /* Dark theme colors */
+        --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        --bg-secondary: #2d3748;
+        --bg-tertiary: #4a5568;
+        --text-primary: #f7fafc;
+        --text-secondary: #e2e8f0;
+        --text-muted: #a0aec0;
+        --border-color: #4a5568;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.4);
+        --accent: #90cdf4;
+        --accent-hover: #63b3ed;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        background: var(--bg-primary);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.6;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .header {
+        text-align: center;
+        padding: 48px 0 20px 0;
+        position: relative;
+      }
+
+      .header h1 {
+        font-family: "Crimson Text", Georgia, serif;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 600;
+        margin: 0 0 16px 0;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      .header p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        margin: 0 0 32px 0;
+        font-weight: 300;
+      }
+
+      .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        border-radius: 50px;
+        padding: 8px 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .theme-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--accent);
+      }
+
+      .theme-icon {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+      }
+
+      .stats-section {
+        max-width: 1400px;
+        margin: 0 auto 48px auto;
+        padding: 0 24px;
+      }
+
+      .stats-toggle {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 32px;
+      }
+
+      .stats-toggle button {
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 12px 24px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        margin: 0 4px;
+      }
+
+      .stats-toggle button.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .stats-toggle button:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .chart-container {
+        background: var(--bg-secondary);
+        border-radius: 24px;
+        padding: 40px;
+        margin-bottom: 32px;
+        box-shadow: var(--shadow-hover);
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          #667eea 0%,
+          #764ba2 25%,
+          #f093fb 50%,
+          #f5576c 75%,
+          #4facfe 100%
+        );
+      }
+
+      .chart-title {
+        font-family: "Crimson Text", Georgia, serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 40px;
+        text-align: center;
+        position: relative;
+        background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .chart-title::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        border-radius: 2px;
+      }
+
+      .chart-content {
+        width: 100%;
+      }
+
+      .chart-visual {
+        width: 100%;
+        min-height: 300px;
+      }
+
+      .chart-bar {
+        margin-bottom: 32px;
+        position: relative;
+        transform: translateX(-10px);
+        opacity: 0;
+        animation: slideInChart 0.8s ease-out forwards;
+      }
+
+      .chart-bar:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .chart-bar:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .chart-bar:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .chart-bar:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .chart-bar:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .chart-bar:nth-child(n + 6) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes slideInChart {
+        to {
+          transform: translateX(0);
+          opacity: 1;
         }
-        
-        [data-theme="dark"] {
-            /* Dark theme colors */
-            --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            --bg-secondary: #2d3748;
-            --bg-tertiary: #4a5568;
-            --text-primary: #f7fafc;
-            --text-secondary: #e2e8f0;
-            --text-muted: #a0aec0;
-            --border-color: #4a5568;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.4);
-            --accent: #90cdf4;
-            --accent-hover: #63b3ed;
+      }
+
+      .chart-bar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 0 4px;
+      }
+
+      .chart-bar-category {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .chart-bar-category::before {
+        content: "📚";
+        margin-right: 8px;
+        font-size: 1.1em;
+      }
+
+      .chart-bar-count {
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 0.9rem;
+        padding: 4px 12px;
+        background: var(--bg-tertiary);
+        border-radius: 20px;
+        border: 1px solid var(--accent);
+      }
+
+      .chart-bar-track {
+        background: var(--bg-tertiary);
+        border-radius: 20px;
+        height: 32px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .chart-bar-fill {
+        height: 100%;
+        border-radius: 20px;
+        transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        background: linear-gradient(135deg, var(--fill-start), var(--fill-end));
+        background-size: 200% 200%;
+        animation: gradientShift 3s ease-in-out infinite;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
         }
-        
-        * {
-            box-sizing: border-box;
+        50% {
+          background-position: 100% 50%;
         }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            background: var(--bg-primary);
-            min-height: 100vh;
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            font-weight: 400;
+      }
+
+      .chart-bar-fill::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          transparent 100%
+        );
+        border-radius: 20px;
+        animation: shimmer 2.5s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
         }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .stats-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .stats-card {
+        background: var(--bg-tertiary);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .stats-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
+        font-family: "Inter", sans-serif;
+      }
+
+      .stats-label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 32px 0 48px 0;
+      }
+
+      .search-bar input {
+        width: min(480px, 90vw);
+        padding: 16px 24px;
+        border-radius: 12px;
+        border: 2px solid var(--border-color);
+        font-size: 1rem;
+        font-family: inherit;
+        outline: none;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        font-weight: 400;
+      }
+
+      .search-bar input:focus {
+        border-color: var(--accent);
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-1px);
+      }
+
+      .search-bar input::placeholder {
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+      #bookContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 32px;
+        max-width: 1400px;
+        margin: 0 auto 64px auto;
+        padding: 0 24px;
+        align-items: start;
+      }
+
+      .book-card {
+        background: var(--bg-secondary);
+        border: none;
+        border-radius: 20px;
+        padding: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08),
+          0 2px 8px rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transform-origin: center;
+      }
+
+      .book-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(
+          --category-gradient,
+          linear-gradient(90deg, var(--accent), var(--accent-hover))
+        );
+        z-index: 2;
+      }
+
+      .book-card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+          0 8px 30px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+
+      .book-card-header {
+        padding: 24px 28px 0 28px;
+        position: relative;
+      }
+
+      .book-card .category {
+        font-size: 0.7rem;
+        color: var(--category-text, #ffffff);
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        background: var(--category-bg, var(--accent));
+        padding: 8px 16px;
+        border-radius: 25px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        box-shadow: 0 2px 12px var(--category-shadow, rgba(102, 126, 234, 0.25));
+        position: relative;
+        overflow: hidden;
+      }
+
+      .book-card .category::before {
+        content: var(--category-icon, "📚");
+        font-size: 0.8em;
+      }
+
+      .book-card .category::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .book-card:hover .category::after {
+        left: 100%;
+      }
+
+      .book-card h2 {
+        font-family: "Crimson Text", Georgia, serif;
+        font-size: 1.5rem;
+        margin: 0 0 8px 0;
+        color: var(--text-primary);
+        line-height: 1.25;
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: 3.75rem;
+      }
+
+      .book-card .author {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+        font-weight: 500;
+        font-style: italic;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .book-card .author::before {
+        content: "✍️";
+        font-style: normal;
+        font-size: 0.85em;
+        opacity: 0.8;
+      }
+
+      .book-card-body {
+        padding: 0 28px 28px 28px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .book-card .summary {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        margin-bottom: 24px;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .book-card-footer {
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .book-card a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 12px 20px;
+        background: var(--category-bg, var(--accent));
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        box-shadow: 0 4px 15px var(--category-shadow, rgba(102, 126, 234, 0.25));
+      }
+
+      .book-card a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .book-card a:hover::before {
+        left: 100%;
+      }
+
+      .book-card a:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 25px var(--category-shadow, rgba(102, 126, 234, 0.35));
+        filter: brightness(1.1);
+      }
+
+      .book-card a::after {
+        content: "🛒";
+        transition: transform 0.3s ease;
+        margin-left: 4px;
+      }
+
+      .book-card a:hover::after {
+        transform: scale(1.2) rotate(10deg);
+      }
+
+      /* Category Color Schemes */
+      .book-card[data-category*="business"] {
+        --category-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --category-gradient: linear-gradient(90deg, #667eea, #764ba2);
+        --category-text: #ffffff;
+        --category-shadow: rgba(102, 126, 234, 0.25);
+        --category-icon: "💼";
+      }
+
+      .book-card[data-category*="biography"] {
+        --category-bg: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --category-gradient: linear-gradient(90deg, #f093fb, #f5576c);
+        --category-text: #ffffff;
+        --category-shadow: rgba(240, 147, 251, 0.25);
+        --category-icon: "👤";
+      }
+
+      .book-card[data-category*="science"] {
+        --category-bg: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --category-gradient: linear-gradient(90deg, #4facfe, #00f2fe);
+        --category-text: #ffffff;
+        --category-shadow: rgba(79, 172, 254, 0.25);
+        --category-icon: "🔬";
+      }
+
+      .book-card[data-category*="history"] {
+        --category-bg: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        --category-gradient: linear-gradient(90deg, #fa709a, #fee140);
+        --category-text: #ffffff;
+        --category-shadow: rgba(250, 112, 154, 0.25);
+        --category-icon: "🏛️";
+      }
+
+      .book-card[data-category*="fiction"] {
+        --category-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        --category-gradient: linear-gradient(90deg, #a8edea, #fed6e3);
+        --category-text: #2d3748;
+        --category-shadow: rgba(168, 237, 234, 0.25);
+        --category-icon: "📖";
+      }
+
+      .book-card[data-category*="technology"] {
+        --category-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --category-gradient: linear-gradient(90deg, #667eea, #764ba2);
+        --category-text: #ffffff;
+        --category-shadow: rgba(102, 126, 234, 0.25);
+        --category-icon: "💻";
+      }
+
+      .book-card[data-category*="philosophy"] {
+        --category-bg: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        --category-gradient: linear-gradient(90deg, #ffecd2, #fcb69f);
+        --category-text: #2d3748;
+        --category-shadow: rgba(252, 182, 159, 0.25);
+        --category-icon: "🤔";
+      }
+      @media (max-width: 768px) {
         .header {
-            text-align: center;
-            padding: 48px 0 20px 0;
-            position: relative;
+          padding: 32px 16px 20px 16px;
         }
-        
-        .header h1 {
-            font-family: 'Crimson Text', Georgia, serif;
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 600;
-            margin: 0 0 16px 0;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-        
-        .header p {
-            font-size: 1.125rem;
-            color: var(--text-muted);
-            margin: 0 0 32px 0;
-            font-weight: 300;
-        }
-        
+
         .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 50px;
-            padding: 8px 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
+          top: 16px;
+          right: 16px;
+          padding: 6px 12px;
+          font-size: 13px;
         }
-        
-        .theme-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent);
-        }
-        
-        .theme-icon {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-        
+
         .stats-section {
-            max-width: 1400px;
-            margin: 0 auto 48px auto;
-            padding: 0 24px;
+          padding: 0 16px;
         }
-        
-        .stats-toggle {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 32px;
-        }
-        
-        .stats-toggle button {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px 24px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            margin: 0 4px;
-        }
-        
-        .stats-toggle button.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        
-        .stats-toggle button:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        
+
         .chart-container {
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow-hover);
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
+          padding: 24px;
         }
-        
-        .chart-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, 
-                #667eea 0%, 
-                #764ba2 25%, 
-                #f093fb 50%, 
-                #f5576c 75%, 
-                #4facfe 100%
-            );
-        }
-        
-        .chart-title {
-            font-family: 'Crimson Text', Georgia, serif;
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .chart-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-            border-radius: 2px;
-        }
-        
+
         .chart-content {
-            width: 100%;
+          width: 100%;
         }
-        
-        .chart-visual {
-            width: 100%;
-            min-height: 300px;
-        }
-        
-        .chart-bar {
-            margin-bottom: 32px;
-            position: relative;
-            transform: translateX(-10px);
-            opacity: 0;
-            animation: slideInChart 0.8s ease-out forwards;
-        }
-        
-        .chart-bar:nth-child(1) { animation-delay: 0.1s; }
-        .chart-bar:nth-child(2) { animation-delay: 0.2s; }
-        .chart-bar:nth-child(3) { animation-delay: 0.3s; }
-        .chart-bar:nth-child(4) { animation-delay: 0.4s; }
-        .chart-bar:nth-child(5) { animation-delay: 0.5s; }
-        .chart-bar:nth-child(n+6) { animation-delay: 0.6s; }
-        
-        @keyframes slideInChart {
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .chart-bar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 0 4px;
-        }
-        
-        .chart-bar-category {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 1rem;
-            position: relative;
-        }
-        
-        .chart-bar-category::before {
-            content: '📚';
-            margin-right: 8px;
-            font-size: 1.1em;
-        }
-        
-        .chart-bar-count {
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 0.9rem;
-            padding: 4px 12px;
-            background: var(--bg-tertiary);
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-        }
-        
-        .chart-bar-track {
-            background: var(--bg-tertiary);
-            border-radius: 20px;
-            height: 32px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .chart-bar-fill {
-            height: 100%;
-            border-radius: 20px;
-            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            background: linear-gradient(135deg, var(--fill-start), var(--fill-end));
-            background-size: 200% 200%;
-            animation: gradientShift 3s ease-in-out infinite;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .chart-bar-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255,255,255,0.3) 50%, 
-                transparent 100%
-            );
-            border-radius: 20px;
-            animation: shimmer 2.5s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
+
         .stats-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
+          grid-template-columns: repeat(2, 1fr);
         }
-        
-        .stats-card {
-            background: var(--bg-tertiary);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        
-        .stats-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .stats-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-top: 4px;
-        }
-        .search-bar {
-            display: flex;
-            justify-content: center;
-            margin: 32px 0 48px 0;
-        }
-        
-        .search-bar input {
-            width: min(480px, 90vw);
-            padding: 16px 24px;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            font-size: 1rem;
-            font-family: inherit;
-            outline: none;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            font-weight: 400;
-        }
-        
-        .search-bar input:focus {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-1px);
-        }
-        
-        .search-bar input::placeholder {
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+
         #bookContainer {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto 64px auto;
-            padding: 0 24px;
+          grid-template-columns: 1fr;
+          padding: 0 16px;
+          gap: 24px;
         }
-        .book-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 28px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            min-height: 320px;
+
+        .book-card-header {
+          padding: 20px 24px 0 24px;
         }
-        
-        .book-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent);
+
+        .book-card-body {
+          padding: 0 24px 24px 24px;
         }
-        .book-card .category {
-            font-size: 0.75rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            background: var(--bg-tertiary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            width: fit-content;
-        }
-        
+
         .book-card h2 {
-            font-family: 'Crimson Text', Georgia, serif;
-            font-size: 1.375rem;
-            margin: 0 0 12px 0;
-            color: var(--text-primary);
-            line-height: 1.3;
-            font-weight: 600;
+          font-size: 1.375rem;
+          min-height: 3.4rem;
         }
-        
-        .book-card .author {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            font-weight: 500;
-            font-style: italic;
-        }
-        
-        .book-card .summary {
-            font-size: 0.9375rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 48px;
-            flex-grow: 1;
-        }
-        .book-card .link-container {
-            position: absolute;
-            bottom: 28px;
-            left: 28px;
-            right: 28px;
-        }
-        
-        .book-card a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.875rem;
-            padding: 10px 16px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-        
-        .book-card a:hover {
-            color: var(--accent-hover);
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .book-card a::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
-        
-        .book-card a:hover::after {
-            transform: translateX(4px);
-        }
-        @media (max-width: 768px) {
-            .header {
-                padding: 32px 16px 20px 16px;
-            }
-            
-            .theme-toggle {
-                top: 16px;
-                right: 16px;
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-            
-            .stats-section {
-                padding: 0 16px;
-            }
-            
-            .chart-container {
-                padding: 24px;
-            }
-            
-            .chart-content {
-                width: 100%;
-            }
-            
-            .stats-summary {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            #bookContainer {
-                grid-template-columns: 1fr;
-                padding: 0 16px;
-                gap: 20px;
-            }
-            
-            .book-card {
-                padding: 24px;
-                min-height: 280px;
-            }
-            
-            .book-card .link-container {
-                bottom: 24px;
-                left: 24px;
-                right: 24px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-            <span class="theme-icon">🌙</span>
-            <span class="theme-text">Dark</span>
-        </button>
-        <h1>Book Collection</h1>
+      <button
+        class="theme-toggle"
+        onclick="toggleTheme()"
+        aria-label="Toggle dark mode"
+      >
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+      <h1>Book Collection</h1>
     </div>
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="🔍 Search by title, author or category" />
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search by title, author or category"
+      />
     </div>
-    
+
     <div class="stats-section">
-        <div class="stats-toggle">
-            <button onclick="toggleStats()" id="statsToggle">📊 Show Statistics</button>
+      <div class="stats-toggle">
+        <button onclick="toggleStats()" id="statsToggle">
+          📊 Show Statistics
+        </button>
+      </div>
+      <div id="statsContainer" style="display: none">
+        <div class="chart-container">
+          <h3 class="chart-title">Reading Preferences by Category</h3>
+          <div class="chart-content">
+            <div class="chart-visual" id="chartVisual"></div>
+          </div>
+          <div class="stats-summary" id="statsSummary"></div>
         </div>
-        <div id="statsContainer" style="display: none;">
-            <div class="chart-container">
-                <h3 class="chart-title">Reading Preferences by Category</h3>
-                <div class="chart-content">
-                    <div class="chart-visual" id="chartVisual"></div>
-                </div>
-                <div class="stats-summary" id="statsSummary"></div>
-            </div>
-        </div>
+      </div>
     </div>
-    
+
     <div id="bookContainer"></div>
     <script>
-        // Theme management
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update toggle button
-            const themeIcon = document.querySelector('.theme-icon');
-            const themeText = document.querySelector('.theme-text');
-            
-            if (newTheme === 'dark') {
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Light';
-            } else {
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Dark';
-            }
+      // Theme management
+      function toggleTheme() {
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        // Update toggle button
+        const themeIcon = document.querySelector(".theme-icon");
+        const themeText = document.querySelector(".theme-text");
+
+        if (newTheme === "dark") {
+          themeIcon.textContent = "☀️";
+          themeText.textContent = "Light";
+        } else {
+          themeIcon.textContent = "🌙";
+          themeText.textContent = "Dark";
         }
-        
-        // Initialize theme on page load
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-            
-            document.documentElement.setAttribute('data-theme', theme);
-            
-            const themeIcon = document.querySelector('.theme-icon');
-            const themeText = document.querySelector('.theme-text');
-            
-            if (theme === 'dark') {
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Light';
-            } else {
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Dark';
-            }
+      }
+
+      // Initialize theme on page load
+      function initTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = savedTheme || (prefersDark ? "dark" : "light");
+
+        document.documentElement.setAttribute("data-theme", theme);
+
+        const themeIcon = document.querySelector(".theme-icon");
+        const themeText = document.querySelector(".theme-text");
+
+        if (theme === "dark") {
+          themeIcon.textContent = "☀️";
+          themeText.textContent = "Light";
+        } else {
+          themeIcon.textContent = "🌙";
+          themeText.textContent = "Dark";
         }
-        
-        // Initialize theme when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initTheme);
-        
-        // Statistics functionality
-        let statsVisible = false;
-        let categoryStats = {};
-        
-        function toggleStats() {
-            const container = document.getElementById('statsContainer');
-            const button = document.getElementById('statsToggle');
-            
-            statsVisible = !statsVisible;
-            
-            if (statsVisible) {
-                container.style.display = 'block';
-                button.textContent = '📈 Hide Statistics';
-                generateCategoryStats();
-                renderChart();
-            } else {
-                container.style.display = 'none';
-                button.textContent = '📊 Show Statistics';
-            }
+      }
+
+      // Initialize theme when DOM is loaded
+      document.addEventListener("DOMContentLoaded", initTheme);
+
+      // Statistics functionality
+      let statsVisible = false;
+      let categoryStats = {};
+
+      function toggleStats() {
+        const container = document.getElementById("statsContainer");
+        const button = document.getElementById("statsToggle");
+
+        statsVisible = !statsVisible;
+
+        if (statsVisible) {
+          container.style.display = "block";
+          button.textContent = "📈 Hide Statistics";
+          generateCategoryStats();
+          renderChart();
+        } else {
+          container.style.display = "none";
+          button.textContent = "📊 Show Statistics";
         }
-        
-        function generateCategoryStats() {
-            if (!allRows.length) return;
-            
-            const stats = {};
-            const headers = allRows[0].map(h => h.trim().toLowerCase());
-            const headerMap = headers.reduce((acc, h, i) => ({...acc, [h]: i }), {});
-            
-            // Count books by category
-            for (let i = 1; i < allRows.length; i++) {
-                const cells = allRows[i];
-                if (cells.length !== headers.length) continue;
-                
-                const category = cells[headerMap['category']].trim() || 'Uncategorized';
-                stats[category] = (stats[category] || 0) + 1;
-            }
-            
-            // Sort by count
-            categoryStats = Object.entries(stats)
-                .sort(([,a], [,b]) => b - a)
-                .reduce((obj, [category, count]) => {
-                    obj[category] = count;
-                    return obj;
-                }, {});
+      }
+
+      function generateCategoryStats() {
+        if (!allRows.length) return;
+
+        const stats = {};
+        const headers = allRows[0].map((h) => h.trim().toLowerCase());
+        const headerMap = headers.reduce(
+          (acc, h, i) => ({ ...acc, [h]: i }),
+          {}
+        );
+
+        // Count books by category
+        for (let i = 1; i < allRows.length; i++) {
+          const cells = allRows[i];
+          if (cells.length !== headers.length) continue;
+
+          const category =
+            cells[headerMap["category"]].trim() || "Uncategorized";
+          stats[category] = (stats[category] || 0) + 1;
         }
-        
-        function getColorGradient(index) {
-            const gradients = [
-                { start: '#667eea', end: '#764ba2' },
-                { start: '#f093fb', end: '#f5576c' },
-                { start: '#4facfe', end: '#00f2fe' },
-                { start: '#43e97b', end: '#38f9d7' },
-                { start: '#ffecd2', end: '#fcb69f' },
-                { start: '#a8edea', end: '#fed6e3' },
-                { start: '#d299c2', end: '#fef9d7' },
-                { start: '#b2dfdb', end: '#ffcdd2' },
-                { start: '#e1bee7', end: '#c8e6c9' },
-                { start: '#dcedc1', end: '#f8bbd9' },
-                { start: '#ff9a9e', end: '#fecfef' },
-                { start: '#a8c8ec', end: '#c0b3f5' },
-                { start: '#fbc2eb', end: '#a6c1ee' },
-                { start: '#fdcbf1', end: '#e6dee9' },
-                { start: '#a1c4fd', end: '#c2e9fb' }
-            ];
-            return gradients[index % gradients.length];
-        }
-        
-        function renderChart() {
-            const visual = document.getElementById('chartVisual');
-            const summary = document.getElementById('statsSummary');
-            
-            if (!Object.keys(categoryStats).length) return;
-            
-            const total = Object.values(categoryStats).reduce((sum, count) => sum + count, 0);
-            const maxCount = Math.max(...Object.values(categoryStats));
-            
-            // Create bar chart
-            let chartHTML = '';
-            
-            Object.entries(categoryStats).forEach(([category, count], index) => {
-                const percentage = ((count / total) * 100).toFixed(1);
-                const width = (count / maxCount) * 100;
-                const gradient = getColorGradient(index);
-                
-                chartHTML += `
+
+        // Sort by count
+        categoryStats = Object.entries(stats)
+          .sort(([, a], [, b]) => b - a)
+          .reduce((obj, [category, count]) => {
+            obj[category] = count;
+            return obj;
+          }, {});
+      }
+
+      function getColorGradient(index) {
+        const gradients = [
+          { start: "#667eea", end: "#764ba2" },
+          { start: "#f093fb", end: "#f5576c" },
+          { start: "#4facfe", end: "#00f2fe" },
+          { start: "#43e97b", end: "#38f9d7" },
+          { start: "#ffecd2", end: "#fcb69f" },
+          { start: "#a8edea", end: "#fed6e3" },
+          { start: "#d299c2", end: "#fef9d7" },
+          { start: "#b2dfdb", end: "#ffcdd2" },
+          { start: "#e1bee7", end: "#c8e6c9" },
+          { start: "#dcedc1", end: "#f8bbd9" },
+          { start: "#ff9a9e", end: "#fecfef" },
+          { start: "#a8c8ec", end: "#c0b3f5" },
+          { start: "#fbc2eb", end: "#a6c1ee" },
+          { start: "#fdcbf1", end: "#e6dee9" },
+          { start: "#a1c4fd", end: "#c2e9fb" },
+        ];
+        return gradients[index % gradients.length];
+      }
+
+      function renderChart() {
+        const visual = document.getElementById("chartVisual");
+        const summary = document.getElementById("statsSummary");
+
+        if (!Object.keys(categoryStats).length) return;
+
+        const total = Object.values(categoryStats).reduce(
+          (sum, count) => sum + count,
+          0
+        );
+        const maxCount = Math.max(...Object.values(categoryStats));
+
+        // Create bar chart
+        let chartHTML = "";
+
+        Object.entries(categoryStats).forEach(([category, count], index) => {
+          const percentage = ((count / total) * 100).toFixed(1);
+          const width = (count / maxCount) * 100;
+          const gradient = getColorGradient(index);
+
+          chartHTML += `
                     <div class="chart-bar" style="--fill-start: ${gradient.start}; --fill-end: ${gradient.end};">
                         <div class="chart-bar-header">
                             <span class="chart-bar-category">${category}</span>
@@ -677,16 +888,16 @@
                         </div>
                     </div>
                 `;
-            });
-            
-            visual.innerHTML = chartHTML;
-            
-            // Generate summary stats
-            const categories = Object.keys(categoryStats).length;
-            const topCategory = Object.keys(categoryStats)[0];
-            const avgBooksPerCategory = (total / categories).toFixed(1);
-            
-            summary.innerHTML = `
+        });
+
+        visual.innerHTML = chartHTML;
+
+        // Generate summary stats
+        const categories = Object.keys(categoryStats).length;
+        const topCategory = Object.keys(categoryStats)[0];
+        const avgBooksPerCategory = (total / categories).toFixed(1);
+
+        summary.innerHTML = `
                 <div class="stats-card">
                     <div class="stats-number">${total}</div>
                     <div class="stats-label">Total Books</div>
@@ -704,10 +915,10 @@
                     <div class="stats-label">Top Category</div>
                 </div>
             `;
-        }
-        
-        // Embedded CSV data
-        const csvData = `Title,Author,Category,Link,Summary
+      }
+
+      // Embedded CSV data
+      const csvData = `Title,Author,Category,Link,Summary
 30 Lessons for Living,Karl Pillemer Ph.D.,Self-Help,https://www.amazon.com/30-Lessons-Living-Advice-Americans/dp/0452298482/ref=sr_1_1?crid=1R1NHB77SLZV&dib=eyJ2IjoiMSJ9.R1tUbCWJX2Ckd4yCzxGkYFS8kWX4E_U3YF_t3pBI3epBbRI2hpiv9E9FAym644KPq9WN8pF5VG1sSPw7SvDva6Xy9fEoBAtkAJQYkjYrw0ocFVAVFcMgAMs8j62cmyuRscxWBPMz7otYswMz9MxhvQ3aew8hp7u0RLpHVOf9iCPyLUuml4yVPhY0qDnI2AmgnrslpmqWxG-2p1C977nZxHIbqti4pviT2oZYuqcbT5o.0nbIzz0O0MF_9iuq0YY-4Ub3uUiX9Vuviyoz7fW4mdA&dib_tag=se&keywords=30+lessons+for+living&qid=1748391000&sprefix=30+lessonds+for+%2Caps%2C171&sr=8-1,"""30 Lessons for Living"" by Karl Pillemer Ph.D. is a self-help book that presents practical advice and wisdom gathered from over 1,000 elderly Americans on various aspects of life, such as happiness, health, marriage, and career. The book is a compilation of life lessons, making it a valuable guide for readers seeking insights into living a fulfilling life."
 50 Economics Classics,Tom Butler-Bowdon,Economics,https://www.amazon.com/50-Economics-Classics-Tom-Butler-Bowdon/dp/139980099X/ref=sr_1_1?crid=1ZJAESVWRD9A2&dib=eyJ2IjoiMSJ9.yF5UTtGnKf2rMA2LeQZ5mvnFKkLw4jaFA12Uqh8fFQbPBiLbTi4H5Xp_kQCJP5C-K4u8HlAbjKt-oYGvVGXlO1b1buSDBPIy0shGKzbSwZy0OwNER1bdaRDOcqi6DLkhBZ8ygP8pABCWUD8qILnMDS5h9Uc-4008wWfJda0QjuYshBWh4w0kW-PbB7BN3aKRuOYLKggII3BxkEwOyiWT6muvUR2I5ufnHMBp-_7Z0I0.ythztnO_m1MGCzLnPXe4TozhtCRy_ZBr9qgQI9f9sqA&dib_tag=se&keywords=50+economics+classics&qid=1748368253&s=books&sprefix=50+econom%2Cstripbooks%2C110&sr=1-1,"""50 Economics Classics"" by Tom Butler-Bowdon is a non-fiction book that provides an overview of fifty influential economics texts, summarizing key theories and ideas. The book serves as a guide to understanding the complex world of economics, covering a range of topics from market theory to global economics."
 90s Bitch,Allison Yarrow,Culture,https://www.amazon.com/90s-Bitch-Culture-Promise-Equality/dp/0062412345/ref=sr_1_1?crid=36Y0R52JIRUSB&dib=eyJ2IjoiMSJ9.IrL9EF4v_qTY59AQ75_EvxWmzBzLAaKcM2886BWAx1zI1yl5qqiBYZl75YAQIWm-LHuivjk1N8rG7xJ7NX5slHWGTyc9yQNu9e560Qfx-BnAtC336H7qILv7463Jzy-W5F6pUfmJ40AWdbNiYc-wj48d5ekvtTAOxkzNESZXhoHmooXoLtjQzcT6FcAjNT4Fh0NeGbZsv8Dj5y-6RtwQFfNks1nlpaz_TTbL-8L2Qgc.ez0fi3rPYNVFRTtp937iIxiXlhjTjI_QQ9t0HE7PELY&dib_tag=se&keywords=90s+bitch&qid=1747619338&s=books&sprefix=90s+bitch%2Cstripbooks%2C100&sr=1-1,"Media, Culture, and the Failed Promise of Gender Equality"
@@ -1201,13 +1412,13 @@ The Four Pillars of Investing,Bernstein,Business,https://www.amazon.com/Four-Pil
 The Fund,Rob Copeland,Science,https://www.amazon.com/Fund-Bridgewater-Associates-Unraveling-Street/dp/1250276934/ref=sr_1_1?crid=338DHQ51P9IJ6&dib=eyJ2IjoiMSJ9.vIWQ4wK-0zSY4Y9opJN4rMVkWyzayMtpZFGb4ISDvv15XavFviyd52fXpRLo5JFtgyVEfrpsSKoU5dQrtUMPUyiZPsIld8mCh2JVJwnQfaZiXYxKdyKTl-eX4vT9zLeDu2Bd6R3LKNVux8A5nz7CKI_Bjae5wLuakq-X0X0kmxo3te9sFOABKK3VcfFQtMUiaVtL0XIy5DlZnZaantc_QQpIFn6W8Ye2Nz1x8na43Y4.IK_iZy_YLWsFiVVtKXzalMGA_UtC3b57OPIg4QOxR20&dib_tag=se&keywords=The+fund&qid=1747841504&s=books&sprefix=the+fund%2Cstripbooks%2C109&sr=1-1,"Ray Dalio, Bridgewater Associates, and the Unraveling of a Wall Street Legend"
 The Future Belongs to the People,Karl Paul August Friedrich Liebknecht,Culture,https://www.amazon.com/Future-Belongs-People-Friedrich-Liebknecht/dp/B0F7RV89NZ/ref=tmm_pap_swatch_0?_encoding=UTF8&dib_tag=AUTHOR&dib=eyJ2IjoiMSJ9.dS1ClDqUe91roY5j20J0VPzN1GE04c62JY899As5F1x3orQRsIopkCaYWLdP9Df0bafMl62AYpYAFipgVW01F6V9pSTJHm_z83ttp_a2MrEDpXFLxH2qYucfogE7T2z1ZW-2NG5M24PuUTqTiAdL6Q.kZ7bKbNFN9wNMrM5hQB5Rbxz8nQoQvNdb__SkgUVMGw,"""The Future Belongs to the People"" by Karl Liebknecht is a collection of speeches and essays that discuss socialist ideology and the struggle for workers' rights. As a political literature, it provides insight into the early 20th-century German socialist movement, focusing on themes such as class struggle, revolution, and the role of the proletariat in shaping the future."
 The Future of Money,Eswar S. Prasad,History,https://www.amazon.com/Future-Money-Revolution-Transforming-Currencies/dp/0674258444/ref=tmm_hrd_swatch_0,How the Digital Revolution Is Transforming Currencies and Finance
-The Gates of Europe,Serhii Plokhy,,https://www.amazon.com/Gates-Europe-History-Ukraine/dp/1541675649/ref=sr_1_1?crid=1PS4OKT2T3MJP&dib=eyJ2IjoiMSJ9.Z02m6_r_m2Fw0zZYuwLoUQI0udqbFiZt5rdJ-4kcNo2Q2vxmdNfaI3uLRwQf_uDaO9VnpvTQJZ595dKvmQuiAtM4dpGAwjqoxFXT5fZbTi22Se4is7loTtgLpS3uc_lJfkZca5phStd-nOaxZBe_Mw.KtT-x5bqCMePOJjuKLp_G5tfUWTOFkqgcWbImk1MNdg&dib_tag=se&keywords=the+gates+of+europe+a+history+of+ukraine+by+serhii+plokhy&qid=1747254927&sprefix=the+gates+of+europ%2Caps%2C112&sr=8-1,A History of Ukraine
-The Gene,Siddhartha Mukherjee,,https://www.amazon.com/Gene-Intimate-History-Siddhartha-Mukherjee/dp/147673352X/ref=sr_1_1?crid=225KEIPQP7LC9&dib=eyJ2IjoiMSJ9.l_wXys1hT7ESIjS9KAiJRlRfOrV7-oYCRVfYcjUcAND1lpr-0xuA7E7ryAdXxI68UHXuRJL-WfKVYOgH-2hgVZG89HKUil629m4EbfgNaNEjPKb8L8QsSMHEJry3G0r59xfEakiSpMNgxFmQM64d_qNPONX-pHEsUTA0tCICOtcfk_xZNDepa4ywDNA9Jtdq0SoxoaaLI5b99oefeZwB9h7Kpnm0JlQAdTw8nggtTfQ.-L1y7qm4di4PVZIpb6CSqtCveiSGEAcWPBGnjb3d-AM&dib_tag=se&keywords=The+gene&qid=1748020479&s=books&sprefix=the+gene%2Cstripbooks%2C126&sr=1-1,An Intimate History
+The Gates of Europe,Serhii Plokhy,History,https://www.amazon.com/Gates-Europe-History-Ukraine/dp/1541675649/ref=sr_1_1?crid=1PS4OKT2T3MJP&dib=eyJ2IjoiMSJ9.Z02m6_r_m2Fw0zZYuwLoUQI0udqbFiZt5rdJ-4kcNo2Q2vxmdNfaI3uLRwQf_uDaO9VnpvTQJZ595dKvmQuiAtM4dpGAwjqoxFXT5fZbTi22Se4is7loTtgLpS3uc_lJfkZca5phStd-nOaxZBe_Mw.KtT-x5bqCMePOJjuKLp_G5tfUWTOFkqgcWbImk1MNdg&dib_tag=se&keywords=the+gates+of+europe+a+history+of+ukraine+by+serhii+plokhy&qid=1747254927&sprefix=the+gates+of+europ%2Caps%2C112&sr=8-1,A History of Ukraine
+The Gene,Siddhartha Mukherjee,Science,https://www.amazon.com/Gene-Intimate-History-Siddhartha-Mukherjee/dp/147673352X/ref=sr_1_1?crid=225KEIPQP7LC9&dib=eyJ2IjoiMSJ9.l_wXys1hT7ESIjS9KAiJRlRfOrV7-oYCRVfYcjUcAND1lpr-0xuA7E7ryAdXxI68UHXuRJL-WfKVYOgH-2hgVZG89HKUil629m4EbfgNaNEjPKb8L8QsSMHEJry3G0r59xfEakiSpMNgxFmQM64d_qNPONX-pHEsUTA0tCICOtcfk_xZNDepa4ywDNA9Jtdq0SoxoaaLI5b99oefeZwB9h7Kpnm0JlQAdTw8nggtTfQ.-L1y7qm4di4PVZIpb6CSqtCveiSGEAcWPBGnjb3d-AM&dib_tag=se&keywords=The+gene&qid=1748020479&s=books&sprefix=the+gene%2Cstripbooks%2C126&sr=1-1,An Intimate History
 "The General Theory of Employment, Interest, and Money",John Maynard Keynes,Non-fiction,https://www.amazon.com/gp/product/0156347113,"""The General Theory of Employment, Interest, and Money"" by John Maynard Keynes is a seminal economics text that revolutionized macroeconomic theory, arguing that demand, not supply, is the key driver of economic growth and stability. The book introduces Keynesian economics, focusing on topics such as fiscal policy, interest rates, and investment, challenging classical economic theories."
 The German Genius,Peter Watson,Non-fiction,https://www.amazon.com/German-Genius-Renaissance-Scientific-Revolution/dp/0060760230,"""The German Genius"" by Peter Watson is a comprehensive historical non-fiction that explores the rich intellectual and cultural contributions of Germany from the 18th century to the present day. The book delves into various fields including philosophy, literature, music, and science, highlighting the influence and impact of German thinkers and creators."
-The German Revolution,Robert Gerwarth,,https://www.amazon.com/November-1918-German-Revolution-Making/dp/0199546479/ref=sr_1_1?crid=1QK0AHWDJFAAW&dib=eyJ2IjoiMSJ9.q4A5P_tQi46FEWtQjpIA3WS6-mlVL_3RxuStpV6KGQSqwCfvpJWMUQdkXgLQqQLQGrGTh6N8VXzK4Ca_XDc67eLKWE-SQoitSrE2tIrSgrO07jztV5TfJxTE-dJy72xYyNdy_Yf5yff7LYuWxdV-5StruFkGNZYKxn30eRJNreRfyokucOUvp5ek5ZWV4Lpz2FPggK7XMDnIkpnozBr0Ehob8M62x7-jgKqRmnK8uxM.7lCIdNCZbz2ICh6-dHcjTEJ7lPWiBGZmTMFrMEhseiE&dib_tag=se&keywords=1918+november&qid=1748456316&s=books&sprefix=1918+november%2Cstripbooks%2C83&sr=1-1,"""The German Revolution"" by Robert Gerwarth is a historical analysis that explores the tumultuous period in Germany between 1917 and 1923, focusing on the political, social, and economic upheavals that followed World War I. The book is a scholarly work of non-fiction that delves into the causes and consequences of the German Revolution, providing a detailed understanding of this critical period in German history."
+The German Revolution,Robert Gerwarth,History,https://www.amazon.com/November-1918-German-Revolution-Making/dp/0199546479/ref=sr_1_1?crid=1QK0AHWDJFAAW&dib=eyJ2IjoiMSJ9.q4A5P_tQi46FEWtQjpIA3WS6-mlVL_3RxuStpV6KGQSqwCfvpJWMUQdkXgLQqQLQGrGTh6N8VXzK4Ca_XDc67eLKWE-SQoitSrE2tIrSgrO07jztV5TfJxTE-dJy72xYyNdy_Yf5yff7LYuWxdV-5StruFkGNZYKxn30eRJNreRfyokucOUvp5ek5ZWV4Lpz2FPggK7XMDnIkpnozBr0Ehob8M62x7-jgKqRmnK8uxM.7lCIdNCZbz2ICh6-dHcjTEJ7lPWiBGZmTMFrMEhseiE&dib_tag=se&keywords=1918+november&qid=1748456316&s=books&sprefix=1918+november%2Cstripbooks%2C83&sr=1-1,"""The German Revolution"" by Robert Gerwarth is a historical analysis that explores the tumultuous period in Germany between 1917 and 1923, focusing on the political, social, and economic upheavals that followed World War I. The book is a scholarly work of non-fiction that delves into the causes and consequences of the German Revolution, providing a detailed understanding of this critical period in German history."
 The Gifts of Imperfection,BrenÃ© Brown,Non-fiction,https://www.amazon.com/Gifts-Imperfection-Anniversary-Features-brand-new-dp-1616499605,"""The Gifts of Imperfection"" by BrenÃ© Brown is a self-help book that encourages readers to embrace their flaws and live a more authentic life. It explores the concept of wholehearted living, which involves engaging with the world from a place of worthiness, and provides practical advice on how to cultivate self-compassion, resilience, and gratitude."
-The Golden Passport,Duff McDonald,,https://www.amazon.com/Golden-Passport-Harvard-Business-Capitalism/dp/0062870076/ref=tmm_pap_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.cG1pyKimeezyVXtnluvYW4hrWu_B7mNspkSMfBWVWe0.XBD3spqr4fsa2hjRPZ9Y7wR3EyeIJIwH_n62Jl7nw-I&qid=1747840544&sr=1-1,"Harvard Business School, the Limits of Capitalism, and the Moral Failure of the MBA Elite"
+The Golden Passport,Duff McDonald,Business,https://www.amazon.com/Golden-Passport-Harvard-Business-Capitalism/dp/0062870076/ref=tmm_pap_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.cG1pyKimeezyVXtnluvYW4hrWu_B7mNspkSMfBWVWe0.XBD3spqr4fsa2hjRPZ9Y7wR3EyeIJIwH_n62Jl7nw-I&qid=1747840544&sr=1-1,"Harvard Business School, the Limits of Capitalism, and the Moral Failure of the MBA Elite"
 The Good Life,Robert Waldinger M.D.,,https://www.amazon.com/Good-Life-Lessons-Scientific-Happiness/dp/198216669X/ref=sr_1_2?crid=VOP3FXFL1CTQ&dib=eyJ2IjoiMSJ9.JZ0ex1Rh6cjehfG74QLxu49aKBVTutS_D-whWbAHjPSdqLBAThXui4HwGtKWiHoaXIhvL7U1Z4c9Esl_kGxdygCCsIcJjspM4UujSOLwhuhDj9_WAH_zVWgBFsyywYSz9F11Mc83Qn9_yVxvkhUnKp29z3FOktIPR-z9rVWWxrXDtpDMoKOCkMaUayfzgvlfrryudpnJTdPt_teuNieJDi4j_wuMdhGI3dHVx44ozz_DyKVAtw7WTx5YSUC7WF28qQmW-iGpjYivT1gX61UrJE5Zrza6ZTrWnHtXcGTef7k.28ZLoj6YdzYikLsd_BYEYzPXwGecMdLkj1avSwH5Iz4&dib_tag=se&keywords=the+good+life&qid=1746489003&s=books&sprefix=the+good+life%2Cstripbooks%2C125&sr=1-2,Lessons from the World's Longest Scientific Study of HappinessÂ
 The Graves Are Walking,John Kelly,,https://www.amazon.com/Graves-Are-Walking-Famine-People/dp/1250032172/ref=sr_1_1?crid=3UI4URXNCGA5V&dib=eyJ2IjoiMSJ9.TAoLYZjcA-Z0gMXilKI6N-IzLIJga3hbcqaXG9LDimhOiu33WPYxSV1-YXCO9jf2RRIjvieFCR5C6vQXvj1KXmLL4WEl37VKBWJrrmRbdXVwpt3pvJRN5pq9XDzzTs_KyxM2i1xL9WsRonjX-XEjXg1a30qvSWi6dC0rqd-w7sl1eMbNFqlJTxDKL5IQh4QzPsEYD9wkonxvpgjiL5QiceRZGT_2SHbWyVbp_zEJA6U.Yd_rBItvcrjIZGenRsgTvwnDZA4-X3EtYVQ7nb5iLjI&dib_tag=se&keywords=the+graves+are+walking&qid=1748451615&sprefix=the+graves+ar%2Caps%2C161&sr=8-1,"""The Graves Are Walking"" by John Kelly is a historical non-fiction book that delves into the Irish Potato Famine of 1845-1852. It provides a comprehensive account of the tragedy, its causes, and its aftermath, highlighting the political and social factors that exacerbated the crisis."
 The Great Crash,John Kenneth Galbraith,Non-fiction,https://www.amazon.com/gp/product/039513935X,"""The Great Crash"" by John Kenneth Galbraith is a historical non-fiction book that provides an in-depth analysis of the causes, impacts, and aftermath of the 1929 stock market crash. The book delves into the economic and social factors that led to the crash, making it a seminal work in the field of economic history."
@@ -1290,9 +1501,9 @@ The Signal and the Noise,Nate Silver,,https://www.amazon.com/Signal-Noise-Many-P
 The Signal and the Noise,Nate Silver,Non-fiction,https://www.amazon.com/Signal-Noise-Many-Predictions-Fail-But/dp/159420411X,Why So Many Predictions Fail-But Some Don't
 The Simple Path to Wealth,J L Collins,Non-fiction,https://www.amazon.com/Simple-Path-Wealth-financial-independence/dp/1533667926,"Your road map to financial independence and a rich, free life"
 The Smartest Guys in the Room,Bethany McLean,Non-fiction,amazon.com/Smartest-Guys-Room-Amazing-Scandalous/dp/1591846609,The Amazing Rise and Scandalous Fall of Enron
-The State,Franz Oppenheimer,,https://www.amazon.com/State-Franz-Oppenheimer/dp/154272385X/ref=sr_1_1?crid=1569ZNQ2EZCIG&dib=eyJ2IjoiMSJ9.8Rha_UO2CSpv6N4gTygafIerr8FAHRLhB0hMVThycuyuxqQlbKPFVbixfVkyMGAJsNkf1kuU9g0OyBnscN7j5c9Kkh441MDi7tYFQO9A23L27UuAMY2Yvq6B508gXNOKwQS0rIspcfhSea-93b2WiGj9sadBg9jwrSZPDPoAfOPc3LLu4DnLKWMpTpEC84dwN_1DsTRKsQA36q4z2ERropR4vTdA76DuCsdLtdmhTnk.b41ultzJBWT1KuNZE5pn24Wfeii5HgFrHA06MbpwBss&dib_tag=se&keywords=the+state+franz+oppenheimer&qid=1748554269&sprefix=franz+oppen%2Caps%2C170&sr=8-1,"""The State"" by Franz Oppenheimer is a socio-political book that explores the origins and development of states, arguing that they are born from conquest and maintained through economic control. The book, a blend of sociology, economics, and political science, delves into the dichotomy of the 'economic means' and the 'political means', presenting a critique of capitalism and a defense of socialism."
-The Stigma Trap,Ofer Sharone,,https://www.amazon.com/Stigma-Trap-College-Educated-Experienced-Unemployed/dp/0190239247/ref=sr_1_1?crid=QENHEL1XKXKS&dib=eyJ2IjoiMSJ9.kfdHNnVmNWDnf3oULaKNp3ralP303PqKW2r7KWT01KOjdlPJrDbN2EiwvQ78zzotr5A_TKTbCHTcm_KXOoqxyR9JuHUQtuI1Dj3Lj8R5TM8.pOEOsvDKrqNLPzlbrynuell-elDKcqKgHUpK8qxiDN0&dib_tag=se&keywords=the+stigma+trap&qid=1748289302&sprefix=the+stigma+trap%2Caps%2C184&sr=8-1,"College-Educated, Experienced, and Long-Term Unemployed"
-The Story of My Life,Farah Ahmedi,,https://www.amazon.com/Story-My-Life-Afghan-Other/dp/1416906703/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.lWcfpyh6PgoTNlk26iGAqPZ3KOBknY2vIfPJQAuGpDnOC50mJ6m6SowM5Y94JZX8.pLaa-cRX7u_k1llqQXUa2jQfB6mI9JtWs68mckYZ7wI&qid=1747254255&sr=1-1,An Afghan Girl on the Other Side of the Sky
+The State,Franz Oppenheimer,Politics,https://www.amazon.com/State-Franz-Oppenheimer/dp/154272385X/ref=sr_1_1?crid=1569ZNQ2EZCIG&dib=eyJ2IjoiMSJ9.8Rha_UO2CSpv6N4gTygafIerr8FAHRLhB0hMVThycuyuxqQlbKPFVbixfVkyMGAJsNkf1kuU9g0OyBnscN7j5c9Kkh441MDi7tYFQO9A23L27UuAMY2Yvq6B508gXNOKwQS0rIspcfhSea-93b2WiGj9sadBg9jwrSZPDPoAfOPc3LLu4DnLKWMpTpEC84dwN_1DsTRKsQA36q4z2ERropR4vTdA76DuCsdLtdmhTnk.b41ultzJBWT1KuNZE5pn24Wfeii5HgFrHA06MbpwBss&dib_tag=se&keywords=the+state+franz+oppenheimer&qid=1748554269&sprefix=franz+oppen%2Caps%2C170&sr=8-1,"""The State"" by Franz Oppenheimer is a socio-political book that explores the origins and development of states, arguing that they are born from conquest and maintained through economic control. The book, a blend of sociology, economics, and political science, delves into the dichotomy of the 'economic means' and the 'political means', presenting a critique of capitalism and a defense of socialism."
+The Stigma Trap,Ofer Sharone,Education,https://www.amazon.com/Stigma-Trap-College-Educated-Experienced-Unemployed/dp/0190239247/ref=sr_1_1?crid=QENHEL1XKXKS&dib=eyJ2IjoiMSJ9.kfdHNnVmNWDnf3oULaKNp3ralP303PqKW2r7KWT01KOjdlPJrDbN2EiwvQ78zzotr5A_TKTbCHTcm_KXOoqxyR9JuHUQtuI1Dj3Lj8R5TM8.pOEOsvDKrqNLPzlbrynuell-elDKcqKgHUpK8qxiDN0&dib_tag=se&keywords=the+stigma+trap&qid=1748289302&sprefix=the+stigma+trap%2Caps%2C184&sr=8-1,"College-Educated, Experienced, and Long-Term Unemployed"
+The Story of My Life,Farah Ahmedi,Biography,https://www.amazon.com/Story-My-Life-Afghan-Other/dp/1416906703/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.lWcfpyh6PgoTNlk26iGAqPZ3KOBknY2vIfPJQAuGpDnOC50mJ6m6SowM5Y94JZX8.pLaa-cRX7u_k1llqQXUa2jQfB6mI9JtWs68mckYZ7wI&qid=1747254255&sr=1-1,An Afghan Girl on the Other Side of the Sky
 The Story of Tata,Peter Casey,Biography,https://www.amazon.com/dp/0670090220,"""The Story of Tata"" by Peter Casey is a non-fiction business biography that chronicles the rise and evolution of the Tata Group, one of India's largest and most influential conglomerates. The book explores the company's history, its impact on India's development, and the business strategies and leadership that propelled its success."
 The Street Lawyer,John Grisham,,https://www.amazon.com/Street-Lawyer-Novel-John-Grisham/dp/0440245958/ref=tmm_pap_swatch_0,"""The Street Lawyer"" by John Grisham is a legal thriller that follows the journey of a successful corporate lawyer who, after a life-altering encounter with a homeless man, leaves his high-paying job to become a street lawyer, fighting for the rights of the homeless. The novel explores themes of social justice, poverty, and the legal system's role in addressing these issues."
 The Supreme Commander,Stephen E. Ambrose,,https://www.amazon.com/Supreme-Commander-Years-Dwight-Eisenhower/dp/0307946622/ref=sr_1_1?crid=2GXDDNV4ZQBWW&dib=eyJ2IjoiMSJ9.2h1JOBuxUldLq1AMBhonQnuvU82Mnroi2Ay3Gw1rA-6HMaX2Gy8gvxmi9lj5JOsKFT64dN1mUdw_Ngxlgqc6PUUEEX8TVw5I68jRFjkwpIb3eyuCk6TSREflAo5xh4l8jpBxryDsqGk97rdU7AM3AlHSa3uiUEdDlDbdadtLjKKD-mx0Aja0ibRz50I13IsT-yU6Gp4cgflwfHcrr9kH0SgEAyvoK1kP8yDUus0AbW0.xr1MXWA2YEwZ0atXatUUZAKHB2gNvBACyH6yy_x7z0o&dib_tag=se&keywords=supreme+commander&qid=1748272665&sprefix=supreme+commander%2Caps%2C162&sr=8-1,The War Years of Dwight D. Eisenhower
@@ -1384,94 +1595,106 @@ You Are the Placebo,Dr. Joe Dispenza,Non-fiction,https://www.amazon.com/You-Are-
 Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Revolutionary-Jonathan-Hansen/dp/1476732477,The Making of a Revolutionary
 `;
 
-        function parseCSV(csv) {
-            const rows = [];
-            let field = '';
-            let inQuotes = false;
-            let row = [];
+      function parseCSV(csv) {
+        const rows = [];
+        let field = "";
+        let inQuotes = false;
+        let row = [];
 
-            for (let i = 0; i < csv.length; i++) {
-                const char = csv[i];
-                const next = csv[i+1];
+        for (let i = 0; i < csv.length; i++) {
+          const char = csv[i];
+          const next = csv[i + 1];
 
-                if (char === '"' && inQuotes && next === '"') {
-                    field += '"';
-                    i++;
-                    continue;
-                }
-                if (char === '"') {
-                    inQuotes = !inQuotes;
-                    continue;
-                }
-                if ((char === ',' || char === '\n' || char === '\r') && !inQuotes) {
-                    row.push(field);
-                    field = '';
-                    if (char === '\n' || char ==='\r') {
-                        if(row.length > 1 || row[0] !== '') {
-                           rows.push(row);
-                        }
-                        row = [];
-                    }
-                    continue;
-                }
-                field += char;
-            }
-            if (field || row.length) {
-                row.push(field);
+          if (char === '"' && inQuotes && next === '"') {
+            field += '"';
+            i++;
+            continue;
+          }
+          if (char === '"') {
+            inQuotes = !inQuotes;
+            continue;
+          }
+          if ((char === "," || char === "\n" || char === "\r") && !inQuotes) {
+            row.push(field);
+            field = "";
+            if (char === "\n" || char === "\r") {
+              if (row.length > 1 || row[0] !== "") {
                 rows.push(row);
+              }
+              row = [];
             }
-            return rows;
+            continue;
+          }
+          field += char;
         }
+        if (field || row.length) {
+          row.push(field);
+          rows.push(row);
+        }
+        return rows;
+      }
 
-        let allRows = [];
-        function displayBooks(csv, filter = '') {
-            const rows = allRows.length ? allRows : parseCSV(csv);
-            if (!allRows.length) allRows = rows;
-            if (rows.length === 0) return;
+      let allRows = [];
+      function displayBooks(csv, filter = "") {
+        const rows = allRows.length ? allRows : parseCSV(csv);
+        if (!allRows.length) allRows = rows;
+        if (rows.length === 0) return;
 
-            const headers = rows[0].map(h => h.trim().toLowerCase());
-            const headerMap = headers.reduce((acc, h, i) => ({...acc, [h]: i }), {});
-            
-            let html = '';
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i];
-                if (cells.length !== headers.length) continue;
+        const headers = rows[0].map((h) => h.trim().toLowerCase());
+        const headerMap = headers.reduce(
+          (acc, h, i) => ({ ...acc, [h]: i }),
+          {}
+        );
 
-                // Filter logic
-                if (filter) {
-                    const rowText = cells.join(' ').toLowerCase();
-                    if (!rowText.includes(filter.toLowerCase())) continue;
-                }
+        let html = "";
+        for (let i = 1; i < rows.length; i++) {
+          const cells = rows[i];
+          if (cells.length !== headers.length) continue;
 
-                const title = cells[headerMap['title']].trim();
-                const author = cells[headerMap['author']].trim();
-                const category = cells[headerMap['category']].trim();
-                const link = cells[headerMap['link']].trim();
-                const summary = cells[headerMap['summary']].trim();
+          // Filter logic
+          if (filter) {
+            const rowText = cells.join(" ").toLowerCase();
+            if (!rowText.includes(filter.toLowerCase())) continue;
+          }
 
-                html += `
-                    <div class="book-card">
-                        <div class="category">
-${category}</div>
-                        <h2>${title}</h2>
-                        <p class="author">by ${author}</p>
-                        <p class="summary">${summary}</p>
-                        <div class="link-container">
-                            <a href="${link}" target="_blank">View on Amazon</a>
+          const title = cells[headerMap["title"]].trim();
+          const author = cells[headerMap["author"]].trim();
+          const category = cells[headerMap["category"]].trim();
+          const link = cells[headerMap["link"]].trim();
+          const summary = cells[headerMap["summary"]].trim();
+
+          const categoryClass = category
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
+
+          html += `
+                    <div class="book-card" data-category="${categoryClass}">
+                        <div class="book-card-header">
+                            <div class="category">${category}</div>
+                            <h2>${title}</h2>
+                            <p class="author">${author}</p>
+                        </div>
+                        <div class="book-card-body">
+                            <p class="summary">${summary}</p>
+                            <div class="book-card-footer">
+                                <a href="${link}" target="_blank">View on Amazon</a>
+                            </div>
                         </div>
                     </div>
                 `;
-            }
-            document.getElementById('bookContainer').innerHTML = html;
         }
+        document.getElementById("bookContainer").innerHTML = html;
+      }
 
-        // Initial display
-        displayBooks(csvData);
+      // Initial display
+      displayBooks(csvData);
 
-        // Add search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            displayBooks(csvData, e.target.value);
+      // Add search functionality
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function (e) {
+          displayBooks(csvData, e.target.value);
         });
     </script>
-</body>
+  </body>
 </html>
