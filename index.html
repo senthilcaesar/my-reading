@@ -109,12 +109,33 @@
     <div
       class="flex justify-center items-center gap-4 mt-2 mb-4 sm:mb-8 px-4 max-w-2xl mx-auto"
     >
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="🔍 Search by title, author, or category..."
-        class="w-full px-6 py-4 text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-sky-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
-      />
+      <div class="relative w-full">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Search by title, author, or category..."
+          class="w-full pl-6 pr-12 py-4 text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-sky-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+        />
+        <button
+          id="clearSearch"
+          class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hidden"
+          aria-label="Clear search"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
       <button onclick="shuffleBooks()" id="refreshButton" class="stats-button">
         <span class="hidden sm:inline">Refresh</span>
         <span class="sm:hidden">🔄</span>
@@ -895,6 +916,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
       function getCategoryStyles(category) {
         const cat = category.toLowerCase();
+        // Use an exact match for more precise styling
         const styles = {
           business: {
             icon: "💼",
@@ -902,11 +924,29 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
             text: "text-white",
             shadow: "shadow-indigo-500/30",
           },
+          finance: {
+            icon: "💰",
+            bg: "bg-gradient-to-br from-green-500 to-emerald-600",
+            text: "text-white",
+            shadow: "shadow-green-500/30",
+          },
+          economics: {
+            icon: "📈",
+            bg: "bg-gradient-to-br from-yellow-400 to-amber-500",
+            text: "text-slate-800",
+            shadow: "shadow-yellow-500/30",
+          },
           biography: {
             icon: "👤",
             bg: "bg-gradient-to-br from-pink-500 to-red-500",
             text: "text-white",
             shadow: "shadow-pink-500/30",
+          },
+          memoir: {
+            icon: "✍️",
+            bg: "bg-gradient-to-br from-rose-400 to-red-500",
+            text: "text-white",
+            shadow: "shadow-rose-500/30",
           },
           science: {
             icon: "🔬",
@@ -914,41 +954,74 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
             text: "text-white",
             shadow: "shadow-sky-500/30",
           },
-          history: {
-            icon: "🏛️",
-            bg: "bg-gradient-to-br from-amber-500 to-yellow-400",
-            text: "text-slate-800",
-            shadow: "shadow-amber-500/30",
-          },
-          fiction: {
-            icon: "📖",
-            bg: "bg-gradient-to-br from-teal-400 to-cyan-300",
-            text: "text-slate-800",
-            shadow: "shadow-teal-500/30",
-          },
           technology: {
             icon: "💻",
-            bg: "bg-gradient-to-br from-blue-600 to-indigo-500",
+            bg: "bg-gradient-to-br from-blue-600 to-slate-700",
             text: "text-white",
             shadow: "shadow-blue-500/30",
           },
+          history: {
+            icon: "🏛️",
+            bg: "bg-gradient-to-br from-orange-500 to-amber-600",
+            text: "text-white",
+            shadow: "shadow-orange-500/30",
+          },
+          politics: {
+            icon: "⚖️",
+            bg: "bg-gradient-to-br from-red-600 to-slate-800",
+            text: "text-white",
+            shadow: "shadow-red-500/30",
+          },
+          fiction: {
+            icon: "📖",
+            bg: "bg-gradient-to-br from-purple-400 to-violet-500",
+            text: "text-white",
+            shadow: "shadow-purple-500/30",
+          },
+          "non-fiction": {
+            icon: "📚",
+            bg: "bg-gradient-to-br from-teal-400 to-cyan-500",
+            text: "text-slate-800",
+            shadow: "shadow-amber-500/30",
+          },
           philosophy: {
             icon: "🤔",
-            bg: "bg-gradient-to-br from-slate-500 to-slate-600",
+            bg: "bg-gradient-to-br from-stone-500 to-neutral-600",
             text: "text-white",
             shadow: "shadow-slate-500/30",
           },
+          psychology: {
+            icon: "🧠",
+            bg: "bg-gradient-to-br from-fuchsia-500 to-purple-600",
+            text: "text-white",
+            shadow: "shadow-fuchsia-500/30",
+          },
+          "health/wellness": {
+            icon: "🌿",
+            bg: "bg-gradient-to-br from-lime-400 to-green-500",
+            text: "text-slate-800",
+            shadow: "shadow-lime-500/30",
+          },
+          culture: {
+            icon: "🌍",
+            bg: "bg-gradient-to-br from-cyan-300 to-blue-400",
+            text: "text-slate-800",
+            shadow: "shadow-cyan-500/30",
+          },
           default: {
             icon: "📚",
-            bg: "bg-gradient-to-br from-gray-500 to-gray-600",
+            bg: "bg-gradient-to-br from-slate-500 to-slate-600",
             text: "text-white",
             shadow: "shadow-gray-500/30",
           },
         };
-        for (const key in styles) {
-          if (cat.includes(key)) return styles[key];
+        // Find the best match for categories like "Non-fiction (general)"
+        if (styles[cat]) {
+          return styles[cat];
         }
-        return styles.default;
+        if (cat.includes("non-fiction")) return styles["non-fiction"];
+
+        return styles[cat] || styles.default;
       }
 
       let allRows = [];
@@ -964,6 +1037,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         );
 
         let html = "";
+        let displayedCount = 0;
         for (let i = 1; i < rows.length; i++) {
           const cells = rows[i];
           if (cells.length !== headers.length) continue;
@@ -973,6 +1047,8 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
             const rowText = cells.join(" ").toLowerCase();
             if (!rowText.includes(filter.toLowerCase())) continue;
           }
+
+          displayedCount++;
 
           const title = cells[headerMap["title"]].trim();
           const author = cells[headerMap["author"]].trim();
@@ -1006,24 +1082,39 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
                 `;
         }
         document.getElementById("bookContainer").innerHTML = html;
+        updateBookCount(displayedCount, allRows.length - 1);
       }
 
-      function displayBookCount() {
-        const count = allRows.length - 1; // Subtract header row
+      function updateBookCount(current, total) {
         const countElement = document.getElementById("bookCount");
-        countElement.innerHTML = `📖 <span class="font-bold">${count}</span> <span class="hidden sm:inline">Books</span>`;
+        if (current === total) {
+          countElement.innerHTML = `📖 <span class="font-bold">${total}</span> <span class="hidden sm:inline">Books</span>`;
+        } else {
+          countElement.innerHTML = `📖 <span class="font-bold">${current}</span> of ${total} <span class="hidden sm:inline">Books</span>`;
+        }
       }
 
       // Initial display
       displayBooks(csvData);
-      displayBookCount();
 
       // Add search functionality
-      document
-        .getElementById("searchInput")
-        .addEventListener("input", function (e) {
-          displayBooks(csvData, e.target.value);
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const clearButton = document.getElementById("clearSearch");
+
+        searchInput.addEventListener("input", (e) => {
+          const filter = e.target.value;
+          displayBooks(csvData, filter);
+          clearButton.classList.toggle("hidden", !filter);
         });
+
+        clearButton.addEventListener("click", function () {
+          searchInput.value = "";
+          displayBooks(csvData, "");
+          clearButton.classList.add("hidden");
+          searchInput.focus();
+        });
+      });
 
       function shuffleBooks() {
         const bookContainer = document.getElementById("bookContainer");
