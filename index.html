@@ -155,7 +155,11 @@
         <option value="author-desc">Author (Z-A)</option>
         <option value="category-asc">Category (A-Z)</option>
       </select>
-      <button onclick="shuffleBooks()" id="refreshButton" class="minimal-button px-6 py-4 text-lg font-medium min-w-[140px]">
+      <button
+        onclick="shuffleBooks()"
+        id="refreshButton"
+        class="minimal-button px-6 py-4 text-lg font-medium min-w-[140px]"
+      >
         <span class="hidden sm:inline">Shuffle</span>
         <span class="sm:hidden">🔄</span>
       </button>
@@ -218,6 +222,10 @@
 
       // Embedded CSV data
       const csvData = `Title,Author,Category,Link,Summary
+"America in the World: A History of U.S. Diplomacy and Foreign Policy",Robert B. Zoellick,History,https://www.amazon.com/gp/product/1538712377,"America has a long history of diplomacy–ranging from Benjamin Franklin, Alexander Hamilton, and Thomas Jefferson to Henry Kissinger, Ronald Reagan, and James Baker–now is your chance to see the impact these Americans have had on the world."
+"The Making of a Manager: What to Do When Everyone Looks to You",Julie Zhuo,Business,https://www.amazon.com/gp/product/0735219567,"In The Making of a Manager, Julie Zhuo, Vice President of Product Design at Facebook, shares her insights and experiences on how to become an effective manager. The book provides practical advice for new managers on topics such as building and leading teams, giving feedback, making decisions, and navigating the challenges of management. Zhuo emphasizes the importance of empathy, communication, and continuous learning in becoming a successful leader."
+"Private Finance, Public Power: A History of Bank Supervision in America",Peter Conti-Brown,Economics,https://www.amazon.com/gp/product/0691232822,"In Private Finance, Public Power, Peter Conti-Brown and Sean Vanatta offer a new history of finance and public policy in the United States by examining the idiosyncratic way the nation manages financial risk across the public-private divide."
+"Step Up, Step Back: How to Really Deliver Strategic Change in Your Organization",Elsbeth Johnson,Business,https://www.amazon.com/gp/product/139942467X,"Dr. Elsbeth Johnson, a former equity analyst and London Business School Professor now teaching at MIT, has spent a decade researching how to deliver strategic change in practice. Based on asking managers what they needed from leaders, rather than just asking leaders what they did, her resulting Step Up, Step Back approach challenges some of our most fundamental beliefs about how to lead change – and indeed, about what we even consider to be 'leadership'."
 "Hidden Truths: What Leaders Need to Hear But Are Rarely Told",David Fubini,Business,https://www.amazon.com/gp/product/1119682339,"What Leaders Need to Hear But Are Rarely Told delivers profound and rarely discussed insights about C-suite jobs that provide aspiring leaders with practical, new skills that will equip them for the immense challenges of their desired jobs. Through 14 illuminating chapters, accomplished Harvard Business School faculty member and former Senior Partner of McKinsey & Company sets out the essential habits that help leaders create success, time and time again."
 "There's Got to Be a Better Way",Nelson P. Repenning,Business,https://www.amazon.com/gp/product/1541704622,"The five principles of dynamic work design—solve the right problem, structure for discovery, connect the human chain, regulate for flow, visualize the work—have yielded breakthrough results in settings ranging from biotech labs and hospitals to oil refineries, homeless shelters, and casinos."
 "Thinking in Bets: Making Smarter Decisions When You Don't Have All the Facts",Annie Duke,Business,https://www.amazon.com/gp/product/0735216355,"In Thinking in Bets, former professional poker player Annie Duke explores how we can improve our decision-making skills by embracing uncertainty and thinking probabilistically. Drawing on insights from psychology, behavioral economics, and her own experiences at the poker table, Duke argues that we should approach decisions as bets, weighing the potential outcomes and their probabilities rather than seeking absolute certainty. The book provides practical strategies for making better choices in both personal and professional contexts by learning to think in bets."
@@ -315,6 +323,13 @@ Behind the Smile,Marie Osmond,Non-fiction (general),https://www.amazon.com/Behin
 Being a Black Man,Kevin Merida,Fiction,https://www.amazon.com/Being-Black-Man-Kevin-Merida/dp/1586485229/ref=sr_1_1?crid=3160CIWGMEFF2&dib=eyJ2IjoiMSJ9.fx-oQXwbcPoOpSq8MAdZlNCN9zQQJ4Niv7vieHPw2Ejr0A2Fb5IiStscFmX5XQhVClWuVSulTe5xbEz2-1bhgu3Jw1392Nh7mseHIxfBBvj3ml9ZY75VKhz_TLxmfzmsSmGpQEGEzjs6TDfg58X-k0yWeNIVES9wKXF6A63xQDdo5JqzsE3Rp1Q4rC6Asr_FV7wOpxaRLqmA9o4Ea8fzqbM_eiN8fF5zpbes6xFJhRQ.IoWe7siBlwAkZnsi5dEfxIxeRNOtGEeHu70KCU4A9lE&dib_tag=se&keywords=Being+a+black+man&qid=1748109553&s=books&sprefix=being+a+black+man%2Cstripbooks%2C139&sr=1-1,At the Corner of Progress and Peril
 Being Mortal,Atul Gawande,Biography,https://www.amazon.com/Being-Mortal-Medicine-What-Matters/dp/1250076226/ref=sr_1_1?crid=3PML2PH9GG9P7&dib=eyJ2IjoiMSJ9.O8nlroT8DDaFjJHaURYYZxHTQL-alx3fqn08wKraCClKAZRzwQtakl1ZvLl_18-V0J-NzjSGS-D_r4moL_Sf1VtVCHx0-ygGlrNSXVAGLoJHq8FFy3chnJckw91lOrW2i5Hx7u1x5uTfScdOL_hiUoEV-XAyt2cL6B_8XQSSuVVhFA3oMIdmNj1Gnnmp2aDMHVyeazL2gi1SF4oxK9yeP693H4yCFafokDmJxSBBakY.2Aa1hJQsAiEC15P2b5uwvqL8K2KX5fSmqtBa4Kx5Kcc&dib_tag=se&keywords=being+mortal&qid=1745513993&sprefix=being+mortal%2Caps%2C102&sr=8-1,"""Being Mortal"" by Atul Gawande is a non-fiction medical book that explores the intersection of life, death, medicine, and what it means to live a good life, particularly in one's later years. The book critically examines how modern medicine approaches aging and death, advocating for a shift in focus towards the quality of life and personal autonomy."
 Belonging,Geoffrey L. Cohen,Business,https://www.amazon.com/Belonging-Science-Creating-Connection-Bridging/dp/1324006188/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.7oGL8dynBjW-7yGaaDuqnBBG83bMuPHFBCvyGLQUJgtDzyhtYqagLQNJdKSI2_qKaH22lGKqQkkWR48uy5vxbDChrWpQ6hjozaFBXgORVK-BytyW4x3Y0RfXJ8AnDyBYpO4tr-TNxHiKcUA4S9pbZ6lyDdWwIv8mb46ebwsJQ6F_m2Ymn4dspaum40Uot-p9B6xSiT9t5Xb5ztqlwTnqDqFTQarU1TTkL5YruP8cZXWeD6nl6OsuzNC9aAJXPkrzsv9E5Q1kjRnXOPXGc3J79VMfCPE0NUuf6n05vZqmE38.NZZsmMAERtBouyxLDdiWdqE5NMmMQHSCptVJ9XvbBbU&qid=1747410669&sr=8-3,The Science of Creating Connection and Bridging Divides
+
+"The Let Them Theory",Mel Robbins,Business,"https://www.amazon.com/gp/product/1401971369","A Life-Changing Tool That Millions of People Can't Stop Talking About."
+"Lovely One: A Memoir",Ketanji Brown Jackson,Biography,https://www.amazon.com/gp/product/0593729900,"Here, Justice Jackson pulls back the curtain, marrying the public record of her life with what is less known. She reveals what it takes to advance in the legal profession when most people in power don’t look like you, and to reconcile a demanding career with the joys and sacrifices of marriage and motherhood."
+"Direct",Kathryn Judge,Non-fiction (general),https://www.amazon.com/gp/product/0063041979,"The Rise of the Middleman Economy and the Power of Going to the Source."
+"Catching Cheats: Everyday Forensics to Unmask Business Fraud",Erik Lie,Business,https://www.amazon.com/gp/product/B0DV4BLF8J,"A renowned researcher takes readers inside the hunt for Wall Street's biggest frauds, revealing the forensic techniques that catch corporate criminals in the act."
+"Dead Companies Walking",Scott Fearon,Non-fiction,https://www.amazon.com/gp/product/125089316X,"How A Hedge Fund Manager Finds Opportunity in Unexpected Places."
+
 Between The Stitching,Taylor Higgins,Finance,https://www.amazon.com/Between-Stitching-Taylor-Higgins/dp/1980810281/ref=tmm_pap_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.bpjKNfeVn6Irf9Yo8fJMxnbzuysZAs_YNcEgt8OoMcBP1A1FPVSZwYdSJqCCjF-Ze3vg2tp3nmDk79C7KYRRx_bNEdjjw5bnS4khUPoVlquLYJvnFuOAKTs2iBndddMg.nIZp537IMPOtODEje1NdHPIFw0Px3QGgwujS8xGYt8w&qid=1747755388&sr=1-1,"""Between The Stitching"" by Taylor Higgins is a heartwarming contemporary romance novel that explores the theme of love and healing. The book centers around the life of a young woman who finds solace and unexpected love in the art of quilting."
 Between the World and Me,Ta-Nehisi Coates,History,https://www.amazon.com/Between-World-Me-Ta-Nehisi-Coates/dp/0812993543/ref=sr_1_1?crid=3AUSGSOZ3GCU6&dib=eyJ2IjoiMSJ9.hQq5o6wK0c4GpWt7IlsrG9OF0zfhE8Tl8VMbHBG9VCC0djHDa991yvTC6t9B5JnEge-qjovaAV2rrXCRFmwwgS6aMzOtnbcimzGLEKkU2cMj9DI4tL50uPts3H8MEjeg1bVrc2SmtnVka0isGr9ijqXFT-6bMyZtwVX7jwu8eT8DkwkX6NnTmF1Uf7DmLnNhu9MmLxaf4rosNCsbXIKuQtvny_celxxUOeWEVEj8X8k.6ZrMX7rz6ct2sx040yNTx2vreQuO7cyzW_ANQAPhltw&dib_tag=se&keywords=between+the+world+and+me&qid=1748389684&sprefix=between+the%2Caps%2C166&sr=8-1,"""Between the World and Me"" by Ta-Nehisi Coates is a non-fiction book that explores the reality of being black in America, framed as a letter to the author's teenage son. It delves into the systemic racial issues in the United States, using personal experiences and historical events to discuss the ongoing struggle for African American civil rights."
 Billion Dollar Whale,Bradley Hope,Non-fiction (general),https://www.amazon.com/Billion-Dollar-Whale-Fooled-Hollywood/dp/031643647X/ref=sr_1_1?crid=1ZRVNVPG0ABEX&dib=eyJ2IjoiMSJ9.UL28IpWOalv7RdtzYl2JmqGflDF4UtZjHDfrEowUGq0hbxt92LpsoxCVzHMqxzOW9r_5SzaJmWX2Nk3DlfnbeUqGK1fYVKUlOcapI5zKddDCRkHbkvj_CaT1Qc74rLn2brHQGfxQoL4tP_q3Sta3VswgOhVLMoVHWTq9HA90yRKRb259BEN407O2UmYzJ8DPhcWy0_IAi3_ds2w3EJs_zw7bxasnqRSFZEYHHpCuTYI.nHA-pCUvkx-jvVGJdKEN4qxz0vRmLpm52zDUfzXR4P0&dib_tag=se&keywords=Billion+dollar+whale&qid=1747840347&sprefix=billion+dollar+whal%2Caps%2C160&sr=8-1,"The Man Who Fooled Wall Street, Hollywood, and the World"
@@ -448,8 +463,14 @@ Growing Up Under the Khmer Rouge,Chanrithy Him,Business,https://www.amazon.com/W
 "Guns, Germs, and Steel: The Fates of Human SocietiesÂ",Jared Diamond Ph.D.,Biography,https://www.amazon.com/Guns-Germs-Steel-Fates-Societies/dp/0393354326/ref=tmm_pap_swatch_0,"""Guns, Germs, and Steel: The Fates of Human Societies"" by Jared Diamond is a non-fiction work that explores the reasons why Eurasian civilizations have survived and conquered others, attributing their dominance to geographical and environmental advantages, rather than racial or ethnic superiority. The book delves into the impact of agriculture, the development of weaponry, and the spread of disease on the course of human history."
 Habits of a Happy Brain,Loretta Graziano Breuning,Non-fiction,https://www.amazon.com/Habits-Happy-Brain-Serotonin-Endorphin/dp/1440590508,"Retrain Your Brain to Boost Your Serotonin, Dopamine, Oxytocin, & Endorphin Levels"
 Half of a Yellow Sun,Chimamanda Ngozi Adichie,History,https://www.amazon.com/Half-Yellow-Chimamanda-Ngozi-Adichie/dp/1400095204/ref=tmm_pap_swatch_0,"""Half of a Yellow Sun"" by Chimamanda Ngozi Adichie is a historical fiction novel that explores the impact of the Nigerian Civil War through the lives of five different characters. The book delves into themes of love, race, colonialism, and war, offering a profound examination of personal and political struggles."
-Half the Sky,Nicholas D. Kristof,Non-fiction,https://www.amazon.com/Half-Sky-Oppression-Opportunity-Worldwide/dp/0307267148,Turning Oppression into Opportunity for Women WorldwideÂ
-Â Happiness Hypothesis,Jonathan Haidt,Non-fiction,https://www.amazon.com/Happiness-Hypothesis-Finding-Modern-Ancient/dp/0465028020,"""Happiness Hypothesis"" by Jonathan Haidt is a psychology book that explores the concept of happiness through the lens of ancient wisdom and modern science. It discusses the various factors that contribute to our happiness, including our relationships, work, and personal beliefs, and offers practical advice on how to improve our well-being."
+Half the Sky,Nicholas D. Kristof,Non-fiction,https://www.amazon.com/Half-Sky-Oppression-Opportunity-Worldwide/dp/0307267148,Turning Oppression into Opportunity for Women Worldwide.
+"The Girls Who Stepped Out of Line: Unsung WWII Heroines Who Risked Everything for Freedom","Maj. Gen. Mari K". Eder,History,https://www.amazon.com/gp/product/172824272X,"In The Girls Who Stepped Out of Line, Major General Mari K. Eder unearths the remarkable true stories of 15 unsung heroines whose courage, brilliance, and defiance altered the course of World War II. These women didn't serve for recognition, they served because it was right."
+"A Woman of No Importance: The Untold Story of the American Spy Who Helped Win World War II",Sonia Purnell,Historical,https://www.amazon.com/gp/product/0735225311,"A compelling biography of a masterful spy, and a reminder of what can be done with a few brave people -- and a little resistance"
+"The Spy and the Traitor: The Greatest Espionage Story of the Cold War",Ben Macintyre,History,https://www.amazon.com/gp/product/1101904216,"The best true spy story I have ever read."
+"Rogue Heroes",Ben Macintyre,History,https://www.amazon.com/gp/product/1101904186,"The History of the SAS, Britain's Secret Special Forces Unit That Sabotaged the Nazis and Changed the Nature of War."
+"Kingmaker",Sonia Purnell,Biography,https://www.amazon.com/gp/product/0593297822,"Pamela Harriman's Astonishing Life of Power, Seduction, and Intrigue ."
+"Banished Citizens",Marla A. Ramírez,History,https://www.amazon.com/gp/product/0674295943,"A moving portrait of a grim period in American immigration history, when approximately one million ethnic Mexicans―mostly women and children who were US citizens―were forced to relocate across the southern border."
+A Happiness Hypothesis,Jonathan Haidt,Non-fiction,https://www.amazon.com/Happiness-Hypothesis-Finding-Modern-Ancient/dp/0465028020,"""Happiness Hypothesis"" by Jonathan Haidt is a psychology book that explores the concept of happiness through the lens of ancient wisdom and modern science. It discusses the various factors that contribute to our happiness, including our relationships, work, and personal beliefs, and offers practical advice on how to improve our well-being."
 Havel: Unfinished Revolution,David Gilbreath Barton,Biography,https://www.amazon.com/Havel-Unfinished-Revolution-Russian-European/dp/0822946068,"""Havel: Unfinished Revolution"" by David Gilbreath Barton is a biographical work that chronicles the life and political career of VÃ¡clav Havel, the last president of Czechoslovakia and the first president of the Czech Republic. The book delves into Havel's role in the Velvet Revolution, his political philosophy, and the challenges of transitioning from communism to democracy."
 Healing,Thomas Insel MD,Business,https://www.amazon.com/Healing-Path-Mental-Illness-Health/dp/0593298047/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.jMWoGVnvogyHtlSGDTSO6iXPHwQrkcPHTcSIGJdCRUj1Nw6t293ozh3w3DscGWhwSYZRTixPT57mEmHoQUEg6qNPKECi-JmOCP1LpxQqddaBmEi3XnvvwEu1dr3aEB-EXIZTJSP47NNXeWDNAPi1xdfLcckBS6aPd2JYgNeS9U8xSd97HTRfhuWcwxYJLgyFqtSNTf-Wo6VPx1p4sQGUbVvX3W4UJv5OqiwdaTiUjqE.i0ZhIa2RjUSrYKGWGwMVnLIESB4FTF8G_1qKewBW75s&qid=1747255029&sr=8-1,Our Path from Mental Illness to Mental Health
 Hit Refresh,Satya Nadella,Non-fiction,https://www.amazon.com/Hit-Refresh-Rediscover-Microsofts-Everyone-ebook/dp/B01HOT5SQA,The Quest to Rediscover Microsoft's Soul and Imagine a Better Future for Everyone
@@ -1102,7 +1123,12 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
       let currentCategory = "";
       let currentSort = "default";
 
-      function displayBooks(csv, filter = "", categoryFilter = "", sortBy = "default") {
+      function displayBooks(
+        csv,
+        filter = "",
+        categoryFilter = "",
+        sortBy = "default"
+      ) {
         const rows = allRows.length ? allRows : parseCSV(csv);
         if (!allRows.length) allRows = rows;
         if (rows.length === 0) return;
@@ -1141,10 +1167,14 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
             const bTitle = b.cells[headerMap["title"]].trim().toLowerCase();
             const aAuthor = a.cells[headerMap["author"]].trim().toLowerCase();
             const bAuthor = b.cells[headerMap["author"]].trim().toLowerCase();
-            const aCategory = a.cells[headerMap["category"]].trim().toLowerCase();
-            const bCategory = b.cells[headerMap["category"]].trim().toLowerCase();
+            const aCategory = a.cells[headerMap["category"]]
+              .trim()
+              .toLowerCase();
+            const bCategory = b.cells[headerMap["category"]]
+              .trim()
+              .toLowerCase();
 
-            switch(sortBy) {
+            switch (sortBy) {
               case "title-asc":
                 return aTitle.localeCompare(bTitle);
               case "title-desc":
@@ -1217,18 +1247,18 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         const rows = parseCSV(csvData);
         const headers = rows[0].map((h) => h.trim().toLowerCase());
         const categoryIndex = headers.indexOf("category");
-        
+
         const categories = new Set();
         for (let i = 1; i < rows.length; i++) {
           if (rows[i][categoryIndex]) {
             categories.add(rows[i][categoryIndex].trim());
           }
         }
-        
+
         const sortedCategories = Array.from(categories).sort();
         const select = document.getElementById("categoryFilter");
-        
-        sortedCategories.forEach(category => {
+
+        sortedCategories.forEach((category) => {
           const option = document.createElement("option");
           option.value = category;
           option.textContent = category;
