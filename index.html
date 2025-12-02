@@ -106,23 +106,23 @@
       </h1>
     </div>
 
-    <div
-      class="flex justify-center items-center gap-4 mt-2 mb-4 sm:mb-8 px-4 max-w-7xl mx-auto"
-    >
-      <div class="relative w-full">
+    <!-- Search and Filter Controls - Mobile Optimized -->
+    <div class="w-full max-w-7xl mx-auto px-4 mt-6 mb-6 sm:mb-8">
+      <!-- Search Bar - Full width on mobile -->
+      <div class="relative w-full mb-3 sm:mb-4">
         <input
           type="text"
           id="searchInput"
           placeholder="🔍 Search by title, author, or category..."
-          class="w-full pl-8 pr-14 py-4 text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-sky-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+          class="w-full pl-10 sm:pl-12 pr-12 sm:pr-14 py-3 sm:py-4 text-sm sm:text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-sky-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
         />
         <button
           id="clearSearch"
-          class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hidden"
+          class="absolute inset-y-0 right-0 flex items-center pr-3 sm:pr-4 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hidden"
           aria-label="Clear search"
         >
           <svg
-            class="h-6 w-6"
+            class="h-5 w-5 sm:h-6 sm:w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -136,33 +136,37 @@
           </svg>
         </button>
       </div>
-      <select
-        id="categoryFilter"
-        class="minimal-select px-6 py-4 text-lg cursor-pointer min-w-[200px] font-medium"
-        aria-label="Filter by category"
-      >
-        <option value="">All Categories</option>
-      </select>
-      <select
-        id="sortBy"
-        class="minimal-select px-6 py-4 text-lg cursor-pointer min-w-[200px] font-medium"
-        aria-label="Sort books"
-      >
-        <option value="default">Default Order</option>
-        <option value="title-asc">Title (A-Z)</option>
-        <option value="title-desc">Title (Z-A)</option>
-        <option value="author-asc">Author (A-Z)</option>
-        <option value="author-desc">Author (Z-A)</option>
-        <option value="category-asc">Category (A-Z)</option>
-      </select>
-      <button
-        onclick="shuffleBooks()"
-        id="refreshButton"
-        class="minimal-button px-6 py-4 text-lg font-medium min-w-[140px]"
-      >
-        <span class="hidden sm:inline">Shuffle</span>
-        <span class="sm:hidden">🔄</span>
-      </button>
+      
+      <!-- Filter Controls - Stack on mobile, horizontal on larger screens -->
+      <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+        <select
+          id="categoryFilter"
+          class="minimal-select px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base cursor-pointer w-full sm:flex-1 font-medium"
+          aria-label="Filter by category"
+        >
+          <option value="">All Categories</option>
+        </select>
+        <select
+          id="sortBy"
+          class="minimal-select px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base cursor-pointer w-full sm:flex-1 font-medium"
+          aria-label="Sort books"
+        >
+          <option value="default">Default Order</option>
+          <option value="title-asc">Title (A-Z)</option>
+          <option value="title-desc">Title (Z-A)</option>
+          <option value="author-asc">Author (A-Z)</option>
+          <option value="author-desc">Author (Z-A)</option>
+          <option value="category-asc">Category (A-Z)</option>
+        </select>
+        <button
+          onclick="shuffleBooks()"
+          id="refreshButton"
+          class="minimal-button px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium w-full sm:w-auto sm:min-w-[140px]"
+        >
+          <span class="hidden sm:inline">Shuffle</span>
+          <span class="sm:hidden">🔄 Shuffle</span>
+        </button>
+      </div>
     </div>
 
     <div
@@ -1467,6 +1471,39 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
         .dark .minimal-button:hover {
           background-color: rgb(226, 232, 240);
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 640px) {
+          .minimal-select,
+          .minimal-button {
+            min-height: 44px; /* iOS recommended touch target */
+            font-size: 16px; /* Prevents zoom on iOS */
+          }
+          
+          .minimal-select:focus,
+          .minimal-button:focus {
+            outline: 2px solid rgb(99, 102, 241);
+            outline-offset: 2px;
+          }
+          
+          /* Improve search input on mobile */
+          #searchInput {
+            font-size: 16px; /* Prevents zoom on iOS */
+            min-height: 44px;
+          }
+          
+          /* Better spacing for mobile */
+          #searchInput::placeholder {
+            font-size: 14px;
+          }
+        }
+        
+        /* Smooth transitions for all interactive elements */
+        .minimal-select,
+        .minimal-button,
+        #searchInput {
+          -webkit-tap-highlight-color: transparent;
         }
       `;
       document.head.appendChild(styleSheet);
