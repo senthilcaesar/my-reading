@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -71,12 +71,12 @@
     />
     <script>
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
-              sans: ["Inter", "sans-serif"],
-              serif: ["Crimson Text", "serif"],
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Crimson Text', 'serif'],
             },
           },
         },
@@ -84,7 +84,7 @@
     </script>
   </head>
   <body
-    class="font-sans bg-gradient-to-br from-indigo-100 to-purple-200 dark:from-gray-900 dark:to-slate-800 text-slate-800 dark:text-slate-200 min-h-screen transition-colors duration-300"
+    class="font-sans bg-gradient-to-br from-blue-50 to-orange-50 dark:from-slate-900 dark:to-blue-950 text-slate-800 dark:text-slate-200 min-h-screen transition-colors duration-300"
   >
     <div class="relative text-center pt-12 pb-8 px-4">
       <div
@@ -92,7 +92,7 @@
         class="absolute top-5 left-5 flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm border border-slate-300 dark:border-slate-600 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 shadow-md"
       ></div>
       <button
-        class="absolute top-5 right-5 flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm border border-slate-300 dark:border-slate-600 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 hover:border-indigo-500 dark:hover:border-sky-400"
+        class="absolute top-5 right-5 flex items-center gap-2 px-3 py-2 bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm border border-slate-300 dark:border-slate-600 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 hover:border-orange-500 dark:hover:border-orange-400"
         onclick="toggleTheme()"
         aria-label="Toggle dark mode"
       >
@@ -114,7 +114,7 @@
           type="text"
           id="searchInput"
           placeholder="🔍 Search by title, author, or category..."
-          class="w-full pl-10 sm:pl-12 pr-12 sm:pr-14 py-3 sm:py-4 text-sm sm:text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-sky-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
+          class="w-full pl-10 sm:pl-12 pr-12 sm:pr-14 py-3 sm:py-4 text-sm sm:text-base bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-2 border-slate-300 dark:border-slate-700 rounded-full shadow-lg outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent dark:focus:border-transparent transition-all duration-300 placeholder-slate-400 dark:placeholder-slate-500"
         />
         <button
           id="clearSearch"
@@ -177,52 +177,52 @@
       // Theme management
       function toggleTheme() {
         const currentTheme =
-          document.documentElement.getAttribute("data-theme");
-        const newTheme = currentTheme === "dark" ? "light" : "dark";
+          document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-        document.documentElement.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
 
         // Update toggle button
-        const themeIcon = document.querySelector(".theme-icon");
-        const themeText = document.querySelector(".theme-text");
+        const themeIcon = document.querySelector('.theme-icon');
+        const themeText = document.querySelector('.theme-text');
 
-        if (newTheme === "dark") {
-          document.documentElement.classList.add("dark");
-          themeIcon.textContent = "☀️";
-          themeText.textContent = "Light";
+        if (newTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Light';
         } else {
-          document.documentElement.classList.remove("dark");
-          themeIcon.textContent = "🌙";
-          themeText.textContent = "Dark";
+          document.documentElement.classList.remove('dark');
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Dark';
         }
       }
 
       // Initialize theme on page load
       function initTheme() {
-        const savedTheme = localStorage.getItem("theme");
+        const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
+          '(prefers-color-scheme: dark)',
         ).matches;
-        const theme = savedTheme || (prefersDark ? "dark" : "light");
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
 
-        document.documentElement.setAttribute("data-theme", theme);
-        if (theme === "dark") document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') document.documentElement.classList.add('dark');
 
-        const themeIcon = document.querySelector(".theme-icon");
-        const themeText = document.querySelector(".theme-text");
+        const themeIcon = document.querySelector('.theme-icon');
+        const themeText = document.querySelector('.theme-text');
 
-        if (theme === "dark") {
-          themeIcon.textContent = "☀️";
-          themeText.textContent = "Light";
+        if (theme === 'dark') {
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Light';
         } else {
-          themeIcon.textContent = "🌙";
-          themeText.textContent = "Dark";
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Dark';
         }
       }
 
       // Initialize theme when DOM is loaded
-      document.addEventListener("DOMContentLoaded", initTheme);
+      document.addEventListener('DOMContentLoaded', initTheme);
 
       // Embedded CSV data
       const csvData = `Title,Author,Category,Link,Summary
@@ -408,7 +408,7 @@ Brag,Peggy Klaus,Non-fiction,https://www.amazon.com/dp/0446692786,The Art of Too
 Braiding Sweetgrass,Robin Wall Kimmerer,History,https://www.amazon.com/Braiding-Sweetgrass-Indigenous-Scientific-Knowledge/dp/1571313567/ref=tmm_pap_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.K3o8pKHM7no_bA7qv-kY_TqcN_0qeP9qr9uVFyUDznh4Vh_7RMN3ZKUt0loBPvl_C821tbtU8h4RdunJMrpQK_GXA4B5ZQC6UK01HJ-GrP0C6AhLZyRepyuOWEsd46z0OnyilQJ_8o7smm1PfEXBpwPSMkVHNHfsqa7kaHbpCvcGtcHDrokLqZwxyYH9c_gyD0i79tnmX5hjbweaDQsred5BoDLlSGsgpbI454vx-Qo.0qnFwgdvcYTI2gPmIpWkDQ0bq7FYIquQCnUpjIKNnRk&qid=1748554179&sr=8-1,"""Braiding Sweetgrass"" by Robin Wall Kimmerer is a non-fiction book that intertwines indigenous wisdom, scientific knowledge, and the teachings of plants to explore the relationship between humans and the natural world. The book, written from the perspective of a botanist and member of the Citizen Potawatomi Nation, delves into themes of ecology, botany, and environmental philosophy."
 Brave New World,Aldous Huxley,Finance,https://www.amazon.com/Brave-New-World-Aldous-Huxley/dp/0060850523/ref=sr_1_1?crid=ZJV4YS4L2NGQ&dib=eyJ2IjoiMSJ9.LtN0ywD7uDMGDeDLLoC6CfqvDDIcoFR5wl0qIhALX8jxh6Ad27kcn_4IAur_dszyiIoqPQkQ9TcrbVdByly1_2SkwpAcxV16o0aW3UkZs72SlUPHEetElzYMnGxC3RVlcFc-JRT87GH5eeTaQlNAXnCClZxfdW-f4yMePXDHT7QogcL5er8qSmUpT-3V5ryzUCSobcjKk7uMfBDZZ0obxIqNO2K0OCIlDQsJUY4jtvo.ZahYUWtIKY_PB6w7t_gNsQIQC3pn8DMVH8-kZzXxVAM&dib_tag=se&keywords=brave+new+world+aldous+huxley&qid=1747755200&s=books&sprefix=brave+new+wor%2Cstripbooks%2C106&sr=1-1,"""Brave New World"" by Aldous Huxley is a dystopian science fiction novel that explores a future society where people are mass-produced in laboratories and conditioned to be passive and content in their predestined roles. The book critically examines themes of technology, control, and happiness, challenging the notion of a utopian society."
 Buffett: The Making of an American Capitalist,Roger Lowenstein,History,https://www.amazon.com/Buffett-American-Capitalist-Roger-Lowenstein/dp/0812979273/ref=sr_1_1?crid=39HVVRF2F666E&dib=eyJ2IjoiMSJ9.o9Zg3-WySgXWKhW_qj1pp9ES8E-xw_3Rh21utMG9ExqcQd2v0O5o6va2l8I2QuHRfa_Pi-TnW6hLDwEIy7oGfauKKdZ5i5NtWKG-d14u93du_lPoXVM5pUvGrzxGR_M4Tn7h6YAInbtHCmsmPBZO4w.uINKc2cxi2rWjLS0u8gBawv6cIp0rtoPX89YyExvU1E&dib_tag=se&keywords=roger+lowenstein+books&qid=1748457580&sprefix=roger+lo%2Caps%2C95&sr=8-1,"""Buffett: The Making of an American Capitalist"" by Roger Lowenstein is a detailed biography that chronicles the life and investment strategies of Warren Buffett, one of the most successful investors in the world. The book delves into Buffett's value investing philosophy, personal life, and his transformation into a billionaire philanthropist, making it an essential read for those interested in finance and business."
-Built to Last,Jim Collins,Business,https://www.amazon.com/Built-Last-Successful-Visionary-Companies/dp/0060566108/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.21C3AITRZvxPa7I9OTwBEMfeYwLVPRd8YpB11BJFokL6Q0BDg31kQabOz2XmtbVZxY7G3rVZHWlHS6NFWzsnqp_1o_FklZZXcpj_43O1ANBfsFAmcDnCWHWGilKwtiGMU6i8uTM5xLOIKcwTsRK0-TlKVlwo9Indhc8LUOUbJr95591Nn1LK6L5vbrD5CGe2bc_I6-zlLP3lQvSiOQE9hZyBHPPTJZdTaRGEs_O1D3Y.M49QZkXeP_9dez5gPTVAN9tvjTMUoV7bc5jnv7lUEf8&qid=1747840986&sr=1-1,Successful Habits of Visionary Companies
+Built to Last,Jim Collins,Business,https://www.amazon.com/gp/product/0060516402,"Successful Habits of Visionary Companies. Filled with hundreds of specific examples and organized into a coherent framework of practical concepts that can be applied by managers and entrepreneurs at all levels, Built to Last provides a master blueprint for building organizations that will prosper long into the 21st century and beyond."
 Bukharin and the Bolshevik Revolution,Stephen F. Cohen,Non-fiction,https://www.amazon.com/Bukharin-Bolshevik-Revolution-Political-Biography/dp/0195026977,"A Political Biography, 1888-1938"
 Bull by the Horns,Sheila Bair,Politics,https://www.amazon.com/Bull-Horns-Fighting-Street-Itself/dp/1451672489/ref=sr_1_2?crid=33LAG414HTVWW&dib=eyJ2IjoiMSJ9.bsLF7p22wcN9zaENmQa2ABZHufjKCnPCeZYMdrlP00bu-MHQcGYZ7HCeYf61q3RfR4GrmwLrNPzGw4zQDZWXv829WBiDHVXkWicn_6A2qsPxQl41yXqTs-IqZUhw2fwsjLgPHue9lDfGa4NpDNNDIJwL_ZrSfarvLTtDW_s148vRKmLyRLSZQqko2JoVjBpd0EWvCnTMMcfLPqD3VLw15k5pbbb01-jI9MvkRFOQQlM.oMCHERzTp9gZahwExqAgY3DvRcWhjtpWXDe_mOiOjeg&dib_tag=se&keywords=bull+by+the+horns&qid=1745513830&sprefix=bull+by+th%2Caps%2C84&sr=8-2,Fighting to Save Main Street from Wall Street and Wall Street from Itself
 Bullets and Opium,Liao Yiwu,Travel,https://www.amazon.com/Bullets-Opium-Real-Life-Tiananmen-Massacre/dp/1982126647/ref=tmm_hrd_swatch_0,Real-Life Stories of China After the Tiananmen Square Massacre
@@ -417,6 +417,9 @@ Burnout,Emily Nagoski PhD,Health/Wellness,https://www.amazon.com/Burnout-Secret-
 Busting the Banker's Club,Gerald Epstein,History,https://www.amazon.com/Busting-Bankers-Club-Finance-Rest/dp/0520385640/ref=sr_1_1?crid=PZEVQXGVKZJU&dib=eyJ2IjoiMSJ9.-l3VcprNfKX5aC-7O8bzqayWN9dsqcbXd5bS2di8lzA.2G48B2sRIMVgLNY8ahkAbATm6St-ITiNN4uV7IaFEnE&dib_tag=se&keywords=busting+the+bankers+club&qid=1748457053&s=books&sprefix=busting+the+bankers+club%2Cstripbooks%2C91&sr=1-1,"""Busting the Bankers' Club"" by Gerald Epstein is an investigative economics book that delves into the world of Wall Street, exposing the exclusive 'club' of bankers who control and manipulate the global financial system. The book combines economic theory, policy analysis, and empirical evidence to challenge the power dynamics in the financial industry."
 
 "Year of the Tiger: An Activist's Life",Alice Wong,Memoir,https://www.amazon.com/gp/product/0593315391,"This groundbreaking memoir offers a glimpse into an activist's journey to finding and cultivating community and the continued fight for disability justice, from the founder and director of the Disability Visibility Project."
+
+"No Filter: The Inside Story of Instagram",Sarah Frier,Business,https://www.amazon.com/gp/product/1982126817,"Award-winning reporter Sarah Frier reveals the never-before-told story of how Instagram became the most culturally defining app of the decade."
+"Storytelling with Data: Let's Practice!",Cole Nussbaumer Knaflic,Non-fiction,https://www.amazon.com/gp/product/1119621496,"Influence action through data! This is not a book. It is a one-of-a-kind immersive learning experience through which you can become—or teach others to be—a powerful data storyteller."
 
 Cadres and Corruption,Xiaobo Lu,Politics,https://www.amazon.com/Cadres-Corruption-Organizational-Involution-Communist/dp/0804739587/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.EM8Tt-1W6vWolbqA09iY8BBq2lUkDb5QXfAIFnQu8QZb5jS20Us3G7JuQh1OX4PHuModZXK4ZJk30L4sHj9UVK89S-51lRqj-t3i2dqrHCLQWKC45UmEz_3JFivMAQegILZfAwtKgg5a2TRvtlYeY_vDDTdblIl7UZyc-f73pth7h4t9Priu2b2GstyUXgpgjoGpLTojyWSQR7HVh_T9szLwflMJ50bn6kY-SCEc7uw.FDo6P9eaAqYE4o3DyGTza5yJAR1SMjRGyxiiL1nOYJY&qid=1748481800&sr=8-2,"""Cadres and Corruption"" by Xiaobo Lu is a political science book that examines the relationship between corruption and political reform in China. The author provides an in-depth analysis of the role of Chinese Communist Party cadres in corruption, exploring the systemic issues within the party-state structure that contribute to this problem."
 Capital Ideas,Peter L. Bernstein,Non-fiction,https://www.amazon.com/Capital-Ideas-Improbable-Origins-Modern-ebook/dp/B00BV7MN7O,The Improbable Origins of Modern Wall Street
@@ -548,7 +551,13 @@ Gandhi Before IndiaÂ,Ramachandra Guha,Biography,https://www.amazon.com/Gandhi-B
 Gang of One,Fan Shen,Biography,https://www.amazon.com/Gang-One-Memoirs-Guard-American/dp/0803293364/ref=sr_1_1?crid=1EEII8Q9JR13J&dib=eyJ2IjoiMSJ9.UeN0UuND6MZ9i1SJpBKlR6Sf3ug_XhykUIr1lU4wAG39YXntOwiBjqQI_05J2rTzGkh0eQYU4ZA2DtvAXrVdKDxXLqOfUz1HpOCsenq_YhZrMmJpQKE77Ndt7W5P2UvMpap-f2GZZ_Un3z4by5OSauZvzc1oTY9hfoBqF9X90S1VDev7QxtMQPRI0vrMr3dJw-sKtzdeNo5Zpq9aD8jgtVpb7CwRzBG_TMoFOiO2Wso.zTLeigpUyNCp95ZT-jZhz48ecoqwvMm-d2wtkVlkOcQ&dib_tag=se&keywords=gang+of+one&qid=1748481898&sprefix=gang+of+one%2Caps%2C163&sr=8-1,"""Gang of One"" is a memoir by Fan Shen, recounting his experiences growing up during China's Cultural Revolution and his subsequent escape to the United States. The book offers a personal perspective on the political and social upheaval of the era, focusing on themes of individuality, freedom, and the struggle against oppression."
 Gates of Europe,Serhii Plokhy,Historical,amazon.com/Gates-Europe-History-Ukraine/dp/1541675649,"""Gates of Europe"" by Serhii Plokhy is a comprehensive historical non-fiction that chronicles the rich and complex history of Ukraine. The book explores the country's evolution from its origins to its current geopolitical significance, highlighting its cultural diversity, political struggles, and relations with neighboring nations."
 Genghis Khan and the Making of the Modern World,Jack Weatherford,Philosophy,https://www.amazon.com/Genghis-Khan-Making-Modern-World/dp/0609809644/ref=sr_1_2?crid=WLAPS6TKQFF0&dib=eyJ2IjoiMSJ9.oDu8fZQVVxFNerHxIDvHgsBrX8e7qGckNBBY5twVg4_LfWxGRkTR_m5dC9Nc44vKrl0BOkZAVqa7QB3bfKqQfZvL25hKRVlfEXa4QVCtBYu-Wu8lYVDM5lCMKj7btGtNz56ta5OV5V24R8eyE1im9moWtfqWqESyC8ylGqZ31BNZBjURtUbBNOJIRjAAqZubtWSBkZ0aKAOwYrJsGbqhgdtvk9VF7OiBH96uSeeD-kE.Gh3xGoNWieY8Ikn0-Eh5koNzluTIk59x5NBRkKBgegc&dib_tag=se&keywords=genghis+khan&qid=1747254492&s=books&sprefix=genkis+khan%2Cstripbooks%2C97&sr=1-2,"""Genghis Khan and the Making of the Modern World"" by Jack Weatherford is a historical non-fiction book that reevaluates the legacy of the Mongolian emperor, Genghis Khan, and his influence on the modern world. The book explores Khan's innovative military strategies, progressive laws, and patronage of the arts, arguing that these contributed significantly to the shaping of contemporary society."
-Germanyâ€™s Hyperinflation,Frederick Taylor,Non-fiction,https://www.amazon.com/gp/product/162040236X,"""Germanyâ€™s Hyperinflation"" by Frederick Taylor is a historical non-fiction book that explores the economic crisis of hyperinflation that plagued Germany in the early 1920s. The book delves into the causes, effects, and the socio-political implications of this economic disaster, providing a comprehensive understanding of this significant period in Germany's history."
+Germany's Hyperinflation,Frederick Taylor,Non-fiction,https://www.amazon.com/gp/product/162040236X,"""Germanyâ€™s Hyperinflation"" by Frederick Taylor is a historical non-fiction book that explores the economic crisis of hyperinflation that plagued Germany in the early 1920s. The book delves into the causes, effects, and the socio-political implications of this economic disaster, providing a comprehensive understanding of this significant period in Germany's history."
+
+
+"When Women Lead",Julia Boorstin,Non-fiction,https://www.amazon.com/gp/product/1982168226,"What They Achieve, Why They Succeed, and How We Can Learn from Them. A must-read for all leaders as they consider the future of work"
+"Relentless: From Good to Great to Unstoppable",Tim S. Grover,Non-fiction,https://www.amazon.com/gp/product/1476714207,"For more than two decades, legendary trainer Tim Grover has taken the greats—Michael Jordan, Kobe Bryant, Dwyane Wade, and hundreds of relentless competitors in sports, business, and every walk of life—and made them greater. Now, for the first time ever, he reveals what it takes to achieve total mental and physical dominance, showing you how to be relentless and achieve whatever you desire."
+"Generations",Jean M. Twenge,Non-fiction,https://www.amazon.com/gp/product/1982181621,"The Real Differences Between Gen Z, Millennials, Gen X, Boomers, and Silents—and What They Mean for America's Future"
+
 Getting to Yes,Roger Fisher,Economics,https://www.amazon.com/Getting-Yes-Negotiating-Agreement-Without/dp/0143118757/ref=sr_1_1?crid=1A2FY2I6K6VB0&dib=eyJ2IjoiMSJ9.aeDW_DNR4iWZSPJJs_acLyL8Exso3BhLJAB0Q-5cRf6MC7RzfZLFk9YBuIvGDqQIYU_1xGp4zKeDkuVdoAqsPte4L35IFEz5kIA7lirVI5btmXyn6cLFs0J0tgbwK35CdyxCYazX85XTgrvR2uuErES-tkeKvq9y3830CJiokAxJzIhocFZFVGuRrYMe1yk4TQCahlds6jctcA1oD4OadDqi3TRiVFV2Dz3TrQnm9Bc.VtqPt65oiZXmdg-oM0hwi3p6C6pbHyfyko8SNvGOLG0&dib_tag=se&keywords=getting+to+yes&qid=1748551508&s=books&sprefix=getting+to+yes%2Cstripbooks%2C113&sr=1-1,"""Getting to Yes"" by Roger Fisher is a self-help book that provides a step-by-step strategy for coming to mutually acceptable agreements in every sort of conflict. It focuses on the principles of principled negotiation, a method that de-emphasizes the importance of personality and insists on focusing on the problem, interests, options, and criteria."
 Ghost Soldiers,Hampton Sides,Psychology,https://www.amazon.com/Ghost-Soldiers-Account-Greatest-Mission/dp/038549565X/ref=sr_1_1?crid=352N1IFQBNHBB&dib=eyJ2IjoiMSJ9.4ITC79B5GrRMrVQKlnzGf8dpFFcTTIQ_q1YymCiVrHP15mfvMx3xpy-0xZRSxqkWKaMCElb16tLGrj2biMjxDCjGnydcBf9p7nhxqX4kLhcwdn0uGMvJ7FitZ8qJuG8j1rqwsUrrlijqlCkyfnvF3FlEL53aEleEy686Qj9_osrVSb62apzQKE-DYTM6tx37Wd77QCRM6tpKiKG6Uc9X7QKse4n5XU8lr_xLcTslrIo.8-450_oJUIDtW9SZAljLNfrdrXyY1i4P1UASzT5JQrw&dib_tag=se&keywords=ghost+soldiers&qid=1748552614&s=books&sprefix=ghost+soldir%2Cstripbooks%2C101&sr=1-1,"""Ghost Soldiers"" by Hampton Sides is a historical non-fiction book that recounts the daring 1945 rescue mission of 513 American and British POWs from a Japanese camp during World War II. The book provides a detailed account of the mission, focusing on the heroism of the soldiers and the horrors of war."
 Ghost Soldiers,Hampton Sides,Non-fiction,https://www.amazon.com/Ghost-Soldiers-Account-Greatest-Mission/dp/038549565X,The Epic Account of World War II's Greatest Rescue Mission
@@ -584,6 +593,23 @@ Hot Seat,Jeff Immelt,Self-Help,https://www.amazon.com/Hot-Seat-Learned-Leading-A
 House of Debt,Atif Mian,Biography,https://www.amazon.com/House-Debt-Recession-Prevent-Happening/dp/022627165X/ref=sr_1_1?crid=3Q0JS0VTHHZYT&dib=eyJ2IjoiMSJ9.qutbKFG9FJHWYKZdag1AB5tAFlVAEwGK7jVTlNdD4p2qTK_8obgAANy7p8CL8sHLmwcM-GNy75n1hyk-Zyh8_3Uy81foNERTOCsIxG96QQEe_iczp_O8n2BBtkJ0XJ1EkM1NKLdcWVJIrl-7njtjIZaTgyemC4mVrruVQC1QaUww9P00MMaX9BhofxFWQOdof6BAtWK3R7A4QNyfbPizQT9LUUmYhX7o-gNgg1JOMRI.I_0j_TEX7xvy3SFBAGFzYXNtpadDXyccN4H4mkMRmtc&dib_tag=se&keywords=House+of+debt&qid=1748455873&sprefix=house+of+deb%2Caps%2C160&sr=8-1,"""House of Debt"" by Atif Mian is an economic analysis that explores the role of household debt in creating financial instability and economic recessions. The book argues that reducing debt burdens at the lower end of the income distribution can help prevent economic downturns and promote recovery."
 How Capitalism Saved America,Thomas J. Dilorenzo,Finance,https://www.amazon.com/How-Capitalism-Saved-America-Pilgrims/dp/1400083311/ref=sr_1_1?crid=23FHJV14QLVAU&dib=eyJ2IjoiMSJ9.7zuU4qUo51zdQ_HRiYc0TREpJWajpQPXrVtTQ51jJU_iCjhH3HR-RKUqxNOR93F1XYollpjGHrTG_cTGw_ZHgw.-AGCW-rQJuXk6GE3k339wE__itcAF_6iv_VSPTleYPM&dib_tag=se&keywords=how+capitalism+saved+america&qid=1748555701&s=books&sprefix=how+capitalism+saved+america%2Cstripbooks%2C96&sr=1-1,"""How Capitalism Saved America"" by Thomas J. Dilorenzo is a non-fiction book that explores the positive impact of capitalism on the development and progress of the United States. The author argues against anti-capitalist sentiments, providing historical examples to support his claim that capitalism has been a driving force for innovation and economic growth in America."
 How Children Succeed,Paul Tough,Psychology,https://www.amazon.com/How-Children-Succeed-Paul-Tough/dp/0544104404/ref=sr_1_1?crid=2VOCKC52M76KB&dib=eyJ2IjoiMSJ9.ZZtniR9tMmmpNY4sF2XXGyHHXAAzm14dSg2kCmVc4QIX54ejcVL5mg07Owf8j2ci61VcjmZPDimg7-W90ZOIHXLMWWmFG5au4z1hKVXel4-bsOhJUd63OJ5a-tns8OMOv2CZORwf1xg3y-go1UJp7rURNwT9EF_2ZoSPYlTpUNTr7lhwDarACzjX90LeqIxT5J61Oe5eLqPpFTHxZRymcNrKNnpNb-3p6Np6HOL-pPs.IS7zRrMJ0pCvjabb0pE8MNcSL1lbGkeNKB09L84hbZw&dib_tag=se&keywords=how+children+succeed&qid=1747670718&s=books&sprefix=how+children+succedd%2Cstripbooks%2C99&sr=1-1,"Grit, Curiosity, and the Hidden Power of Character"
+
+
+
+
+"Looking at Women Looking at War: A War and Justice Diary",Victoria Amelina,Non-fiction,https://www.amazon.com/gp/product/1250367689,"Remarkable...powerful, eloquently testifying to the horrific consequences of this conflict"
+"The Good Women of China: Hidden Voices",Xinran,Non-fiction,https://www.amazon.com/gp/product/0375422013,"An unprecedented, intimate account of the lives of modern Chinese women, told by the women themselves - true stories of the political and personal upheavals they have endured in their chaotic and repressive society"
+"May Contain Lies",Alex Edmans,Non-fiction,https://www.amazon.com/gp/product/0520403932,"How Stories, Statistics, and Studies Exploit Our Biases—And What We Can Do about It"
+"How to Be Bold",Ranjay Gulati,Non-fiction,https://www.amazon.com/gp/product/0063394812,"The Surprising Science of Everyday Courage – A USA Today Bestselling Guide to Managing Fear and Taking Action"
+"Giving Up Is Unforgivable: A Manual for Keeping a Democracy",Joyce Vance,Non-fiction,https://www.amazon.com/gp/product/B0DZ5XBVKY,"A political manifesto for our present moment—part history lesson, part call to save the Republic"
+"One Child: The Story of China's Most Radical Experiment",Mei Fong,Non-fiction,https://www.amazon.com/One-Child-Chinas-Radical-Experiment/dp/054427539X,"An intimate investigation of the world’s largest experiment in social engineering, revealing how its effects will shape China for decades to come, and what that means for the rest of the world"
+"My Life on the Road",Gloria Steinem,Non-fiction,https://www.amazon.com/gp/product/0345408160,"My Life on the Road is the moving, funny, and profound story of Gloria’s growth and also the growth of a revolutionary movement for equality—and the story of how surprising encounters on the road shaped both. From her first experience of social activism among women in India to her work as a journalist in the 1960s; from the whirlwind of political campaigns to the founding of Ms. magazine; from the historic 1977 National Women’s Conference to her travels through Indian Country—a lifetime spent on the road allowed Gloria to listen and connect deeply with people, to understand that context is everything, and to become part of a movement that would change the world."
+"The Innovator's Dilemma",Clayton M. Christensen,Business,https://www.amazon.com/gp/product/1633691780,"When New Technologies Cause Great Firms to Fail"
+"Culture Code",Daniel Coyle,Non-fiction,https://www.amazon.com/gp/product/1847941273,"The Culture Code reveals the secrets of some of the best teams in the world - from Pixar to Google to US Navy SEALs - explaining the three skills such groups have mastered in order to generate trust and a willingness to collaborate. Combining cutting-edge science, on-the-ground insight and practical ideas for action, it offers a roadmap for creating an environment where innovation flourishes, problems get solved, and expectations are exceeded."
+"Momentum Publications Unreasonable Hospitality",Will Guidara,Non-fiction,https://www.amazon.com/gp/product/B0D85KMX58,"The Remarkable Power of Giving People More Than They Expect"
+"Creativity, Inc",Ed Catmull,Business,https://www.amazon.com/Creativity-Inc-Expanded-Overcoming-Inspiration/dp/0593594649,"The co-founder and longtime president of Pixar updates and expands his 2014 New York Times bestseller on creative leadership, reflecting on the management principles that built Pixar’s singularly successful culture, and on all he learned during the past nine years that allowed Pixar to retain its creative culture while continuing to evolve."
+
+
 How Goldman Sachs Came to Rule the World,William D. Cohan,Non-fiction,https://www.amazon.com/Money-Power-Goldman-Sachs-World-ebook/dp/B004J4XG54,"""How Goldman Sachs Came to Rule the World"" by William D. Cohan is a non-fictional account detailing the rise and dominance of Goldman Sachs in the global financial industry. The book explores the firm's history, culture, and key events that shaped its reputation as a powerful Wall Street institution."
 How I Invest My Money,Brian Portnoy,Non-fiction,https://www.amazon.com/How-Invest-My-Money-Finance/dp/0857198084,"Finance experts reveal how they save, spend, and invest"
 How Leaders Learn,David Novak,History,https://www.amazon.com/How-Leaders-Learn-Master-Successful/dp/164782754X/ref=tmm_hrd_swatch_0,Master the Habits of the World's Most Successful People
@@ -1019,7 +1045,7 @@ The Great Crash,John Kenneth Galbraith,Non-fiction,https://www.amazon.com/gp/pro
 The Great Famine and the Saga of the Irish People,John Kelly,Non-fiction,https://www.amazon.com/Graves-Are-Walking-Famine-People-ebook/dp/B007CLBMOI,"""The Great Famine and the Saga of the Irish People"" by John Kelly is a historical non-fiction book that chronicles the devastating Irish Potato Famine in the mid-19th century. It delves into the social, political, and economic factors that contributed to the disaster, and its lasting impact on Ireland and its diaspora."
 The Great Road,Agnes Smedley,,https://www.amazon.com/Great-Road-Life-Times-Chu/dp/1684226945,The Life and Times of Chu Teh
 The Greatest Trade Ever,Gregory Zuckerman,,https://www.amazon.com/Greatest-Trade-Ever-Behind-Scenes/dp/0385529945/ref=sr_1_1?crid=IJ26L4I067XU&dib=eyJ2IjoiMSJ9.NV7ItQ0tdBY0XdDB-9x4glyewXMoIZdWuYDttNoA6sJiT0gXP6oQKzGKEP2_tvwmUx28ImaUns90Mh0XjOTij4yAJE_15AXEG0TqwQUNIQUBgArI4X8RNB9xd4i3QudTaUVNeCsM5loAYTWvut76PlHEM7QDsyPcmPKAc0aETLchwYvZFll0jn9My85PBUzIQq2UqGK6ZlRWL_1ID8kTDs5E-X8DDP1YqKi7MSXUtNc.WK8FU-YitL0O6A0HogP1CtajTSn3OVj-IV5F2D2sdoE&dib_tag=se&keywords=the+greatest+trade+ever&qid=1747618532&sprefix=the+greatest+trade+ever%2Caps%2C196&sr=8-1,The Behind-the-Scenes Story of How John Paulson Defied Wall Street and Made Financial History
-The Guns of August,Barbara W. Tuchman,,https://www.amazon.com/Guns-August-Pulitzer-Prize-Winning-2004-08-03/dp/B01JXV73EW/ref=sr_1_2?crid=2AAX0AJKGRS8W&dib=eyJ2IjoiMSJ9.7Ie8lJkJYVNUOWw2JLu4x8Rqz0H1FaExl2TjoQuJmtjSfS2wg50lbceWV1UmvstcnHII9YjZNG7OgUoz5Pfxn_m3QKaKW9U4pvlKcKFx-Ky4OPJhL7A-grQHDafoxCtC6ZQsWH1JYZsr9ixUcZAmZM5lIgqRoyJrjQVX461kaW0nnTF0otZoWT9xdOB002-E8WyT9ikM1Q75865LeKHHHa5WjfD7GnMISlEf1L-fQP8.GPJ3jJQSNls4NzJOz8U4WsR_wdUcCex6RGECQQtFk1M&dib_tag=se&keywords=the+guns+of+august&qid=1745512349&s=books&sprefix=the+guns+%2Cstripbooks%2C77&sr=1-2,The Pulitzer Prize-Winning Classic About the Outbreak of World War I by Barbara W. Tuchman
+The Guns of August,Barbara W. Tuchman,History,https://www.amazon.com/August-Modern-Library-Nonfiction-Books/dp/034538623X,The Pulitzer Prize-Winning Classic About the Outbreak of World War I by Barbara W. Tuchman
 The Happiest Man on Earth,Eddie Jaku,,https://www.amazon.com/Happiest-Man-Earth-Beautiful-Auschwitz/dp/0063097699/ref=sr_1_1?crid=36MWM3UAHXKT2&dib=eyJ2IjoiMSJ9._99VLNBxMMHvQcpohSwi9sdCJSngU5rl0OCuB-CUr8Ii72ylh_3iiSHOaJHE-qsVcTYnYTY9b2kW903cedl_abuTgAq_0Plv6GrvtoI4SJA4tDVuth_ySSXHn0IJFOXgiUTJfPxcMyN5Csjx7Tk3Ts3hLcjfkdOsHRoXNtEW-wMDxKkSdqeuHm-D8v5Ozk37pptDLn14C333EjaK_JLhcaSuKZF8SJxdV_L_yAHRInM.h4RTkZAcZ9KG1gdnqygcXstI7RMEknx8O0yCp1ykbHE&dib_tag=se&keywords=the+happiest+man+on+earth&qid=1748561370&s=books&sprefix=the+happiest+man+on+earth%2Cstripbooks%2C132&sr=1-1,"""The Happiest Man on Earth"" by Eddie Jaku is a memoir that recounts the author's experiences as a Holocaust survivor and his journey towards finding happiness and contentment in life. This non-fiction book explores themes of resilience, forgiveness, and the power of positivity in overcoming life's most devastating challenges."
 The Happiest Man on Earth,Eddie Jaku,Biography,https://www.amazon.com/dp/0063097699,Â The Beautiful Life of an Auschwitz Survivor
 The Hour of Fate,Susan Berfield,Non-fiction,https://www.amazon.com/Hour-Fate-Roosevelt-Transform-Capitalism/dp/1635572495,"Theodore Roosevelt, J.P. Morgan, and the Battle to Transform American Capitalism"
@@ -1274,7 +1300,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
       function parseCSV(csv) {
         const rows = [];
-        let field = "";
+        let field = '';
         let inQuotes = false;
         let row = [];
 
@@ -1291,11 +1317,11 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
             inQuotes = !inQuotes;
             continue;
           }
-          if ((char === "," || char === "\n" || char === "\r") && !inQuotes) {
+          if ((char === ',' || char === '\n' || char === '\r') && !inQuotes) {
             row.push(field);
-            field = "";
-            if (char === "\n" || char === "\r") {
-              if (row.length > 1 || row[0] !== "") {
+            field = '';
+            if (char === '\n' || char === '\r') {
+              if (row.length > 1 || row[0] !== '') {
                 rows.push(row);
               }
               row = [];
@@ -1316,121 +1342,121 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         // Use an exact match for more precise styling
         const styles = {
           business: {
-            icon: "💼",
-            bg: "bg-gradient-to-br from-indigo-500 to-purple-600",
-            text: "text-white",
-            shadow: "shadow-indigo-500/30",
+            icon: '💼',
+            bg: 'bg-gradient-to-br from-indigo-500 to-purple-600',
+            text: 'text-white',
+            shadow: 'shadow-indigo-500/30',
           },
           finance: {
-            icon: "💰",
-            bg: "bg-gradient-to-br from-green-500 to-emerald-600",
-            text: "text-white",
-            shadow: "shadow-green-500/30",
+            icon: '💰',
+            bg: 'bg-gradient-to-br from-green-500 to-emerald-600',
+            text: 'text-white',
+            shadow: 'shadow-green-500/30',
           },
           economics: {
-            icon: "📈",
-            bg: "bg-gradient-to-br from-yellow-400 to-amber-500",
-            text: "text-slate-800",
-            shadow: "shadow-yellow-500/30",
+            icon: '📈',
+            bg: 'bg-gradient-to-br from-yellow-400 to-amber-500',
+            text: 'text-slate-800',
+            shadow: 'shadow-yellow-500/30',
           },
           biography: {
-            icon: "👤",
-            bg: "bg-gradient-to-br from-pink-500 to-red-500",
-            text: "text-white",
-            shadow: "shadow-pink-500/30",
+            icon: '👤',
+            bg: 'bg-gradient-to-br from-pink-500 to-red-500',
+            text: 'text-white',
+            shadow: 'shadow-pink-500/30',
           },
           memoir: {
-            icon: "✍️",
-            bg: "bg-gradient-to-br from-rose-400 to-red-500",
-            text: "text-white",
-            shadow: "shadow-rose-500/30",
+            icon: '✍️',
+            bg: 'bg-gradient-to-br from-rose-400 to-red-500',
+            text: 'text-white',
+            shadow: 'shadow-rose-500/30',
           },
           science: {
-            icon: "🔬",
-            bg: "bg-gradient-to-br from-sky-500 to-cyan-400",
-            text: "text-white",
-            shadow: "shadow-sky-500/30",
+            icon: '🔬',
+            bg: 'bg-gradient-to-br from-sky-500 to-cyan-400',
+            text: 'text-white',
+            shadow: 'shadow-sky-500/30',
           },
           technology: {
-            icon: "💻",
-            bg: "bg-gradient-to-br from-blue-600 to-slate-700",
-            text: "text-white",
-            shadow: "shadow-blue-500/30",
+            icon: '💻',
+            bg: 'bg-gradient-to-br from-blue-600 to-slate-700',
+            text: 'text-white',
+            shadow: 'shadow-blue-500/30',
           },
           history: {
-            icon: "🏛️",
-            bg: "bg-gradient-to-br from-orange-500 to-amber-600",
-            text: "text-white",
-            shadow: "shadow-orange-500/30",
+            icon: '🏛️',
+            bg: 'bg-gradient-to-br from-orange-500 to-amber-600',
+            text: 'text-white',
+            shadow: 'shadow-orange-500/30',
           },
           politics: {
-            icon: "⚖️",
-            bg: "bg-gradient-to-br from-red-600 to-slate-800",
-            text: "text-white",
-            shadow: "shadow-red-500/30",
+            icon: '⚖️',
+            bg: 'bg-gradient-to-br from-red-600 to-slate-800',
+            text: 'text-white',
+            shadow: 'shadow-red-500/30',
           },
           fiction: {
-            icon: "📖",
-            bg: "bg-gradient-to-br from-purple-400 to-violet-500",
-            text: "text-white",
-            shadow: "shadow-purple-500/30",
+            icon: '📖',
+            bg: 'bg-gradient-to-br from-purple-400 to-violet-500',
+            text: 'text-white',
+            shadow: 'shadow-purple-500/30',
           },
-          "non-fiction": {
-            icon: "📚",
-            bg: "bg-gradient-to-br from-teal-400 to-cyan-500",
-            text: "text-slate-800",
-            shadow: "shadow-amber-500/30",
+          'non-fiction': {
+            icon: '📚',
+            bg: 'bg-gradient-to-br from-teal-400 to-cyan-500',
+            text: 'text-slate-800',
+            shadow: 'shadow-amber-500/30',
           },
           philosophy: {
-            icon: "🤔",
-            bg: "bg-gradient-to-br from-stone-500 to-neutral-600",
-            text: "text-white",
-            shadow: "shadow-slate-500/30",
+            icon: '🤔',
+            bg: 'bg-gradient-to-br from-stone-500 to-neutral-600',
+            text: 'text-white',
+            shadow: 'shadow-slate-500/30',
           },
           psychology: {
-            icon: "🧠",
-            bg: "bg-gradient-to-br from-fuchsia-500 to-purple-600",
-            text: "text-white",
-            shadow: "shadow-fuchsia-500/30",
+            icon: '🧠',
+            bg: 'bg-gradient-to-br from-fuchsia-500 to-purple-600',
+            text: 'text-white',
+            shadow: 'shadow-fuchsia-500/30',
           },
-          "health/wellness": {
-            icon: "🌿",
-            bg: "bg-gradient-to-br from-lime-400 to-green-500",
-            text: "text-slate-800",
-            shadow: "shadow-lime-500/30",
+          'health/wellness': {
+            icon: '🌿',
+            bg: 'bg-gradient-to-br from-lime-400 to-green-500',
+            text: 'text-slate-800',
+            shadow: 'shadow-lime-500/30',
           },
           culture: {
-            icon: "🌍",
-            bg: "bg-gradient-to-br from-cyan-300 to-blue-400",
-            text: "text-slate-800",
-            shadow: "shadow-cyan-500/30",
+            icon: '🌍',
+            bg: 'bg-gradient-to-br from-cyan-300 to-blue-400',
+            text: 'text-slate-800',
+            shadow: 'shadow-cyan-500/30',
           },
           default: {
-            icon: "📚",
-            bg: "bg-gradient-to-br from-slate-500 to-slate-600",
-            text: "text-white",
-            shadow: "shadow-gray-500/30",
+            icon: '📚',
+            bg: 'bg-gradient-to-br from-slate-500 to-slate-600',
+            text: 'text-white',
+            shadow: 'shadow-gray-500/30',
           },
         };
         // Find the best match for categories like "Non-fiction (general)"
         if (styles[cat]) {
           return styles[cat];
         }
-        if (cat.includes("non-fiction")) return styles["non-fiction"];
+        if (cat.includes('non-fiction')) return styles['non-fiction'];
 
         return styles[cat] || styles.default;
       }
 
       let allRows = [];
-      let currentFilter = "";
-      let currentCategory = "";
-      let currentSort = "default";
+      let currentFilter = '';
+      let currentCategory = '';
+      let currentSort = 'default';
 
       function displayBooks(
         csv,
-        filter = "",
-        categoryFilter = "",
-        sortBy = "default"
+        filter = '',
+        categoryFilter = '',
+        sortBy = 'default',
       ) {
         const rows = allRows.length ? allRows : parseCSV(csv);
         if (!allRows.length) allRows = rows;
@@ -1439,7 +1465,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         const headers = rows[0].map((h) => h.trim().toLowerCase());
         const headerMap = headers.reduce(
           (acc, h, i) => ({ ...acc, [h]: i }),
-          {}
+          {},
         );
 
         // Filter rows
@@ -1450,13 +1476,13 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
           // Search filter
           if (filter) {
-            const rowText = cells.join(" ").toLowerCase();
+            const rowText = cells.join(' ').toLowerCase();
             if (!rowText.includes(filter.toLowerCase())) continue;
           }
 
           // Category filter
           if (categoryFilter) {
-            const category = cells[headerMap["category"]].trim();
+            const category = cells[headerMap['category']].trim();
             if (category !== categoryFilter) continue;
           }
 
@@ -1464,29 +1490,29 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
 
         // Sort rows
-        if (sortBy !== "default") {
+        if (sortBy !== 'default') {
           filteredRows.sort((a, b) => {
-            const aTitle = a.cells[headerMap["title"]].trim().toLowerCase();
-            const bTitle = b.cells[headerMap["title"]].trim().toLowerCase();
-            const aAuthor = a.cells[headerMap["author"]].trim().toLowerCase();
-            const bAuthor = b.cells[headerMap["author"]].trim().toLowerCase();
-            const aCategory = a.cells[headerMap["category"]]
+            const aTitle = a.cells[headerMap['title']].trim().toLowerCase();
+            const bTitle = b.cells[headerMap['title']].trim().toLowerCase();
+            const aAuthor = a.cells[headerMap['author']].trim().toLowerCase();
+            const bAuthor = b.cells[headerMap['author']].trim().toLowerCase();
+            const aCategory = a.cells[headerMap['category']]
               .trim()
               .toLowerCase();
-            const bCategory = b.cells[headerMap["category"]]
+            const bCategory = b.cells[headerMap['category']]
               .trim()
               .toLowerCase();
 
             switch (sortBy) {
-              case "title-asc":
+              case 'title-asc':
                 return aTitle.localeCompare(bTitle);
-              case "title-desc":
+              case 'title-desc':
                 return bTitle.localeCompare(aTitle);
-              case "author-asc":
+              case 'author-asc':
                 return aAuthor.localeCompare(bAuthor);
-              case "author-desc":
+              case 'author-desc':
                 return bAuthor.localeCompare(aAuthor);
-              case "category-asc":
+              case 'category-asc':
                 return aCategory.localeCompare(bCategory);
               default:
                 return 0;
@@ -1495,17 +1521,17 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
 
         // Generate HTML
-        let html = "";
+        let html = '';
         let displayedCount = 0;
         for (let row of filteredRows) {
           const cells = row.cells;
           displayedCount++;
 
-          const title = cells[headerMap["title"]].trim();
-          const author = cells[headerMap["author"]].trim();
-          const category = cells[headerMap["category"]].trim();
-          const link = cells[headerMap["link"]].trim();
-          const summary = cells[headerMap["summary"]].trim();
+          const title = cells[headerMap['title']].trim();
+          const author = cells[headerMap['author']].trim();
+          const category = cells[headerMap['category']].trim();
+          const link = cells[headerMap['link']].trim();
+          const summary = cells[headerMap['summary']].trim();
 
           const categoryStyle = getCategoryStyles(category);
 
@@ -1532,12 +1558,12 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
                     </div>
                 `;
         }
-        document.getElementById("bookContainer").innerHTML = html;
+        document.getElementById('bookContainer').innerHTML = html;
         updateBookCount(displayedCount, allRows.length - 1);
       }
 
       function updateBookCount(current, total) {
-        const countElement = document.getElementById("bookCount");
+        const countElement = document.getElementById('bookCount');
         if (current === total) {
           countElement.innerHTML = `📖 <span class="font-bold">${total}</span> <span class="hidden sm:inline">Books</span>`;
         } else {
@@ -1549,7 +1575,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
       function populateCategoryFilter() {
         const rows = parseCSV(csvData);
         const headers = rows[0].map((h) => h.trim().toLowerCase());
-        const categoryIndex = headers.indexOf("category");
+        const categoryIndex = headers.indexOf('category');
 
         const categories = new Set();
         for (let i = 1; i < rows.length; i++) {
@@ -1559,10 +1585,10 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
 
         const sortedCategories = Array.from(categories).sort();
-        const select = document.getElementById("categoryFilter");
+        const select = document.getElementById('categoryFilter');
 
         sortedCategories.forEach((category) => {
-          const option = document.createElement("option");
+          const option = document.createElement('option');
           option.value = category;
           option.textContent = category;
           select.appendChild(option);
@@ -1574,37 +1600,37 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
       populateCategoryFilter();
 
       // Add search and filter functionality
-      document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const clearButton = document.getElementById("clearSearch");
-        const categoryFilter = document.getElementById("categoryFilter");
-        const sortBy = document.getElementById("sortBy");
+      document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearSearch');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortBy = document.getElementById('sortBy');
 
         function updateDisplay() {
           currentFilter = searchInput.value;
           currentCategory = categoryFilter.value;
           currentSort = sortBy.value;
           displayBooks(csvData, currentFilter, currentCategory, currentSort);
-          clearButton.classList.toggle("hidden", !currentFilter);
+          clearButton.classList.toggle('hidden', !currentFilter);
         }
 
-        searchInput.addEventListener("input", updateDisplay);
-        categoryFilter.addEventListener("change", updateDisplay);
-        sortBy.addEventListener("change", updateDisplay);
+        searchInput.addEventListener('input', updateDisplay);
+        categoryFilter.addEventListener('change', updateDisplay);
+        sortBy.addEventListener('change', updateDisplay);
 
-        clearButton.addEventListener("click", function () {
-          searchInput.value = "";
-          currentFilter = "";
+        clearButton.addEventListener('click', function () {
+          searchInput.value = '';
+          currentFilter = '';
           displayBooks(csvData, currentFilter, currentCategory, currentSort);
-          clearButton.classList.add("hidden");
+          clearButton.classList.add('hidden');
           searchInput.focus();
         });
       });
 
       function shuffleBooks() {
-        const bookContainer = document.getElementById("bookContainer");
+        const bookContainer = document.getElementById('bookContainer');
         let bookCards = Array.from(
-          bookContainer.getElementsByClassName("book-card")
+          bookContainer.getElementsByClassName('book-card'),
         );
 
         // Fisher-Yates shuffle algorithm
@@ -1617,7 +1643,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
       }
 
       // Add minimalistic styles for the controls
-      const styleSheet = document.createElement("style");
+      const styleSheet = document.createElement('style');
       styleSheet.innerText = `
         /* Minimalistic Select Styles */
         .minimal-select {
@@ -1644,8 +1670,8 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
         .minimal-select:focus {
           outline: none;
-          border-color: rgb(99, 102, 241);
-          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+          border-color: rgb(249, 115, 22);
+          box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
         }
 
         .dark .minimal-select {
@@ -1662,7 +1688,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
 
         /* Minimalistic Button Styles */
         .minimal-button {
-          background-color: rgb(15, 23, 42);
+          background-color: rgb(37, 99, 235);
           color: white;
           border: 1px solid transparent;
           border-radius: 12px;
@@ -1675,7 +1701,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
 
         .minimal-button:hover {
-          background-color: rgb(30, 41, 59);
+          background-color: rgb(249, 115, 22);
           transform: translateY(-1px);
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
@@ -1685,12 +1711,12 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
 
         .dark .minimal-button {
-          background-color: rgb(248, 250, 252);
-          color: rgb(15, 23, 42);
+          background-color: rgb(239, 246, 255);
+          color: rgb(30, 58, 138);
         }
 
         .dark .minimal-button:hover {
-          background-color: rgb(226, 232, 240);
+          background-color: rgb(255, 237, 213);
         }
 
         /* Mobile-specific optimizations */
@@ -1703,7 +1729,7 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
           
           .minimal-select:focus,
           .minimal-button:focus {
-            outline: 2px solid rgb(99, 102, 241);
+            outline: 2px solid rgb(249, 115, 22);
             outline-offset: 2px;
           }
           
