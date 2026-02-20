@@ -91,6 +91,65 @@
       .billboard-border-glow {
         background: transparent;
       }
+
+      @keyframes star-burst {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        }
+        20% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.2) rotate(45deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.5) rotate(180deg);
+        }
+      }
+
+      @keyframes star-sparkle {
+        0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      }
+
+      .firework-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .firework-star {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        color: #fbbf24;
+        transform: translate(-50%, -50%);
+        animation: star-sparkle 2s ease-in-out infinite;
+      }
+
+      .firework-star:nth-child(1) { top: -15px; left: -15px; animation-delay: 0s; }
+      .firework-star:nth-child(2) { top: -20px; left: 0px; animation-delay: 0.4s; }
+      .firework-star:nth-child(3) { top: -15px; left: 15px; animation-delay: 0.8s; }
+      .firework-star:nth-child(4) { top: 0px; left: 20px; animation-delay: 1.2s; }
+      .firework-star:nth-child(5) { top: 15px; left: 15px; animation-delay: 1.6s; }
+      .firework-star:nth-child(6) { top: 20px; left: 0px; animation-delay: 2.0s; }
+      .firework-star:nth-child(7) { top: 15px; left: -15px; animation-delay: 2.4s; }
+      .firework-star:nth-child(8) { top: 0px; left: -20px; animation-delay: 2.8s; }
+
+      .central-burst {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        color: #f59e0b;
+        animation: star-burst 2.5s ease-out infinite;
+      }
+      
+      .firework-delay-1 .firework-star { animation-delay: 1s; }
+      .firework-delay-1 .central-burst { animation-delay: 1.25s; }
+      .firework-delay-2 .firework-star { animation-delay: 2s; }
+      .firework-delay-2 .central-burst { animation-delay: 2.5s; }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1786,9 +1845,41 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         container.innerHTML = `
           <div class="relative z-10 flex items-center justify-center gap-4 sm:gap-6 flex-wrap sm:flex-nowrap py-1">
             <div class="flex items-center gap-2">
-              <span class="billboard-star text-xl">📖</span>
-              <span class="text-sm sm:text-base font-bold uppercase tracking-[0.15em] text-amber-400 whitespace-nowrap">Book of the Day</span>
-              <span class="billboard-star text-xl">📖</span>
+              <div class="relative inline-flex items-center justify-center">
+                <div class="firework-bg">
+                  <svg class="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="firework-bg firework-delay-1">
+                  <svg class="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <span class="billboard-star text-xl relative z-10 mx-2">📖</span>
+              </div>
+              <span class="text-sm sm:text-base font-bold uppercase tracking-[0.15em] text-amber-400 whitespace-nowrap z-10">Book of the Day</span>
+              <div class="relative inline-flex items-center justify-center">
+                <div class="firework-bg firework-delay-2">
+                  <svg class="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="firework-bg">
+                  <svg class="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg class="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                 </div>
+                <span class="billboard-star text-xl relative z-10 mx-2">📖</span>
+              </div>
             </div>
             <span class="hidden sm:inline text-slate-600 text-lg">│</span>
             <h3 class="font-serif text-lg sm:text-xl font-bold text-amber-100 whitespace-nowrap">${title}</h3>
