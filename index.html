@@ -601,7 +601,7 @@ Deng Xiaoping and the Transformation of China,Ezra F. Vogel,Biography,https://ww
 "Without Consent: A Landmark Trial and the Decades-Long Struggle to Make Spousal Rape a Crime",Sarah Weinman,Non-fiction,https://www.amazon.com/gp/product/0063279886,"From Sarah Weinman, author of Scoundrel and The Real Lolita, comes an eye-opening story about the first major spousal rape trial in America and urgent questions it raised about women’s rights that would reverberate for decades."
 
 Do Nothing,Celeste Headlee,Non-fiction,https://www.amazon.com/Do-Nothing-Overworking-Overdoing-Underliving/dp/1984824759/,"""Do Nothing"" by Celeste Headlee is a non-fiction book that challenges the culture of overwork and productivity, advocating for a more balanced, less stressful life. It explores the history and science behind work and leisure, offering practical strategies to help readers reassess their approach to work and redefine success."
-Doctor Deale,Mark Bowden,Biography,https://www.amazon.com/Doctor-Dealer-All-American-Multimillion-Dollar-Cocaine/dp/0802137571/ref=sr_1_1?crid=3KZ4GOZWULN9R&dib=eyJ2IjoiMSJ9.GyFlXeAcvv12b1l5gy6ym46cq2hGtB2ohSSnw1oH-ATfGqsZhAaJVUFCYBLJd4bKBZIoEOlKv8rlSt9KukIa09Y0Psjb1UhdIsw9s07EWLt_Y2ScECz9qLw6wKGkYeJS0wESRsGNFr1nn0CarrHGfPg6tdMovaNsFvtY7c4Yg3ECvApjVrUIQGOdEHUbUdrrf6idqO1i9Uy76oLY9jpygfxTQKDRTmJyrLlB6nVTHOw.t2CZOiJUQRxvJvnNfCmJv55qYi5b307FgdRVTw3wz_I&dib_tag=se&keywords=doctor+dealer&qid=1753848191&sprefix=doctor+deal%2Caps%2C416&sr=8-1,The Rise and Fall of an All-American Boy and His Multimillion-Dollar Cocaine Empire
+Doctor Dealer,Mark Bowden,Biography,https://www.amazon.com/Doctor-Dealer-All-American-Multimillion-Dollar-Cocaine/dp/0802137571,The Rise and Fall of an All-American Boy and His Multimillion-Dollar Cocaine Empire.
 Dollars and Sense,Dr. Dan Ariely,Memoir,https://www.amazon.com/Dollars-Sense-Misthink-Money-Smarter/dp/0062651218/ref=sr_1_1?crid=LMJ7OJ37K4MY&dib=eyJ2IjoiMSJ9.7yCYCr85A2pWbZsG7DY67mghKLUFgc7P98vk1_rtnJ1R4DBTo_xtzzZSXa6JOhCqSWnR4Fp6yFGCYb3cJGuFAq85m_jbIxJLYpU_xmMJQvOzMEarDRqVysobn6IKzxiNvm3AbhpmwyL7Z3rRUubKpLib-L5CLo2MYbikqAr_R6tNGHTmVInj_zWeRzWSF2pkqoyJlPXFwH-61ZAK9y_28EBa75yQpeLTviV3zls5TGU.QdFpfVA3gFyf-mDzgHHkwgMmdbrErinvV5pLtx_rgaM&dib_tag=se&keywords=dollars+and+sense&qid=1753848905&s=books&sprefix=dollars+and+sen%2Cstripbooks%2C405&sr=1-1,How We Misthink Money and How to Spend Smarter
 "Don't Give Up, Don't Give In",Louis Zamperini,Politics,https://www.amazon.com/Dont-Give-Up-Lessons-Extraordinary/dp/0062368338/ref=tmm_hrd_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.HfTFmMYzvSjmBcyJjPmhad9X1BVTIUEguOY9BBL-FkczMzSWTUnWU9_peptvuHWI6eH_zFpl4q7J7gyxFo7PhYa9L0O4F2aohm2agq1ZoBELwJaNY3Wzb7oaPfQtV1Ua67ZGAf5jXJrbEgIS_5p58W0PScWkBsEq5OoVJgsjXn55HuopaB7iEcUPFtUluH9z9jGK9FygzwT-jU3jBHLnHI9dqPluZq5qALerww2-ffpmF9Loo49OPp-ABGw9xagsClizjm6krxMGSDx4NkN0KjyFd_EnuoICDdFu_G6geBg.ssG2PvsuPgDRha0aYb_vT3x6nUGrlAAYmLU0qjhptHw&qid=1747254358&sr=1-4,Lessons from an Extraordinary Life
 Dopesick,Beth Macy,Non-fiction,https://www.amazon.com/Dopesick-Dealers-Doctors-Company-Addicted/dp/0316523178,"Dealers, Doctors, and the Drug Company that Addicted America"
@@ -1834,15 +1834,16 @@ Young Castro,Jonathan M. Hansen,Biography,https://www.amazon.com/Young-Castro-Re
         }
         if (validBooks.length === 0) return;
 
-        // Date-based deterministic seed
+        // Date-based deterministic seed — one unique, well-distributed pick per day
         const today = new Date();
-        const dateStr = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let hash = 0;
-        for (let i = 0; i < dateStr.length; i++) {
-          hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
-          hash |= 0;
-        }
-        const index = Math.abs(hash) % validBooks.length;
+        const startOfYear = new Date(today.getFullYear(), 0, 0);
+        const dayOfYear = Math.floor((today - startOfYear) / 86400000); // 1–366
+        // Combine year and day into a single large integer, then scramble all bits
+        let seed = today.getFullYear() * 366 + dayOfYear;
+        seed = Math.imul(seed ^ (seed >>> 16), 0x45d9f3b);
+        seed = Math.imul(seed ^ (seed >>> 16), 0x45d9f3b);
+        seed = seed ^ (seed >>> 16);
+        const index = Math.abs(seed) % validBooks.length;
         const book = validBooks[index];
 
         const title = book[headerMap['title']].trim();
