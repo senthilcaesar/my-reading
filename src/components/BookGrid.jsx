@@ -12,11 +12,11 @@ export default function BookGrid({ books }) {
 
   return (
     <SimpleGrid 
-      columns={{ base: 1, sm: 2, lg: 3, xl: 5 }} 
-      spacing={6} 
+      columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }} 
+      spacing={{ base: 4, md: 5, lg: 6 }} 
       maxW="7xl" 
       mx="auto" 
-      px={{ base: 4, sm: 6, lg: 8 }} 
+      px={{ base: 3, sm: 4, md: 6, lg: 8 }} 
       pb={16}
     >
       {books.map((book, idx) => (

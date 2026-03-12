@@ -13,8 +13,8 @@ export default function Controls({
   const iconColor = "textSecondary";
   
   return (
-    <Flex direction="column" maxW="7xl" mx="auto" px={4} mb={{ base: 6, sm: 8 }} gap={{ base: 3, sm: 4 }}>
-      <InputGroup size="lg">
+    <Flex direction="column" maxW="7xl" mx="auto" px={{ base: 3, sm: 4, md: 6, lg: 8 }} mb={{ base: 4, sm: 6, md: 8 }} gap={{ base: 2.5, sm: 3, md: 4 }}>
+      <InputGroup size={{ base: 'md', md: 'lg' }}>
         <InputLeftElement pointerEvents="none">
           <Search size={20} color={iconColor} />
         </InputLeftElement>
@@ -38,7 +38,7 @@ export default function Controls({
       <Flex gap={{ base: 2, sm: 3 }} direction={{ base: 'column', sm: 'row' }}>
         <Select 
           backdropFilter="blur(4px)" bg={bg} borderColor={borderColor} focusBorderColor={focusBorderColor}
-          borderRadius="xl" shadow="sm" size="lg" fontWeight="medium"
+          borderRadius="xl" shadow="sm" size={{ base: 'md', md: 'lg' }} fontWeight="medium"
           value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">All Categories</option>
@@ -49,11 +49,11 @@ export default function Controls({
 
         <Button 
           leftIcon={<Shuffle size={18} />}
-          size="lg" borderRadius="xl" shadow="sm" fontWeight="bold"
+          size={{ base: 'md', md: 'lg' }} borderRadius="xl" shadow="sm" fontWeight="bold"
           bg="accentPrimary" color="bg"
           _hover={{ bg: 'accentSecondary', transform: 'translateY(-1px)' }}
           onClick={onShuffle}
-          w={{ base: 'full', sm: 'auto' }} minW="140px"
+          w={{ base: 'full', sm: 'auto' }} minW={{ base: 'unset', sm: '140px' }}
         >
           Shuffle
         </Button>

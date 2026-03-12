@@ -24,10 +24,10 @@ const BookCard = memo(function BookCard({ book }) {
       as={Link} href={book.link} isExternal 
       bg={bg} backdropFilter="blur(8px)"
       borderWidth="1px" borderColor={borderColor}
-      borderRadius="2xl" p={5} shadow="md"
-      display="flex" flexDirection="column" gap={3}
+      borderRadius="2xl" p={{ base: 4, md: 5 }} shadow="md"
+      display="flex" flexDirection="column" gap={{ base: 2, md: 3 }}
       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-      _hover={{ transform: 'translateY(-8px)', shadow: 'xl', borderColor: 'orange.400', textDecoration: 'none' }}
+      _hover={{ transform: { base: 'translateY(-3px)', md: 'translateY(-8px)' }, shadow: 'xl', borderColor: 'orange.400', textDecoration: 'none' }}
       position="relative" overflow="hidden"
       role="group"
     >
@@ -62,7 +62,7 @@ const BookCard = memo(function BookCard({ book }) {
         <Text color="textSecondary" fontSize="sm" fontStyle="italic" mb={3}>
           by {book.author}
         </Text>
-        <Text color="textSecondary" fontSize="sm" lineHeight="tall" noOfLines={4}>
+        <Text color="textSecondary" fontSize={{ base: 'xs', md: 'sm' }} lineHeight="tall" noOfLines={{ base: 3, md: 4 }}>
           {book.summary}
         </Text>
       </Box>

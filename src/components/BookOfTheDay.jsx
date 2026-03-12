@@ -47,7 +47,7 @@ export default function BookOfTheDay() {
         borderBottom="1px solid" borderBottomColor={borderColor} 
         overflow="hidden"
       >
-        <Flex position="relative" zIndex={10} align="center" justify="center" gap={{ base: 3, sm: 4 }} wrap={{ base: 'wrap', sm: 'nowrap' }} py={0}>
+        <Flex position="relative" zIndex={10} align="center" justify="center" gap={{ base: 2, sm: 3, md: 4 }} wrap={{ base: 'wrap', sm: 'nowrap' }} py={0}>
           
           <Flex align="center" gap={2}>
             <Box position="relative" display="inline-flex" alignItems="center" justifyContent="center">
@@ -63,7 +63,7 @@ export default function BookOfTheDay() {
               <Text as="span" className="billboard-star" fontSize="lg" position="relative" zIndex={10} mx={1}>📖</Text>
             </Box>
             
-            <Text fontFamily="'Marcellus SC', serif" fontSize={{ base: 'xl', sm: '2xl' }} fontWeight="400" letterSpacing="0.1em" color={accentColor} whiteSpace="nowrap" zIndex={10}>
+            <Text fontFamily="'Marcellus SC', serif" fontSize={{ base: 'md', sm: 'xl', md: '2xl' }} fontWeight="400" letterSpacing="0.1em" color={accentColor} whiteSpace="nowrap" zIndex={10}>
               Book of the Day
             </Text>
             
@@ -84,12 +84,12 @@ export default function BookOfTheDay() {
           <Text display={{ base: 'none', sm: 'inline' }} color={dividerColor} fontSize="lg">│</Text>
           <Box display="flex" flexDirection="column" gap={0}>
             <Link href={book.link} isExternal _hover={{ textDecoration: 'none', opacity: 0.8 }}>
-              <Heading fontFamily="serif" fontSize={{ base: 'md', sm: 'lg' }} fontWeight="bold" color={textColorPrimary} whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxW="300px">
+          <Heading fontFamily="serif" fontSize={{ base: 'sm', sm: 'md', md: 'lg' }} fontWeight="normal" color={textColorPrimary} whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxW={{ base: '180px', sm: '250px', md: '300px' }}>
                 {book.title}
               </Heading>
             </Link>
             <Flex align="center" gap={3}>
-              <Text color={accentColor} fontSize="sm" fontWeight="bold">
+              <Text color={accentColor} fontSize={{ base: 'xs', sm: 'sm' }} fontWeight="normal" display={{ base: 'none', sm: 'block' }}>
                 by {book.author}
               </Text>
               <Badge bg={accentColor} color="bg" variant="solid" px={2} py={0.5} borderRadius="full" fontSize="xs">
