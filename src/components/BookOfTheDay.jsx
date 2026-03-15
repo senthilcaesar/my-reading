@@ -49,35 +49,26 @@ export default function BookOfTheDay() {
       >
         <Flex position="relative" zIndex={10} align="center" justify="center" gap={{ base: 2, sm: 3, md: 4 }} wrap={{ base: 'wrap', sm: 'nowrap' }} py={0}>
           
-          <Flex align="center" gap={2}>
-            <Box position="relative" display="inline-flex" alignItems="center" justifyContent="center">
-              <div className="firework-bg">
-                <svg className="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                {Array.from({length: 8}).map((_, i) => (
-                  <svg key={i} className="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-              <div className="firework-bg firework-delay-1">
-                <svg className="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-              <Text as="span" className="billboard-star" fontSize="lg" position="relative" zIndex={10} mx={1}>📖</Text>
+          <Flex align="center" gap={4}>
+            <Box className="modern-book-container">
+              <span className="modern-book-base">📖</span>
             </Box>
             
-            <Text fontFamily="'Marcellus SC', serif" fontSize={{ base: 'md', sm: 'xl', md: '2xl' }} fontWeight="400" letterSpacing="0.1em" color={accentColor} whiteSpace="nowrap" zIndex={10}>
+            <Text 
+              fontFamily="'Libre Baskerville', serif" 
+              fontSize={{ base: 'lg', sm: 'xl', md: '2xl' }} 
+              fontWeight="700" 
+              fontStyle="italic"
+              letterSpacing="0.02em" 
+              color={accentColor} 
+              whiteSpace="nowrap" 
+              zIndex={10}
+            >
               Book of the Day
             </Text>
             
-            <Box position="relative" display="inline-flex" alignItems="center" justifyContent="center">
-              <div className="firework-bg firework-delay-2">
-                <svg className="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-              <div className="firework-bg">
-                <svg className="central-burst" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                {Array.from({length: 8}).map((_, i) => (
-                  <svg key={i} className="firework-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                ))}
-              </div>
-              <Text as="span" className="billboard-star" fontSize="lg" position="relative" zIndex={10} mx={1}>📖</Text>
+            <Box className="modern-book-container">
+              <span className="modern-book-base">📖</span>
             </Box>
           </Flex>
 
