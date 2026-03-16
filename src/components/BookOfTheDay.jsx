@@ -80,7 +80,7 @@ export default function BookOfTheDay() {
               </Heading>
             </Link>
             <Flex align="center" gap={3}>
-              <Text color={accentColor} fontSize={{ base: 'xs', sm: 'sm' }} fontWeight="normal" display={{ base: 'none', sm: 'block' }}>
+              <Text color={accentColor} fontSize={{ base: 'xs', sm: 'sm' }} fontWeight="normal">
                 by {book.author}
               </Text>
               <Badge bg={accentColor} color="bg" variant="solid" px={2} py={0.5} borderRadius="full" fontSize="xs">
