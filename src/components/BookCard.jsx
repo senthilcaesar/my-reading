@@ -2,6 +2,38 @@ import { memo } from 'react';
 import { Box, Flex, Heading, Text, Badge, Link } from '@chakra-ui/react';
 import { ExternalLink } from 'lucide-react';
 
+// ── Highlight matching text ────────────────────────────────────────────────────
+function HighlightText({ text, query }) {
+  if (!query?.trim() || !text) return <>{text}</>;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const parts = text.split(new RegExp(`(${escaped})`, 'gi'));
+  const lower = query.toLowerCase();
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === lower ? (
+          <Box
+            as="mark"
+            key={i}
+            bg="accentPrimary"
+            color="bg"
+            px="0.5"
+            mx="0.5px"
+            borderRadius="sm"
+            fontWeight="semibold"
+            lineHeight="inherit"
+          >
+            {part}
+          </Box>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
+// ── Category styling ──────────────────────────────────────────────────────────
 const getCategoryStyles = (category) => {
   const cat = category?.toLowerCase() || '';
   if (cat.includes('business')) return { colorScheme: 'blue', icon: '💼' };
@@ -14,56 +46,95 @@ const getCategoryStyles = (category) => {
   return { colorScheme: 'slate', icon: '📚' };
 };
 
-const BookCard = memo(function BookCard({ book }) {
-  const bg = "surface";
-  const borderColor = "borderPrimary";
+// ── BookCard ──────────────────────────────────────────────────────────────────
+const BookCard = memo(function BookCard({ book, searchQuery }) {
+  const bg = 'surface';
+  const borderColor = 'borderPrimary';
   const categoryStyles = getCategoryStyles(book.category);
 
   return (
-    <Box 
-      as={Link} href={book.link} isExternal 
-      bg={bg} backdropFilter="blur(8px)"
-      borderWidth="1px" borderColor={borderColor}
-      borderRadius="2xl" p={{ base: 4, md: 5 }} shadow="md"
-      display="flex" flexDirection="column" gap={{ base: 2, md: 3 }}
+    <Box
+      as={Link}
+      href={book.link}
+      isExternal
+      bg={bg}
+      backdropFilter="blur(8px)"
+      borderWidth="1px"
+      borderColor={borderColor}
+      borderRadius="2xl"
+      p={{ base: 4, md: 5 }}
+      shadow="md"
+      display="flex"
+      flexDirection="column"
+      gap={{ base: 2, md: 3 }}
       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-      _hover={{ transform: { base: 'translateY(-3px)', md: 'translateY(-8px)' }, shadow: 'xl', borderColor: 'orange.400', textDecoration: 'none' }}
-      position="relative" overflow="hidden"
+      _hover={{
+        transform: { base: 'translateY(-3px)', md: 'translateY(-8px)' },
+        shadow: 'xl',
+        borderColor: 'orange.400',
+        textDecoration: 'none',
+      }}
+      position="relative"
+      overflow="hidden"
       role="group"
+      // fill the motion wrapper's height so all cards in a row align
+      h="full"
     >
-      <Box 
-        position="absolute" top={0} left={0} w="full" h="4px" 
-        bgGradient="linear(to-r, blue.400, orange.400)" 
-        opacity={0} _groupHover={{ opacity: 1 }} transition="opacity 0.3s"
+      {/* Top gradient accent on hover */}
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        w="full"
+        h="4px"
+        bgGradient="linear(to-r, blue.400, orange.400)"
+        opacity={0}
+        _groupHover={{ opacity: 1 }}
+        transition="opacity 0.3s"
       />
-      
+
       <Flex justify="space-between" align="flex-start" gap={2}>
-        <Badge 
-          colorScheme={categoryStyles.colorScheme} 
-          variant="subtle" px={2.5} py={1} borderRadius="full" 
-          display="flex" alignItems="center" gap={1}
+        <Badge
+          colorScheme={categoryStyles.colorScheme}
+          variant="subtle"
+          px={2.5}
+          py={1}
+          borderRadius="full"
+          display="flex"
+          alignItems="center"
+          gap={1}
         >
           <Text as="span">{categoryStyles.icon}</Text>
-          <Text as="span" fontWeight="bold" letterSpacing="wider">{book.category}</Text>
+          <Text as="span" fontWeight="bold" letterSpacing="wider">
+            {book.category}
+          </Text>
         </Badge>
         <Box color="slate.400" _groupHover={{ color: 'orange.500' }} transition="color 0.3s">
           <ExternalLink size={16} />
         </Box>
       </Flex>
-      
+
       <Box flex="1">
-        <Heading 
-          as="h3" size="md" fontFamily="heading" mb={1} 
+        <Heading
+          as="h3"
+          size="md"
+          fontFamily="heading"
+          mb={1}
           color="textPrimary"
           lineHeight="shorter"
         >
-          {book.title}
+          <HighlightText text={book.title} query={searchQuery} />
         </Heading>
         <Text color="textSecondary" fontSize="sm" fontStyle="italic" mb={3}>
-          by {book.author}
+          by <HighlightText text={book.author} query={searchQuery} />
         </Text>
-        <Text color="textSecondary" fontSize={{ base: 'xs', md: 'sm' }} lineHeight="tall" noOfLines={{ base: 3, md: 4 }}>
-          {book.summary}
+        <Text
+          color="textSecondary"
+          fontSize={{ base: 'xs', md: 'sm' }}
+          lineHeight="tall"
+          noOfLines={{ base: 3, md: 4 }}
+        >
+          <HighlightText text={book.summary} query={searchQuery} />
         </Text>
       </Box>
     </Box>

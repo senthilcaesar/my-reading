@@ -60,7 +60,7 @@ function App() {
           categories={categories}
           onShuffle={handleShuffle}
         />
-        <BookGrid books={filteredBooks} />
+        <BookGrid books={filteredBooks} searchQuery={debouncedSearchQuery} />
       </Box>
     </Box>
   );
