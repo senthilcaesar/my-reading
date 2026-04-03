@@ -1119,6 +1119,7 @@ To Live: A Novel,Yu Hua,,https://www.amazon.com/Live-Novel-Yu-Hua/dp/1400031869/
 Too Big to Fail,Andrew Ross Sorkin,Non-fiction,https://www.amazon.com/Too-Big-Fail-Washington-System/dp/0670021253,The Inside Story of How Wall Street and Washington Fought to Save the Financial System---and Themselves
 Trauma and Recovery,Judith Lewis Herman MD,,https://www.amazon.com/Trauma-Recovery-Aftermath-Violence-Political/dp/1541602951/ref=tmm_pap_swatch_0,The Aftermath of Violence--from Domestic Abuse to Political Terror
 
+The Wise Men,Walter Isaacson,Non-fiction,https://www.amazon.com/Wise-Men-Friends-World-They/dp/1476728828,"Six Friends and the World They Made"
 
 "Endgame: The Betrayal and Fall of Srebrenica",David Rohde,History,https://www.amazon.com/Endgame-Betrayal-Srebrenica-Europes-Massacre/dp/014312031X,"Europe's Worst Massacre Since World War II"
 
