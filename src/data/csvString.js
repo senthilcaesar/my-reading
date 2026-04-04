@@ -7,7 +7,8 @@ export const csvData = `Title,Author,Category,Link,Summary
 
 Why Machines Learn,Anil Ananthaswamy,Non-fiction,https://www.amazon.com/gp/product/0593185749,"A rich, narrative explanation of the mathematics that has brought us machine learning and the ongoing explosion of artificial intelligence."
 
-
+Notes on a Foreign Country,Suzy Hansen,Non-fiction,https://www.amazon.com/Notes-Foreign-Country-American-Post-American/dp/0374537836,"An American Abroad in a Post-American World"
+Citizens of London,Lynne Olson,History,https://www.amazon.com/gp/product/0812979354?smid=ATVPDKIKX0DER,"The Americans Who Stood with Britain in Its Darkest, Finest Hour"
 
 Co-Intelligence,Ethan Mollick,Business,https://www.amazon.com/gp/product/059371671X,"In Co-Intelligence, Mollick urges us to engage with AI as co-worker, co-teacher, and coach. He assesses its profound impact on business and education, using dozens of real-time examples of AI in action. Co-Intelligence shows what it means to think and work together with smart machines, and why it's imperative that we master that skill."
 Becoming a Data Head,Alex J. Gutman,Non-fiction,https://www.amazon.com/Becoming-Data-Head-Understand-Statistics/dp/1119741742,"In Becoming a Data Head: How to Think, Speak, and Understand Data Science, Statistics, and Machine Learning, award-winning data scientists Alex Gutman and Jordan Goldmeier pull back the curtain on data science and give you the language and tools necessary to talk and think critically about it."
