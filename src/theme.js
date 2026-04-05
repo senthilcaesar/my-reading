@@ -8,46 +8,46 @@ const config = {
 const theme = extendTheme({
   config,
   fonts: {
-    heading: `'Outfit', sans-serif`,
-    body: `'Inter', sans-serif`,
+    heading: `'Poppins', Arial, sans-serif`,
+    body: `'Lora', Georgia, serif`,
   },
   semanticTokens: {
     colors: {
       bg: {
-        default: '#fcf8e8',
-        _dark: '#050507',
+        default: '#faf9f5',
+        _dark: '#141413',
       },
       surface: {
-        default: 'rgba(67, 52, 34, 0.05)',
-        _dark: 'rgba(255, 255, 255, 0.03)',
+        default: '#e8e6dc',
+        _dark: 'rgba(250, 249, 245, 0.05)',
       },
       surfaceHover: {
-        default: 'rgba(67, 52, 34, 0.08)',
-        _dark: 'rgba(255, 255, 255, 0.08)',
+        default: '#d4d1c4',
+        _dark: 'rgba(250, 249, 245, 0.1)',
       },
       borderPrimary: {
-        default: 'rgba(67, 52, 34, 0.15)',
-        _dark: 'rgba(255, 255, 255, 0.1)',
+        default: '#b0aea5',
+        _dark: 'rgba(250, 249, 245, 0.15)',
       },
       textPrimary: {
-        default: '#3d3021',
-        _dark: '#f0f0f5',
+        default: '#141413',
+        _dark: '#faf9f5',
       },
       textSecondary: {
-        default: '#6e5b4b',
-        _dark: '#a0a0b0',
+        default: '#5c5c56',
+        _dark: '#b0aea5',
       },
       accentPrimary: {
-        default: '#b08d57',
-        _dark: '#00f2ff',
+        default: '#d97757',
+        _dark: '#d97757',
       },
       accentSecondary: {
-        default: '#7d6b5d',
-        _dark: '#7000ff',
+        default: '#6a9bcc',
+        _dark: '#6a9bcc',
       },
       accentMagenta: {
-        default: '#a64d4d',
-        _dark: '#ff00ea',
+        default: '#788c5d',
+        _dark: '#788c5d',
       },
     }
   },

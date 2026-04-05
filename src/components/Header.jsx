@@ -64,7 +64,7 @@ export default function Header({ bookCount }) {
           {/* Center — Title */}
           <Heading
             as="h1"
-            fontFamily="'Franklin Gothic', serif"
+            fontFamily="heading"
             fontSize={scrolled
               ? { base: 'md', sm: 'lg', md: '2xl' }
               : { base: 'lg', sm: 'xl', md: '3xl' }

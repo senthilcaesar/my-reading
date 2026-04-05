@@ -1,4 +1,4 @@
-import { Flex, Input, InputGroup, InputLeftElement, InputRightElement, Select, Button, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Input, InputGroup, InputLeftElement, InputRightElement, Select, Button } from '@chakra-ui/react';
 import { Search, X, Shuffle } from 'lucide-react';
 
 export default function Controls({

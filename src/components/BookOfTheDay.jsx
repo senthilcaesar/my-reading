@@ -4,11 +4,10 @@ import { books } from '../data/parsedBooks';
 
 export default function BookOfTheDay() {
   const [book, setBook] = useState(null);
-  
+
   const bgGradient = "surfaceHover";
   const borderColor = "borderPrimary";
   const textColorPrimary = "textPrimary";
-  const textColorSecondary = "textSecondary";
   const accentColor = "accentPrimary";
   const dividerColor = "borderPrimary";
 
@@ -41,32 +40,33 @@ export default function BookOfTheDay() {
 
   return (
     <Box className="billboard-border-glow" pb="1px">
-      <Box 
+      <Box
         bg={bgGradient}
-        px={3} py={2} position="relative" 
-        borderBottom="1px solid" borderBottomColor={borderColor} 
-        overflow="hidden"
+        px={3} py={2} position="relative"
+        borderBottom="1px solid" borderBottomColor={borderColor}
+        overflow="visible"
       >
         <Flex position="relative" zIndex={10} align="center" justify="center" gap={{ base: 2, sm: 3, md: 4 }} wrap={{ base: 'wrap', sm: 'nowrap' }} py={0}>
-          
+
           <Flex align="center" gap={4}>
             <Box className="modern-book-container">
               <span className="modern-book-base">📖</span>
             </Box>
-            
-            <Text 
-              fontFamily="'Libre Baskerville', serif" 
-              fontSize={{ base: 'lg', sm: 'xl', md: '2xl' }} 
-              fontWeight="700" 
-              fontStyle="italic"
-              letterSpacing="0.02em" 
-              color={accentColor} 
-              whiteSpace="nowrap" 
+
+            <Text
+              fontFamily="'Pacifico', cursive"
+              fontSize={{ base: 'xl', sm: '2xl', md: '3xl' }}
+              fontWeight="normal"
+              lineHeight={1.25}
+              letterSpacing="0.01em"
+              color="accentMagenta"
+              textShadow="0 2px 16px rgba(0, 0, 0, 0.14)"
+              whiteSpace="nowrap"
               zIndex={10}
             >
               Book of the Day
             </Text>
-            
+
             <Box className="modern-book-container">
               <span className="modern-book-base">📖</span>
             </Box>
@@ -75,7 +75,7 @@ export default function BookOfTheDay() {
           <Text display={{ base: 'none', sm: 'inline' }} color={dividerColor} fontSize="lg">│</Text>
           <Box display="flex" flexDirection="column" gap={0}>
             <Link href={book.link} isExternal _hover={{ textDecoration: 'none', opacity: 0.8 }}>
-          <Heading fontFamily="serif" fontSize={{ base: 'sm', sm: 'md', md: 'lg' }} fontWeight="normal" color={textColorPrimary} whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxW={{ base: '180px', sm: '250px', md: '300px' }}>
+              <Heading fontFamily="body" fontSize={{ base: 'sm', sm: 'md', md: 'lg' }} fontWeight="normal" color={textColorPrimary} whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxW={{ base: '180px', sm: '250px', md: '300px' }}>
                 {book.title}
               </Heading>
             </Link>
@@ -88,7 +88,7 @@ export default function BookOfTheDay() {
               </Badge>
             </Flex>
           </Box>
-          
+
         </Flex>
       </Box>
     </Box>

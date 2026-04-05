@@ -51,6 +51,7 @@ if (parsed.length > 0) {
     if(category) categories.add(category);
     
     books.push({
+      id: i,
       title: title.replace(/^"|"$/g, '').trim(),
       author: (row[headerMap['author']] || '').replace(/^"|"$/g, '').trim(),
       category: category,

@@ -20,7 +20,7 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.15 } },
 };
 
-export default function BookGrid({ books, searchQuery }) {
+export default function BookGrid({ books, searchQuery, shuffleCount }) {
   if (!books || books.length === 0) {
     return (
       <Box textAlign="center" py={12} px={4}>
@@ -31,6 +31,7 @@ export default function BookGrid({ books, searchQuery }) {
 
   return (
     <MotionSimpleGrid
+      key={shuffleCount}
       columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
       spacing={{ base: 4, md: 5, lg: 6 }}
       maxW="7xl"
@@ -42,7 +43,7 @@ export default function BookGrid({ books, searchQuery }) {
       <AnimatePresence mode="popLayout" initial={false}>
         {books.map((book, idx) => (
           <MotionBox
-            key={book.title}
+            key={book.id}
             custom={idx}
             variants={cardVariants}
             initial="hidden"

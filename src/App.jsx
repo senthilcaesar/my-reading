@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useDebounce } from './hooks/useDebounce';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import Header from './components/Header';
 import BookOfTheDay from './components/BookOfTheDay';
 import Controls from './components/Controls';
@@ -11,20 +11,24 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [booksList, setBooksList] = useState(initialBooks);
+  const [shuffleCount, setShuffleCount] = useState(0);
   
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const handleShuffle = useCallback(() => {
-    const shuffled = [...booksList];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setBooksList(shuffled);
+    setBooksList(prev => {
+      const shuffled = [...prev];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    });
+    setShuffleCount(prev => prev + 1);
     // Reset filters
     setSearchQuery('');
     setSelectedCategory('');
-  }, [booksList]);
+  }, []);
 
   // Compute filtered and sorted books
   const filteredBooks = useMemo(() => {
@@ -60,7 +64,11 @@ function App() {
           categories={categories}
           onShuffle={handleShuffle}
         />
-        <BookGrid books={filteredBooks} searchQuery={debouncedSearchQuery} />
+        <BookGrid
+          books={filteredBooks}
+          searchQuery={debouncedSearchQuery}
+          shuffleCount={shuffleCount}
+        />
       </Box>
     </Box>
   );
