@@ -172,6 +172,18 @@ Balzac and the Little Chinese Seamstress,Dai Sijie,History,https://www.amazon.co
 
 
 "The Business of Platforms","Michael A. Cusumano",Business,https://www.amazon.com/gp/product/0062896326,"Strategy in the Age of Digital Competition, Innovation, and Power – The Essential Economics and Management Guide for Tech Entrepreneurs"
+Underground Asia,Tim Harper,Non-fiction,https://www.amazon.com/Underground-Asia-Global-Revolutionaries-Assault/dp/067429212X,"Global Revolutionaries and the Assault on Empire"
+
+"Softly, As I Leave You: Life After Elvis",Priscilla Presley,Memoir,https://www.amazon.com/gp/product/0306837927,"A passionate, compassionate, and inspiring story of finding your place in the world, Softly, As I Leave You, is a sweet Southern melody that will take the reader with Priscilla on her long road home."
+No Place to Hide,Glenn Greenwald,Non-fiction,https://www.amazon.com/gp/product/1250062586/,"Edward Snowden, the NSA, and the U.S. Surveillance State"
+The Sum of It All,Lewis E. Lehrman,Biography,https://www.amazon.com/gp/product/1493076507,"Lewis E. Lehrman’s biography recounts a purposeful life of accomplishments. He was instrumental early on in building up the family business, Rite Aid. Later he formed a successful investment business, joined Morgan Stanley, and founded a hedge fund."
+"All the President's Men",Bob Woodward,Non-fiction,https://www.amazon.com/gp/product/1476770514,"All the President’s Men is a riveting detective story, capturing the exhilarating rush of the biggest presidential scandal in US history as it unfolded in real time."
+At that point in time,Fred D Thompson,History/Politics,https://www.amazon.com/gp/product/0812905369,"The inside story of the Senate Watergate Committee"
+"I'd Rather Teach Peace",Colman McCarthy,Non-fiction,https://www.amazon.com/Rather-Teach-Peace-Colman-McCarthy/dp/1570754306,"I'd Rather Teach Peace chronicles one semester in six of these schools, as students find themselves challenged and inspired by an unconventional course and by a man who believes that if we don't teach our children peace, someone else will teach them violence."
+Necessary Trouble,Drew Gilpin Faust,Non-fiction,https://www.amazon.com/gp/product/1250338212,"Culminating in the upheavals of 1968, Necessary Trouble captures a time of rapid change and fierce reaction in one young woman’s life, tracing the transformations and aftershocks that we continue to grapple with today."
+The Paradox of Choice,Barry Schwartz,Non-fiction,https://www.amazon.com/gp/product/0062449923,"In The Paradox of Choice, Barry Schwartz explains at what point choice―the hallmark of individual freedom and self-determination that we so cherish―becomes detrimental to our psychological and emotional well-being."
+The Thinking Machine,Stephen Witt,Business,https://www.amazon.com/gp/product/0593832698,"Jensen Huang, Nvidia, and the World's Most Coveted Microchip"
+All the Single Ladies,Rebecca Traister,Non-fiction,https://www.amazon.com/gp/product/1476716579,"Unmarried Women and the Rise of an Independent Nation"
 
 
 Banker to the Poor,Muhammad Yunus,Non-fiction,https://www.amazon.com/Banker-Poor-Micro-Lending-Against-Poverty/dp/1891620118,Micro-Lending and the Battle Against World Poverty
