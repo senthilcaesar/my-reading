@@ -5,6 +5,9 @@ export const csvData = `Title,Author,Category,Link,Summary
 "The Revolt of the Masses","José Ortega y Gasset",Non-fiction,https://www.amazon.com/gp/product/0393310957,"Social upheaval in early 20th-century Europe is the historical setting for this seminal study by the Spanish philosopher, José Ortega y Gasset. Continuously in print since 1932, Ortega's vision of Western culture as sinking to its lowest common denominator and drifting toward chaos brought its author international fame and has remained one of the influential books of the 20th century."
 "The Year of Living Danishly: Uncovering the Secrets of the World's Happiest Country",Helen Russell,Non-fiction,https://www.amazon.com/gp/product/1785780239/,"From childcare, education, food and interior design to SAD, taxes, sexism and an unfortunate predilection for burning witches, The Year of Living Danishly is a funny, poignant record of a journey that shows us where the Danes get it right, where they get it wrong, and how we might just benefit from living a little more Danishly ourselves."
 
+Say Nothing,Patrick Radden Keefe,Non-fiction,https://www.amazon.com/gp/product/0307279286,"A True Story of Murder and Memory in Northern Ireland"
+My Private War,Norman Bussel,Biography/Memoir,https://www.amazon.com/gp/product/1605980676,"Liberated Body, Captive Mind: A World War II POW's Journey"
+
 Why Machines Learn,Anil Ananthaswamy,Non-fiction,https://www.amazon.com/gp/product/0593185749,"A rich, narrative explanation of the mathematics that has brought us machine learning and the ongoing explosion of artificial intelligence."
 
 Notes on a Foreign Country,Suzy Hansen,Non-fiction,https://www.amazon.com/Notes-Foreign-Country-American-Post-American/dp/0374537836,"An American Abroad in a Post-American World"
