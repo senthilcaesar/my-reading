@@ -15,39 +15,39 @@ const theme = extendTheme({
     colors: {
       bg: {
         default: '#faf9f5',
-        _dark: '#141413',
+        _dark: '#303446',
       },
       surface: {
         default: '#e8e6dc',
-        _dark: 'rgba(250, 249, 245, 0.05)',
+        _dark: '#414559',
       },
       surfaceHover: {
         default: '#d4d1c4',
-        _dark: 'rgba(250, 249, 245, 0.1)',
+        _dark: '#51576d',
       },
       borderPrimary: {
         default: '#b0aea5',
-        _dark: 'rgba(250, 249, 245, 0.15)',
+        _dark: '#626880',
       },
       textPrimary: {
         default: '#141413',
-        _dark: '#faf9f5',
+        _dark: '#c6d0f5',
       },
       textSecondary: {
         default: '#5c5c56',
-        _dark: '#b0aea5',
+        _dark: '#a5adce',
       },
       accentPrimary: {
         default: '#d97757',
-        _dark: '#d97757',
+        _dark: '#ef9f76',
       },
       accentSecondary: {
         default: '#6a9bcc',
-        _dark: '#6a9bcc',
+        _dark: '#8caaee',
       },
       accentMagenta: {
         default: '#788c5d',
-        _dark: '#788c5d',
+        _dark: '#a6d189',
       },
     }
   },
