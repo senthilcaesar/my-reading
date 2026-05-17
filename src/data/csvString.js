@@ -146,7 +146,8 @@ Team of Teams,Stanley McChrystal,Non-fiction,https://www.amazon.com/gp/product/1
 Leadership Is Language,David Marquet,Non-fiction,https://www.amazon.com/gp/product/073521753X,"The Hidden Power of What You Say and What You Don't"
 House of Huawei,Eva Dou,Non-fiction,https://www.amazon.com/gp/product/0593544633,"The Secret History of China's Most Powerful Company"
 
-
+"The Infinity Machine",Sebastian Mallaby,Artificial Intelligence,https://www.amazon.com/gp/product/0593831845,"Demis Hassabis, DeepMind, and the Quest for Superintelligence"
+How To Think About AI,Richard Susskind,Artificial Intelligence,https://www.amazon.com/How-Think-About-AI-Perplexed/dp/0198941927,"Richard Susskind presents a short non-technical guide that challenges us to think differently about AI. Susskind brings AI out of computing laboratories, big tech companies, and start-ups - and into everyday life."
 
 
 A People's Guide to Capitalism,Hadas Thier,Finance,https://www.amazon.com/Peoples-Guide-Capitalism-Introduction-Economics/dp/1642591696/ref=sr_1_1?crid=386YDS7HAAZ2K&dib=eyJ2IjoiMSJ9.36Uc6vLmAORXg5wAE72Z3nXL4Rj8B_UGrSU0YoE_uKZgNshLmxM5Z8g8amI6BAfXkZ_PrK5ECa6kQrORBHzzhPB8kHubELBCRmBXQFCJQesUa7h1GB_rOsrN79RMnWSfdqhIzjw-wvykzPvUpmJuxWwq77SfMtnH_ladEbDImgv1UXXu4pQPyb0kWXZhRhrZ11JlROFmhNudRFRboJ-NyQYm-8GD5eqI1UbSw0EYElg.yDEKzm53BK7td21amC4Oj2I6PGG0q2JvNin6BvCizqA&dib_tag=se&keywords=people+guide+to+capitalism&qid=1748456447&s=books&sprefix=people+guide+to+capitalism%2Cstripbooks%2C88&sr=1-1,"""A People's Guide to Capitalism"" by Hadas Thier is an educational non-fiction book that provides a comprehensive and accessible explanation of the fundamental principles of Marxist economics. The book critically examines capitalism, its inherent flaws, and explores the potential for a socialist alternative."
