@@ -1,6 +1,7 @@
 import { memo } from 'react';
-import { Box, Flex, Heading, Text, Badge, Link } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Badge, Link, Wrap, WrapItem } from '@chakra-ui/react';
 import { ExternalLink } from 'lucide-react';
+import { bookTags } from '../data/bookTags';
 
 // ── Highlight matching text ────────────────────────────────────────────────────
 function HighlightText({ text, query }) {
@@ -125,9 +126,35 @@ const BookCard = memo(function BookCard({ book, searchQuery }) {
         >
           <HighlightText text={book.title} query={searchQuery} />
         </Heading>
-        <Text color="textSecondary" fontSize="sm" fontStyle="italic" mb={3}>
+        <Text color="textSecondary" fontSize="sm" fontStyle="italic" mb={2}>
           by <HighlightText text={book.author} query={searchQuery} />
         </Text>
+
+        {/* Tags */}
+        {bookTags[book.title] && bookTags[book.title].length > 0 && (
+          <Wrap gap={1.5} mb={3}>
+            {bookTags[book.title].map((tag) => (
+              <WrapItem key={tag}>
+                <Badge
+                  size="sm"
+                  colorScheme="gray"
+                  variant="subtle"
+                  borderRadius="full"
+                  px={2.5}
+                  py={0.5}
+                  fontSize="xs"
+                  fontWeight="medium"
+                  color="textSecondary"
+                  bg="surfaceHover"
+                  _dark={{ bg: 'rgba(255,255,255,0.05)' }}
+                >
+                  {tag}
+                </Badge>
+              </WrapItem>
+            ))}
+          </Wrap>
+        )}
+
         <Text
           color="textSecondary"
           fontSize={{ base: 'xs', md: 'sm' }}

@@ -64,14 +64,14 @@ export default function Header({ bookCount }) {
           {/* Center — Title */}
           <Heading
             as="h1"
-            fontFamily="heading"
+            fontFamily="'Rye', serif"
             fontSize={scrolled
               ? { base: 'md', sm: 'lg', md: '2xl' }
               : { base: 'lg', sm: 'xl', md: '3xl' }
             }
-            fontWeight="normal"
+            fontWeight="400"
             color="textPrimary"
-            letterSpacing={{ base: '0.01em', md: '0.04em' }}
+            letterSpacing={{ base: '0.02em', md: '0.04em' }}
             transition="font-size 0.35s ease, color 0.2s ease"
             userSelect="none"
             cursor="pointer"

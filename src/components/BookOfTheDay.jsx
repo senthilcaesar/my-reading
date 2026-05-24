@@ -55,7 +55,7 @@ export default function BookOfTheDay() {
 
             <Text
               fontFamily="'Pacifico', cursive"
-              fontSize={{ base: 'xl', sm: '2xl', md: '3xl' }}
+              fontSize={{ base: 'lg', sm: 'xl', md: '2xl' }}
               fontWeight="normal"
               lineHeight={1.25}
               letterSpacing="0.01em"
