@@ -105,6 +105,13 @@ Range: Why Generalists Triumph in a Specialized World,David Epstein,Business,htt
 
 The Upside of Stress,Kelly McGonigal PhD,Non-fiction,https://www.amazon.com/gp/product/1101982934,"Why Stress Is Good for You, and How to Get Good at It"
 
+The Last Kings of Shanghai,Jonathan Kaufman,Non-fiction,https://www.amazon.com/gp/product/0735224439,"The Rival Jewish Dynasties That Helped Create Modern China"
+Justice for All,Jim Newton,Non-fiction,https://www.amazon.com/gp/product/1594482705,"Earl Warren and the Nation He Made"
+Leading Change,"John P. Kotter",Non-fiction,https://www.amazon.com/gp/product/1422186431,"John Kotter’s now-legendary eight-step process for managing change with positive results has become the foundation for leaders and organizations across the globe."
+Eagle Against the Sun,"Ronald H. Spector",Non-fiction,https://www.amazon.com/gp/product/1982135239,"The American War with Japan"
+The Big Print,Lawrence Lepard,Non-fiction,https://www.amazon.com/gp/product/B0DVTCVX8J,"What Happened To America And How Sound Money Will Fix It"
+
+
 Berkshire Hathaway Letters to Shareholders,Warren E. Buffett,Business,https://www.amazon.com/gp/product/0615975070/,"This book compiles the full, un-edited versions of 50 years of Warren Buffett's letters to the shareholders of Berkshire Hathaway. In addition to providing an astounding case study on Berkshire's success, Buffett shows an incredible willingness to share his methods and act as a teacher to his many students."
 The Color of Law,Richard Rothstein,History,https://www.amazon.com/gp/product/1631494538/,"In The Color of Law, Richard Rothstein argues that the segregation of American cities was not merely the result of individual prejudices or economic factors, but was instead the direct result of government policies at the local, state, and federal levels. The book provides a detailed examination of how these policies created and maintained racial segregation in housing, leading to lasting disparities in wealth, education, and opportunity for African Americans."
 Not My Type: One Woman vs. a President,E. Jean Carroll,Politics,https://www.amazon.com/gp/product/1250381681/,"It's a memoir that gives a behind-the-scenes look at the two trials she had against Donald Trump for sexual abuse and defamation."
