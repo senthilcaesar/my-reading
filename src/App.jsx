@@ -6,6 +6,7 @@ import BookOfTheDay from './components/BookOfTheDay';
 import Controls from './components/Controls';
 import BookGrid from './components/BookGrid';
 import { books as initialBooks, categories } from './data/parsedBooks';
+import { bookTags } from './data/bookTags';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,12 +43,21 @@ function App() {
     // Filter by search query
     if (debouncedSearchQuery) {
       const query = debouncedSearchQuery.toLowerCase();
-      result = result.filter(book => 
-        book.title.toLowerCase().includes(query) ||
-        book.author.toLowerCase().includes(query) ||
-        book.category.toLowerCase().includes(query) ||
-        book.summary.toLowerCase().includes(query)
-      );
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, 'i');
+
+      result = result.filter(book => {
+        const matchesBasicFields =
+          wordBoundaryRegex.test(book.title) ||
+          wordBoundaryRegex.test(book.author) ||
+          wordBoundaryRegex.test(book.category) ||
+          wordBoundaryRegex.test(book.summary);
+
+        const tags = bookTags[book.title] || [];
+        const matchesTags = tags.some(tag => wordBoundaryRegex.test(tag));
+
+        return matchesBasicFields || matchesTags;
+      });
     }
 
     return result;
