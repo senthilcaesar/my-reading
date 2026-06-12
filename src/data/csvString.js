@@ -163,6 +163,9 @@ A Mind of Your Own,Kelly Brogan M.D.,History,https://www.amazon.com/Mind-Your-Ow
 A Mountain on My Back,Ms. Youfeng Shen,Science,https://www.amazon.com/Mountain-My-Back-Memoir-Chinese/dp/1790345685/ref=sr_1_2?crid=2JGYO6QK897ZP&dib=eyJ2IjoiMSJ9.p0ExLU5d69aMAMx-OQKZDiICY2oOxWQ6BANxddcgWwjeyHmj1_r7Y2u5f22mElhbDVoSWHIEyX-HLPbXXCEQgZ-CfMIEWlisk9Wl1WxXeZSThrCAabDogGfWJqxF4t4baDicu4eA76a2iNzBFHZSa4FvVGokul1RdeVZKq2F4dVs2RRToH6HoVQz0EvPSebB5ijwf_iYje7nOThqt1YzOlpfeIhT4LNUaBxqrdzBylI.jtr_Ne9dcO2fVICkcM__JKJE6dk_ZXxt87MLD-m2PfA&dib_tag=se&keywords=A+mountain+on+my+back&qid=1748456587&s=books&sprefix=a+mountain+on+my+back%2Cstripbooks%2C97&sr=1-2,"""A Mountain on My Back"" by Ms. Youfeng Shen is a poignant memoir that explores the author's personal journey of overcoming adversity and hardship. The book, characterized by its emotional depth and introspective narrative, delves into themes of resilience, personal growth, and the human spirit's indomitable will to survive."
 A Path Appears,Nicholas D. Kristof,Non-fiction,https://www.amazon.com/Path-Appears-Transforming-Creating-Opportunity/dp/0385349912,"Transforming Lives, Creating Opportunity"
 
+A Brief History of Intelligence,"Max S. Bennett",Education,https://www.amazon.com/Brief-History-Intelligence-Evolution-Breakthroughs/dp/0063286351,"Evolution, AI, and the Five Breakthroughs That Made Our Brains – A Neuroscience Framework for Understanding Future Machines"
+
+
 Questions Are the Answer,Hal Gregersen,Non-fiction,https://www.amazon.com/gp/product/0062844768,"A Breakthrough Approach to Your Most Vexing Problems at Work and in Life"
 Team of Teams,Stanley McChrystal,Non-fiction,https://www.amazon.com/gp/product/1591847486,"New Rules of Engagement for a Complex World"
 Leadership Is Language,David Marquet,Non-fiction,https://www.amazon.com/gp/product/073521753X,"The Hidden Power of What You Say and What You Don't"
