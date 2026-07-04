@@ -6,6 +6,10 @@ export const csvData = `Title,Author,Category,Link,Summary
 "The Price of Time: The Real Story of Interest","Edward Chancellor",Non-fiction,https://www.amazon.com/Price-Time-Real-Story-Interest/dp/0802161782,"A comprehensive and profoundly relevant history of interest from one of the world’s leading financial writers, The Price of Time explains our current global financial position and how we got here."
 "The Revolt of the Masses","José Ortega y Gasset",Non-fiction,https://www.amazon.com/gp/product/0393310957,"Social upheaval in early 20th-century Europe is the historical setting for this seminal study by the Spanish philosopher, José Ortega y Gasset. Continuously in print since 1932, Ortega's vision of Western culture as sinking to its lowest common denominator and drifting toward chaos brought its author international fame and has remained one of the influential books of the 20th century."
 "The Year of Living Danishly: Uncovering the Secrets of the World's Happiest Country",Helen Russell,Non-fiction,https://www.amazon.com/gp/product/1785780239/,"From childcare, education, food and interior design to SAD, taxes, sexism and an unfortunate predilection for burning witches, The Year of Living Danishly is a funny, poignant record of a journey that shows us where the Danes get it right, where they get it wrong, and how we might just benefit from living a little more Danishly ourselves."
+"Staff Engineer",Will Larson,Leadership,https://www.amazon.com/gp/product/1736417916,"Leadership beyond the management track"
+"Bonfire of the Murdochs",Gabriel Sherman,Non-fiction,https://www.amazon.com/gp/product/1982167416,"How the Epic Fight to Control the Last Great Media Dynasty Broke a Family and the World"
+
+
 
 "The First Rule of Mastery",Michael Gervais PhD,Psychology,https://www.amazon.com/gp/product/1647823242,"Stop Worrying about What People Think of You."
 
@@ -52,9 +56,28 @@ The Signal and the Noise,Nate Silver,Non-fiction,https://www.amazon.com/Signal-N
 "Genius Makers",Cade Metz,Non-fiction,https://www.amazon.com/gp/product/1524742694,"The Mavericks Who Brought AI to Google, Facebook, and the World."
 "Eagle Against the Sun","Ronald H. Spector",Military History,https://www.amazon.com/gp/product/1982135239,"The American War with Japan"
 
+Play,Stuart Brown,Non-fiction,https://www.amazon.com/gp/product/1583333789,"How it Shapes the Brain, Opens the Imagination, and Invigorates the Soul"
+This Time Together,Carol Burnett,Non-fiction,https://www.amazon.com/gp/product/030746119X,"Laughter and Reflection"
+If You Ask Me,Betty White,Non-fiction,https://www.amazon.com/gp/product/0425245284,"The New York Times bestseller from the beloved actress and Hollywood icon who's made us laugh on shows from The Mary Tyler Moore Show to Golden Girls to Saturday Night Live!"
+In Pieces,Sally Field,Non-fiction,https://www.amazon.com/gp/product/1538763036,"In this haunting memoir, an American icon tells her story of a challenging childhood, the craft that helped her find her voice, and a powerful legacy that shaped her journey as a daughter and a mother."
+My Life So Far,Jane Fonda,Non-fiction,https://www.amazon.com/gp/product/0812975766/,"Discover Jane Fonda, in her own words—and now experience the story of her life in the HBO documentary Jane Fonda in Five Acts."
+"In Plain Sight: The Life and Lies of Jimmy Savile",Dan Davies,Non-fiction,https://www.amazon.com/gp/product/1782067469,"Winner of the 2015 Gordon Burn Prize and the 2015 CWA Non-Fiction Dagger"
+Thrive,Arianna Huffington,Memoir,https://www.amazon.com/gp/product/0804140863,"The Third Metric to Redefining Success and Creating a Life of Well-Being, Wisdom, and Wonder"
+
+
 "The Startup of You",Reid Hoffman,Non-fiction,https://www.amazon.com/gp/product/0307888908,"In this invaluable book, LinkedIn co-founder Reid Hoffman and venture capitalist Ben Casnocha show how to accelerate your career in today’s competitive world. The key is to manage your career as if it were a startup business: a living, breathing, growing startup of you."
 "The Work of the Future: Building Better Jobs in an Age of Intelligent Machines",David H. Autor,Non-fiction,https://www.amazon.com/gp/product/0262547309,"Why the United States lags behind other industrialized countries in sharing the benefits of innovation with workers and how we can remedy the problem."
 "Shared Prosperity in a Fractured World",Dani Rodrik,Non-fiction,https://www.amazon.com/gp/product/0691268312,"Dani Rodrik provides a bold new vision of globalization, one in which we accelerate the green transition to achieve a sustainable planet, shore up the middle class to restore democracy’s foundations, and hasten economic revitalization in the developing world to put an end to poverty."
+
+Flags of Our Fathers,James Bradley,Military History,https://www.amazon.com/gp/product/0553384155,"he perfect gift for Father’s Day, this is the true story behind the immortal photograph that has come to symbolize the courage and indomitable will of America"
+
+Last Chance to See,Douglas Adams,Non-fiction,https://www.amazon.com/gp/product/0345371984,"New York Times bestselling author Douglas Adams and zoologist Mark Carwardine take off around the world in search of exotic, endangered creatures."
+
+
+Plastic Inc,Beth Gardiner,Non-fiction,https://www.amazon.com/gp/product/0593717104,"The Secret History and Shocking Future of Big Oil's Biggest Bet"
+"Smart, Not Loud",Jessica Chen,Non-fiction,https://www.amazon.com/gp/product/0593717686,"How to Get Noticed at Work for All the Right Reasons"
+
+
 "The Age of AI: And Our Human Future",Henry A Kissinger,Non-fiction,https://www.amazon.com/gp/product/0316273996,"Three of the world’s most accomplished and deep thinkers come together to explore Artificial Intelligence (AI) and the way it is transforming human society—and what this technology means for us all."
 "Reading the Constitution: Why I Chose Pragmatism, Not Textualism",Stephen Breyer,Politics,https://www.amazon.com/Reading-Constitution-Chose-Pragmatism-Textualism/dp/1668021544,"In a provocative and brilliant analysis, retired Supreme Court Justice Stephen Breyer deconstructs the textualist philosophy of the current Supreme Court’s supermajority and makes the case for a more pragmatic approach of the Constitution."
 "Competing in the Age of AI",Marco Iansiti,Business,https://www.amazon.com/gp/product/1633697622,"Strategy and Leadership When Algorithms and Networks Run the World."
@@ -174,6 +197,12 @@ House of Huawei,Eva Dou,Non-fiction,https://www.amazon.com/gp/product/0593544633
 "The Infinity Machine",Sebastian Mallaby,Artificial Intelligence,https://www.amazon.com/gp/product/0593831845,"Demis Hassabis, DeepMind, and the Quest for Superintelligence"
 How To Think About AI,Richard Susskind,Artificial Intelligence,https://www.amazon.com/How-Think-About-AI-Perplexed/dp/0198941927,"Richard Susskind presents a short non-technical guide that challenges us to think differently about AI. Susskind brings AI out of computing laboratories, big tech companies, and start-ups - and into everyday life."
 The Personal MBA,Josh Kaufman,Non-fiction,https://www.amazon.com/gp/product/0525543023,"The Personal MBA 10th Anniversary Edition provides a clear overview of the essentials of every major business topic: entrepreneurship, product development, marketing, sales, negotiation, accounting, finance, productivity, communication, psychology, leadership, systems design, analysis, and operations management...all in one comprehensive volume."
+
+"Power, Sex, Suicide",Nick Lane,Non-fiction,"https://www.amazon.com/gp/product/0198831900","Mitochondria and the meaning of life"
+"The Diaries of Alan Rickman",Alan Rickman,Biography,"https://www.amazon.com/gp/product/1250847974","From his breakout role in Die Hard to his outstanding, multifaceted performances in the Harry Potter films, Galaxy Quest, Robin Hood: Prince of Thieves, and more, Alan Rickman cemented his legacy as a world-class actor. His air of dignity, his sonorous voice, and the knowing wit he brought to each role continue to captivate audiences today."
+When Sleeping Women Wake,Emma Pei Yin,Fiction,https://www.amazon.com/gp/product/0593975588,"In this remarkable and harrowing debut novel, three extraordinary women—a mother, her daughter, and their maid—are each forced on a journey of survival during the Japanese occupation of Hong Kong in World War II."
+
+
 
 The Loneliest Americans,Jay Caspian Kang,Non-fiction,https://www.amazon.com/gp/product/0525576231,"The Loneliest Americans is the unforgettable story of Kang and his family as they move from a housing project in Cambridge to an idyllic college town in the South and eventually to the West Coast. Their story unfolds against the backdrop of a rapidly expanding Asian America, as millions more immigrants, many of them working-class or undocumented, stream into the country."
 
