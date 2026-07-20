@@ -73,10 +73,12 @@ Flags of Our Fathers,James Bradley,Military History,https://www.amazon.com/gp/pr
 
 Last Chance to See,Douglas Adams,Non-fiction,https://www.amazon.com/gp/product/0345371984,"New York Times bestselling author Douglas Adams and zoologist Mark Carwardine take off around the world in search of exotic, endangered creatures."
 
+"Showa 1926-1939: A History of Japan",Shigeru Mizuki,History,https://www.amazon.com/gp/product/1770466258,"Volume One of the acclaimed Showa: A History of Japan graphic novel series delves into the early years of Emperor Hirohito’s reign"
 
 Plastic Inc,Beth Gardiner,Non-fiction,https://www.amazon.com/gp/product/0593717104,"The Secret History and Shocking Future of Big Oil's Biggest Bet"
 "Smart, Not Loud",Jessica Chen,Non-fiction,https://www.amazon.com/gp/product/0593717686,"How to Get Noticed at Work for All the Right Reasons"
 
+"101 Essays That Will Change The Way You Think",Brianna Wiest,Non-fiction,https://www.amazon.com/gp/product/1945796065,"Brianna Wiest’s second book is a collection of short, reflective essays that challenge the way you view success, failure, love, and the nature of your own mind. These pages offer solace, wisdom, and a gentle nudge to step into a more intentional way of living."
 
 "The Age of AI: And Our Human Future",Henry A Kissinger,Non-fiction,https://www.amazon.com/gp/product/0316273996,"Three of the world’s most accomplished and deep thinkers come together to explore Artificial Intelligence (AI) and the way it is transforming human society—and what this technology means for us all."
 "Reading the Constitution: Why I Chose Pragmatism, Not Textualism",Stephen Breyer,Politics,https://www.amazon.com/Reading-Constitution-Chose-Pragmatism-Textualism/dp/1668021544,"In a provocative and brilliant analysis, retired Supreme Court Justice Stephen Breyer deconstructs the textualist philosophy of the current Supreme Court’s supermajority and makes the case for a more pragmatic approach of the Constitution."
@@ -85,6 +87,8 @@ Plastic Inc,Beth Gardiner,Non-fiction,https://www.amazon.com/gp/product/05937171
 "America in the World: A History of U.S. Diplomacy and Foreign Policy",Robert B. Zoellick,History,https://www.amazon.com/gp/product/1538712377,"America has a long history of diplomacy–ranging from Benjamin Franklin, Alexander Hamilton, and Thomas Jefferson to Henry Kissinger, Ronald Reagan, and James Baker–now is your chance to see the impact these Americans have had on the world."
 
 "Devil Take the Hindmost: A History of Financial Speculation","Edward Chancellor",Non-fiction,https://www.amazon.com/gp/product/0452281806,"In Devil Take the Hindmost, Edward Chancellor traces the origins of the speculative spirit back to ancient Rome and chronicles its revival in the modern world: from the tulip scandal of 1630s Holland, to “stockjobbing” in London's Exchange Alley, to the infamous South Sea Bubble of 1720, which prompted Sir Isaac Newton to comment, “I can calculate the motion of heavenly bodies, but not the madness of people."
+
+"Connie: A Memoir",Connie Chung,Memoir,https://www.amazon.com/gp/product/1538766981,"In a sharp, witty memoir, iconic trailblazer and legendary journalist Connie Chung pulls no punches in detailing her storied career as the first Asian woman to break into an overwhelmingly white, male-dominated television news industry"
 
 
 "The Making of a Manager: What to Do When Everyone Looks to You",Julie Zhuo,Business,https://www.amazon.com/gp/product/0735219567,"In The Making of a Manager, Julie Zhuo, Vice President of Product Design at Facebook, shares her insights and experiences on how to become an effective manager. The book provides practical advice for new managers on topics such as building and leading teams, giving feedback, making decisions, and navigating the challenges of management. Zhuo emphasizes the importance of empathy, communication, and continuous learning in becoming a successful leader."
@@ -100,7 +104,6 @@ House of Fidelity,Justin Baer,Non-fiction,https://www.amazon.com/gp/product/1538
 
 Connecting the Dots,John Chambers,Business,https://www.amazon.com/gp/product/031648654X,"Lessons for Leadership in a Startup World"
 
-"Just the Good Stuff: No-BS Secrets to Success (No Matter What Life Throws at You)",Jim VandeHei,Business,https://www.amazon.com/gp/product/0593796373,"A deeply personal, authentic, and clear-eyed guide to navigating today’s complex world and building a meaningful, successful career and life—no matter where you start out—from the bestselling author and cofounder of Axios and Politico."
 "Financial Literacy for All",John Hope Bryant,Economics,https://www.amazon.com/gp/product/1394329539,"Disrupting Struggle, Advancing Financial Freedom, and Building a New American Middle Class."
 
 "ChatGPT, MD: How AI-Empowered Patients & Doctors Can Take Back Control of American Medicine",Robert Pearl MD,Science,https://www.amazon.com/gp/product/B0CZTGPQC6,"Doctors and patients have lost control of American medicine. Generative AI can put the power back in their hands, save millions of lives, and restore the doctor-patient relationship. Welcome to ChatGPT, MD. In this unique collaboration, renowned healthcare leader Dr. Robert Pearl teams up with the artificial intelligence system ChatGPT to examine the transformational power of generative AI in medicine."
