@@ -7,7 +7,7 @@
 
 ## What This App Does
 
-A personal **book collection browser** — a rich, interactive web app that displays ~900 books parsed from a CSV. Users can search, filter by category, shuffle the collection, and see a deterministic "Book of the Day." It is *read-only*: no user accounts, no mutations, no backend.
+A personal **book collection browser** — a rich, interactive web app that displays ~900 books parsed from a CSV. Users can search, filter by category, shuffle the collection, and see a deterministic "Book of the Day." It is _read-only_: no user accounts, no mutations, no backend.
 
 Live URL (local): `http://localhost:5173` (Vite dev server)
 
@@ -15,15 +15,15 @@ Live URL (local): `http://localhost:5173` (Vite dev server)
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 19 + Vite 7 |
-| UI library | Chakra UI v2 (`@chakra-ui/react`) |
-| Animations | Framer Motion 12 |
-| Icons | Lucide React |
-| Language | JavaScript (JSX) — no TypeScript |
-| Styling | Chakra semantic tokens + inline Chakra props (no Tailwind, no raw CSS files) |
-| Data | ~900-book CSV embedded as a JS string in `src/data/csvString.js` |
+| Layer      | Technology                                                                   |
+| ---------- | ---------------------------------------------------------------------------- |
+| Framework  | React 19 + Vite 7                                                            |
+| UI library | Chakra UI v2 (`@chakra-ui/react`)                                            |
+| Animations | Framer Motion 12                                                             |
+| Icons      | Lucide React                                                                 |
+| Language   | JavaScript (JSX) — no TypeScript                                             |
+| Styling    | Chakra semantic tokens + inline Chakra props (no Tailwind, no raw CSS files) |
+| Data       | ~900-book CSV embedded as a JS string in `src/data/csvString.js`             |
 
 ---
 
@@ -40,7 +40,8 @@ src/
 │   ├── BookOfTheDay.jsx         # Deterministic daily pick banner (seeded RNG from day-of-year)
 │   ├── Controls.jsx             # Search input (debounced), category <Select>, Shuffle button
 │   ├── BookGrid.jsx             # Framer Motion animated grid; AnimatePresence with mode="popLayout"
-│   ├── BookCard.jsx             # Individual card + HighlightText component
+│   ├── BookCard.jsx             # Individual card + HighlightText component; exports getCategoryStyles
+│   ├── BookDetailDrawer.jsx     # Right-side Chakra Drawer with full book details + "Visit Link" button
 │   └── TechStackModal.jsx       # Chakra Modal listing the tech stack
 │
 ├── data/
@@ -57,19 +58,20 @@ src/
 
 All colors are **semantic tokens** that auto-switch between light and dark mode. Always reference them by name, never hardcode hex values.
 
-| Token | Light | Dark | Usage |
-|-------|-------|------|-------|
-| `bg` | `#fcf8e8` (warm cream) | `#050507` | Page background |
-| `surface` | `rgba(67,52,34,0.05)` | `rgba(255,255,255,0.03)` | Card backgrounds |
-| `surfaceHover` | `rgba(67,52,34,0.08)` | `rgba(255,255,255,0.08)` | Inputs, hover states |
-| `borderPrimary` | `rgba(67,52,34,0.15)` | `rgba(255,255,255,0.1)` | Card/input borders |
-| `textPrimary` | `#3d3021` | `#f0f0f5` | Headings, primary text |
-| `textSecondary` | `#6e5b4b` | `#a0a0b0` | Subtext, metadata |
-| `accentPrimary` | `#b08d57` (warm amber) | `#00f2ff` (cyan) | Highlights, badges, CTA |
-| `accentSecondary` | `#7d6b5d` | `#7000ff` | Secondary accents |
-| `accentMagenta` | `#a64d4d` | `#ff00ea` | Unused currently |
+| Token             | Light                  | Dark                     | Usage                   |
+| ----------------- | ---------------------- | ------------------------ | ----------------------- |
+| `bg`              | `#fcf8e8` (warm cream) | `#050507`                | Page background         |
+| `surface`         | `rgba(67,52,34,0.05)`  | `rgba(255,255,255,0.03)` | Card backgrounds        |
+| `surfaceHover`    | `rgba(67,52,34,0.08)`  | `rgba(255,255,255,0.08)` | Inputs, hover states    |
+| `borderPrimary`   | `rgba(67,52,34,0.15)`  | `rgba(255,255,255,0.1)`  | Card/input borders      |
+| `textPrimary`     | `#3d3021`              | `#f0f0f5`                | Headings, primary text  |
+| `textSecondary`   | `#6e5b4b`              | `#a0a0b0`                | Subtext, metadata       |
+| `accentPrimary`   | `#b08d57` (warm amber) | `#00f2ff` (cyan)         | Highlights, badges, CTA |
+| `accentSecondary` | `#7d6b5d`              | `#7000ff`                | Secondary accents       |
+| `accentMagenta`   | `#a64d4d`              | `#ff00ea`                | Unused currently        |
 
 **Fonts:**
+
 - Headings → `'Outfit', sans-serif`
 - Body → `'Inter', sans-serif`
 - Book of the Day banner → `'Libre Baskerville', serif`
@@ -84,11 +86,11 @@ Google Fonts are loaded externally (check `index.html`).
 All critical state lives in `App.jsx` — no context, no Zustand, no Redux.
 
 ```js
-const [searchQuery, setSearchQuery]         // raw input value (not debounced)
-const [selectedCategory, setSelectedCategory] // active category filter
-const [booksList, setBooksList]             // ordered book array (mutated by Shuffle)
+const [searchQuery, setSearchQuery]; // raw input value (not debounced)
+const [selectedCategory, setSelectedCategory]; // active category filter
+const [booksList, setBooksList]; // ordered book array (mutated by Shuffle)
 
-const debouncedSearchQuery = useDebounce(searchQuery, 300) // passed to BookGrid
+const debouncedSearchQuery = useDebounce(searchQuery, 300); // passed to BookGrid
 ```
 
 **`filteredBooks`** (memoized): Applies category filter first, then search filter across `title`, `author`, `category`, and `summary`. Passed to `<BookGrid>` and used to update the header count.
@@ -134,6 +136,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 ```
 
 **`parsedBooks.js`** runs a custom CSV parser (handles quoted fields with commas) at module load time. It exports:
+
 - `books`: Array of `{ title, author, category, link, summary }` objects
 - `categories`: `Set<string>` of unique category strings
 
@@ -144,45 +147,60 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 ## Key Components — Quick Reference
 
 ### `Header.jsx`
+
 - Sticky with glassmorphism (`backdropFilter: blur(16px)`)
 - Shrinks padding on scroll (`scrolled` state via `window.scrollY`)
 - Animated amber underline expands on scroll
 - Theme toggle (Moon/Sun) + Tech Stack modal trigger
 
 ### `BookOfTheDay.jsx`
+
 - Deterministic pick: seeded RNG using `year * 366 + dayOfYear`
 - Changes pick every calendar day, same for all users
 - Compact banner row between Header and Controls
 
 ### `Controls.jsx`
+
 - Search: debounced input with clear (`X`) button
 - Category: `<Select>` with sorted `Array.from(categories)`
 - Shuffle: amber CTA button calls `onShuffle` in App
 
 ### `BookCard.jsx`
-- Each card is an `<Box as={Link} isExternal>` — the entire card is clickable
+
+- Each card is a `<Box as="button">` with `data-group` (not `role="group"`) so `_groupHover` styles still fire
+- Clicking a card calls `onSelect(book)` → opens `BookDetailDrawer` (external links now live in the drawer footer)
 - Hover effect: `translateY(-8px)` + gradient top border reveal
 - `h="full"` ensures cards in the same grid row share height
+
+### `BookDetailDrawer.jsx`
+
+- Chakra `<Drawer placement="right">` rendered once in `App.jsx`; `selectedBook` state + `useDisclosure` control it
+- Shows category badge, title, author, tags, full summary; footer has Close + "Visit Link" (external)
+- The "Surprise Me" button in `Controls.jsx` picks a random book from `filteredBooks` (respects active search/category filters) and opens it here
 
 ---
 
 ## Common Tasks
 
 ### Add a new field to book cards
+
 1. Add the field name to the CSV and re-export `csvString.js`
 2. Parse it in `parsedBooks.js` (add to `books.push({...})`)
 3. Display it in `BookCard.jsx`
 4. Optionally add it to the search filter in `App.jsx`
 
 ### Add a new component
+
 - Place it in `src/components/`
 - Use Chakra semantic tokens — **do not hardcode colors**
 - Import and render in `App.jsx` or an existing component
 
 ### Change the search debounce delay
+
 - Edit the `300` in `App.jsx`: `useDebounce(searchQuery, 300)`
 
 ### Add a new animation
+
 - Framer Motion is already installed. Use `motion()` wrapping Chakra components.
 - Keep exit animations short (`< 0.2s`) to avoid feeling sluggish during filtering.
 
@@ -192,7 +210,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 - **Bundle size warning**: `csvString.js` chunk is large. Consider lazy-loading or fetching from `/public/` on mount.
 - **Reading List ("My Shelf")**: Not yet implemented. Plan: LocalStorage-based per-book status (Want to Read / Reading / Read), toggled via icon buttons on each card.
-- **Detail Drawer**: Currently cards open external links. A Chakra `<Drawer>` showing full book details (cover image placeholder, extended summary) would be more immersive.
+- ~~**Detail Drawer**~~: ✅ Implemented (`BookDetailDrawer.jsx`). Future polish: cover image placeholder.
 - **Keyboard Navigation**: ArrowKey navigation through cards and `Esc` to clear search would improve accessibility.
 - **CLAUDE.md outdated?**: After any major architectural change (new state, new libraries, new components), update this file.
 

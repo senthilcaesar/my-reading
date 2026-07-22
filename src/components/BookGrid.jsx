@@ -1,6 +1,6 @@
-import { SimpleGrid, Box, Text } from '@chakra-ui/react';
-import { motion, AnimatePresence } from 'framer-motion';
-import BookCard from './BookCard';
+import { SimpleGrid, Box, Text } from "@chakra-ui/react";
+import { motion, AnimatePresence } from "framer-motion";
+import BookCard from "./BookCard";
 
 const MotionSimpleGrid = motion(SimpleGrid);
 const MotionBox = motion(Box);
@@ -20,11 +20,18 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.15 } },
 };
 
-export default function BookGrid({ books, searchQuery, shuffleCount }) {
+export default function BookGrid({
+  books,
+  searchQuery,
+  shuffleCount,
+  onBookSelect,
+}) {
   if (!books || books.length === 0) {
     return (
       <Box textAlign="center" py={12} px={4}>
-        <Text fontSize="xl" color="textSecondary">No books found matching your criteria.</Text>
+        <Text fontSize="xl" color="textSecondary">
+          No books found matching your criteria.
+        </Text>
       </Box>
     );
   }
@@ -52,7 +59,11 @@ export default function BookGrid({ books, searchQuery, shuffleCount }) {
             layout
             h="full"
           >
-            <BookCard book={book} searchQuery={searchQuery} />
+            <BookCard
+              book={book}
+              searchQuery={searchQuery}
+              onSelect={onBookSelect}
+            />
           </MotionBox>
         ))}
       </AnimatePresence>

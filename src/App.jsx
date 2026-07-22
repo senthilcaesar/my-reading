@@ -1,23 +1,34 @@
-import { useState, useMemo, useCallback } from 'react';
-import { useDebounce } from './hooks/useDebounce';
-import { Box } from '@chakra-ui/react';
-import Header from './components/Header';
-import BookOfTheDay from './components/BookOfTheDay';
-import Controls from './components/Controls';
-import BookGrid from './components/BookGrid';
-import { books as initialBooks, categories } from './data/parsedBooks';
-import { bookTags } from './data/bookTags';
+import { useState, useMemo, useCallback } from "react";
+import { useDebounce } from "./hooks/useDebounce";
+import { Box, useDisclosure } from "@chakra-ui/react";
+import Header from "./components/Header";
+import BookOfTheDay from "./components/BookOfTheDay";
+import Controls from "./components/Controls";
+import BookGrid from "./components/BookGrid";
+import BookDetailDrawer from "./components/BookDetailDrawer";
+import { books as initialBooks, categories } from "./data/parsedBooks";
+import { bookTags } from "./data/bookTags";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [booksList, setBooksList] = useState(initialBooks);
   const [shuffleCount, setShuffleCount] = useState(0);
-  
+  const [selectedBook, setSelectedBook] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
+  const handleBookSelect = useCallback(
+    (book) => {
+      setSelectedBook(book);
+      onOpen();
+    },
+    [onOpen],
+  );
+
   const handleShuffle = useCallback(() => {
-    setBooksList(prev => {
+    setBooksList((prev) => {
       const shuffled = [...prev];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -25,10 +36,10 @@ function App() {
       }
       return shuffled;
     });
-    setShuffleCount(prev => prev + 1);
+    setShuffleCount((prev) => prev + 1);
     // Reset filters
-    setSearchQuery('');
-    setSelectedCategory('');
+    setSearchQuery("");
+    setSelectedCategory("");
   }, []);
 
   // Compute filtered and sorted books
@@ -37,16 +48,16 @@ function App() {
 
     // Filter by category
     if (selectedCategory) {
-      result = result.filter(book => book.category === selectedCategory);
+      result = result.filter((book) => book.category === selectedCategory);
     }
 
     // Filter by search query
     if (debouncedSearchQuery) {
       const query = debouncedSearchQuery.toLowerCase();
-      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, 'i');
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, "i");
 
-      result = result.filter(book => {
+      result = result.filter((book) => {
         const matchesBasicFields =
           wordBoundaryRegex.test(book.title) ||
           wordBoundaryRegex.test(book.author) ||
@@ -54,7 +65,7 @@ function App() {
           wordBoundaryRegex.test(book.summary);
 
         const tags = bookTags[book.title] || [];
-        const matchesTags = tags.some(tag => wordBoundaryRegex.test(tag));
+        const matchesTags = tags.some((tag) => wordBoundaryRegex.test(tag));
 
         return matchesBasicFields || matchesTags;
       });
@@ -63,23 +74,37 @@ function App() {
     return result;
   }, [booksList, debouncedSearchQuery, selectedCategory]);
 
+  // Pick a random book from the currently visible set and open its details
+  const handleSurprise = useCallback(() => {
+    if (filteredBooks.length === 0) return;
+    const pick =
+      filteredBooks[Math.floor(Math.random() * filteredBooks.length)];
+    setSelectedBook(pick);
+    onOpen();
+  }, [filteredBooks, onOpen]);
+
   return (
     <Box minH="100vh" transition="colors 0.3s">
       <Header bookCount={filteredBooks.length} />
       <BookOfTheDay />
       <Box pt={8}>
-        <Controls 
-          searchQuery={searchQuery} setSearchQuery={setSearchQuery}
-          selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
+        <Controls
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
           categories={categories}
           onShuffle={handleShuffle}
+          onSurprise={handleSurprise}
         />
         <BookGrid
           books={filteredBooks}
           searchQuery={debouncedSearchQuery}
           shuffleCount={shuffleCount}
+          onBookSelect={handleBookSelect}
         />
       </Box>
+      <BookDetailDrawer book={selectedBook} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }

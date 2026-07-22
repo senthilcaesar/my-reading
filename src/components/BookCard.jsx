@@ -1,13 +1,20 @@
-import { memo } from 'react';
-import { Box, Flex, Heading, Text, Badge, Link, Wrap, WrapItem } from '@chakra-ui/react';
-import { ExternalLink } from 'lucide-react';
-import { bookTags } from '../data/bookTags';
+import { memo } from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Badge,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
+import { bookTags } from "../data/bookTags";
 
 // ── Highlight matching text ────────────────────────────────────────────────────
 function HighlightText({ text, query }) {
   if (!query?.trim() || !text) return <>{text}</>;
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const parts = text.split(new RegExp(`(${escaped})`, 'gi'));
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${escaped})`, "gi"));
   const lower = query.toLowerCase();
   return (
     <>
@@ -28,36 +35,41 @@ function HighlightText({ text, query }) {
           </Box>
         ) : (
           part
-        )
+        ),
       )}
     </>
   );
 }
 
 // ── Category styling ──────────────────────────────────────────────────────────
-const getCategoryStyles = (category) => {
-  const cat = category?.toLowerCase() || '';
-  if (cat.includes('business')) return { colorScheme: 'blue', icon: '💼' };
-  if (cat.includes('science')) return { colorScheme: 'purple', icon: '🔬' };
-  if (cat.includes('history')) return { colorScheme: 'amber', icon: '🏺' };
-  if (cat.includes('fiction')) return { colorScheme: 'pink', icon: '🎭' };
-  if (cat.includes('technology') || cat.includes('computer')) return { colorScheme: 'cyan', icon: '💻' };
-  if (cat.includes('biography') || cat.includes('memoir')) return { colorScheme: 'emerald', icon: '👤' };
-  if (cat.includes('philosophy')) return { colorScheme: 'indigo', icon: '🤔' };
-  return { colorScheme: 'slate', icon: '📚' };
+export const getCategoryStyles = (category) => {
+  const cat = category?.toLowerCase() || "";
+  if (cat.includes("business")) return { colorScheme: "blue", icon: "💼" };
+  if (cat.includes("science")) return { colorScheme: "purple", icon: "🔬" };
+  if (cat.includes("history")) return { colorScheme: "amber", icon: "🏺" };
+  if (cat.includes("fiction")) return { colorScheme: "pink", icon: "🎭" };
+  if (cat.includes("technology") || cat.includes("computer"))
+    return { colorScheme: "cyan", icon: "💻" };
+  if (cat.includes("biography") || cat.includes("memoir"))
+    return { colorScheme: "emerald", icon: "👤" };
+  if (cat.includes("philosophy")) return { colorScheme: "indigo", icon: "🤔" };
+  return { colorScheme: "slate", icon: "📚" };
 };
 
 // ── BookCard ──────────────────────────────────────────────────────────────────
-const BookCard = memo(function BookCard({ book, searchQuery }) {
-  const bg = 'surface';
-  const borderColor = 'borderPrimary';
+const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
+  const bg = "surface";
+  const borderColor = "borderPrimary";
   const categoryStyles = getCategoryStyles(book.category);
 
   return (
     <Box
-      as={Link}
-      href={book.link}
-      isExternal
+      as="button"
+      type="button"
+      onClick={() => onSelect(book)}
+      textAlign="left"
+      w="full"
+      cursor="pointer"
       bg={bg}
       backdropFilter="blur(8px)"
       borderWidth="1px"
@@ -70,14 +82,14 @@ const BookCard = memo(function BookCard({ book, searchQuery }) {
       gap={{ base: 2, md: 3 }}
       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
       _hover={{
-        transform: { base: 'translateY(-3px)', md: 'translateY(-8px)' },
-        shadow: 'xl',
-        borderColor: 'orange.400',
-        textDecoration: 'none',
+        transform: { base: "translateY(-3px)", md: "translateY(-8px)" },
+        shadow: "xl",
+        borderColor: "orange.400",
+        textDecoration: "none",
       }}
       position="relative"
       overflow="hidden"
-      role="group"
+      data-group
       // fill the motion wrapper's height so all cards in a row align
       h="full"
     >
@@ -110,15 +122,12 @@ const BookCard = memo(function BookCard({ book, searchQuery }) {
             {book.category}
           </Text>
         </Badge>
-        <Box color="slate.400" _groupHover={{ color: 'orange.500' }} transition="color 0.3s">
-          <ExternalLink size={16} />
-        </Box>
       </Flex>
 
       <Box flex="1">
         <Heading
           as="h3"
-          size="md"
+          size="sm"
           fontFamily="heading"
           mb={1}
           color="textPrimary"
@@ -146,7 +155,7 @@ const BookCard = memo(function BookCard({ book, searchQuery }) {
                   fontWeight="medium"
                   color="textSecondary"
                   bg="surfaceHover"
-                  _dark={{ bg: 'rgba(255,255,255,0.05)' }}
+                  _dark={{ bg: "rgba(255,255,255,0.05)" }}
                 >
                   {tag}
                 </Badge>
@@ -157,7 +166,7 @@ const BookCard = memo(function BookCard({ book, searchQuery }) {
 
         <Text
           color="textSecondary"
-          fontSize={{ base: 'xs', md: 'sm' }}
+          fontSize={{ base: "xs", md: "sm" }}
           lineHeight="tall"
           noOfLines={{ base: 3, md: 4 }}
         >
