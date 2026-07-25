@@ -73,6 +73,13 @@ Flags of Our Fathers,James Bradley,Military History,https://www.amazon.com/gp/pr
 
 Last Chance to See,Douglas Adams,Non-fiction,https://www.amazon.com/gp/product/0345371984,"New York Times bestselling author Douglas Adams and zoologist Mark Carwardine take off around the world in search of exotic, endangered creatures."
 
+Seven Years in Tibet,Heinrich Harrer,Non-fiction,https://www.amazon.com/Seven-Years-Tibet-Heinrich-Harrer/dp/1585427438,"The astonishing adventure classic about life in Tibet just before the Chinese Communist takeover is now repackaged for a new generation of readers."
+The Girl from Kathmandu,Cam Simpson,Non-fiction,https://www.amazon.com/Girl-Kathmandu-Twelve-Womans-Justice/dp/0062449710,"The Girl from Kathmandu is a story of death and life—of the war in Iraq, the killings of the twelve Nepalese, a journalist determined to uncover the truth, and a trio of human rights lawyers dedicated to finding justice."
+
+
+"Artificial Intelligence: A Guide for Thinking Humans",Melanie Mitchell,AI,https://www.amazon.com/Artificial-Intelligence-Guide-Thinking-Humans/dp/0374257833,"Melanie Mitchell separates science fact from science fiction in this sweeping examination of the current state of AI and how it is remaking our world"
+
+
 "Showa 1926-1939: A History of Japan",Shigeru Mizuki,History,https://www.amazon.com/gp/product/1770466258,"Volume One of the acclaimed Showa: A History of Japan graphic novel series delves into the early years of Emperor Hirohito’s reign"
 
 Plastic Inc,Beth Gardiner,Non-fiction,https://www.amazon.com/gp/product/0593717104,"The Secret History and Shocking Future of Big Oil's Biggest Bet"
@@ -116,6 +123,9 @@ Connecting the Dots,John Chambers,Business,https://www.amazon.com/gp/product/031
 The Big Print,Lawrence Lepard,Economics,https://www.amazon.com/gp/product/B0DVTCVX8J,"What Happened To America And How Sound Money Will Fix It"
 
 Stories of the Sahara,Sanmao,Non-fiction,https://www.amazon.com/gp/product/1408881845,"Stories of the Sahara invites us into Sanmao's extraordinary life in the desert: her experiences of love and loss, freedom and peril, all told with a voice as spirited as it is timeless."
+
+The Phoenix Project,Gene Kim,Non-fiction,https://www.amazon.com/Phoenix-Project-bestselling-author-Unicorn/dp/1950508943,"A Novel About IT, DevOps, and Helping Your Business Win"
+
 
 "The Geek Way: The Radical Mindset that Drives Extraordinary Results",Andrew McAfee,Business,https://www.amazon.com/gp/product/0316436704,"The Geek Way reveals a new way to get big things done. It will change the way you think about work, teams, projects, and culture, and give you the insight and tools you need to harness our human superpowers of learning and cooperation."
 Japan's Infamous Unit 731,Hal Gold,History,https://www.amazon.com/gp/product/0804852197,"Some of the cruelest deeds of Japan's war in Asia did not occur on the battlefield, but in quiet, antiseptic medical wards in obscure parts of China. Far from front lines and prying eyes, Japanese doctors and their assistants subjected human guinea pigs to gruesome medical experiments in the name of science and Japan's wartime chemical and biological warfare research.."
