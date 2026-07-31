@@ -459,7 +459,8 @@ Fate of the States,Meredith Whitney,Technology,https://www.amazon.com/Fate-State
 "Today Hong Kong, Tomorrow the World",Mark L. Clifford,Non-fiction,https://www.amazon.com/Today-Hong-Kong-Tomorrow-World/dp/1250279178,"A gripping history of China's deteriorating relationship with Hong Kong, and its implications for the rest of the world."
 "The Troublemaker",Mark L. Clifford,Non-fiction,https://www.amazon.com/Troublemaker-Chinese-Dissident-Mark-Clifford/dp/1668027690,"How Jimmy Lai Became a Billionaire, Hong Kong's Greatest Dissident, and China's Most Feared Critic."
 
-
+Moneyball,Michael Lewis,Non-fiction,https://www.amazon.com/gp/product/0393324818,"The Art of Winning an Unfair Game"
+Stalingrad,Antony Beevor,History,https://www.amazon.com/gp/product/0140284583,"The Battle of Stalingrad was not only the psychological turning point of World War II: it also changed the face of modern warfare."
 
 Firefighting: The Financial Crisis and Its Lessons,Ben S. Bernanke,Non-fiction,https://www.amazon.com/gp/product/0143134485,"""Firefighting: The Financial Crisis and Its Lessons"" by Ben S. Bernanke is a non-fiction book that provides an in-depth analysis of the 2008 financial crisis, its causes, and its aftermath. The book, written by a former Federal Reserve Chairman, offers insights into the policy decisions made during the crisis and lessons for preventing future financial disasters."
 Five Classmates and the Story of the New China,John Pomfret,Self-Help,https://www.amazon.com/Chinese-Lessons-Classmates-Story-China-ebook/dp/B003JH8VIY/ref=sr_1_1?crid=7F3UD2K8ZHUE&dib=eyJ2IjoiMSJ9.h_iht6_7JBSv12hb81QHynTkKa6cT_vAmL1WZX5FmJ43WL3_TuVoOZRwn0-B2gSZhKe1KYfa1mlnpmOPaGqDFayJQ7RD4cQVaV02ts1GcGhnwLedTtVzIUGrC2lfnn1_Hu8xFicqAdW_ZYVQoEwiSYk5a7Fc1IPukW2cvldTdYWTS7K5JapAD6DsEdH0p0PUJ8FI3DrLV99MafyyP5EFuvjVYUx4Ubgm_cHEcSQsKj8.RBjYcMeI7WUFMGo2bDDH_ERKq8u5JyYWFHEC6u8xF7w&dib_tag=se&keywords=chinese+lessons&qid=1748562677&sprefix=chinese+lesson%2Caps%2C169&sr=8-1,"""Five Classmates and the Story of the New China"" by John Pomfret is a non-fiction book that explores the transformation of China through the personal stories of five classmates from the author's time as a student in China. The book provides an intimate look at the country's modern history, societal changes, and political landscape."
@@ -523,6 +524,7 @@ Habits of a Happy Brain,Loretta Graziano Breuning,Non-fiction,https://www.amazon
 
 "Zhou Enlai: A Life",Jian Chen,Biography,https://www.amazon.com/Zhou-Enlai-Jian-Chen/dp/0674659589,"The definitive biography of Zhou Enlai, the first premier and preeminent diplomat of the People’s Republic of China, who protected his country against the excesses of his boss―Chairman Mao."
 
+Gang Leader for a Day,Sudhir Venkatesh,Non-fiction,https://www.amazon.com/gp/product/014311493X,"A Rogue Sociologist Takes to the Streets"
 
 
 Half of a Yellow Sun,Chimamanda Ngozi Adichie,History,https://www.amazon.com/Half-Yellow-Chimamanda-Ngozi-Adichie/dp/1400095204/,"""Half of a Yellow Sun"" by Chimamanda Ngozi Adichie is a historical fiction novel that explores the impact of the Nigerian Civil War through the lives of five different characters. The book delves into themes of love, race, colonialism, and war, offering a profound examination of personal and political struggles."
