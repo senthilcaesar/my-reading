@@ -14,7 +14,10 @@ export default function Controls({
   setSearchQuery,
   selectedCategory,
   setSelectedCategory,
+  selectedRecommender,
+  setSelectedRecommender,
   categories,
+  recommenders,
   onShuffle,
   onSurprise,
 }) {
@@ -44,7 +47,7 @@ export default function Controls({
           borderRadius="full"
           shadow="lg"
           pl={12}
-          placeholder="Search by title, author, or category..."
+          placeholder="Search by title, author, category, or recommender..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -63,7 +66,7 @@ export default function Controls({
         )}
       </InputGroup>
 
-      <Flex gap={{ base: 2, sm: 3 }} direction={{ base: "column", sm: "row" }}>
+      <Flex gap={{ base: 2, sm: 3 }} direction={{ base: "column", sm: "row" }} flexWrap="wrap">
         <Select
           backdropFilter="blur(4px)"
           bg={bg}
@@ -75,6 +78,8 @@ export default function Controls({
           fontWeight="medium"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
+          flex="1"
+          minW={{ base: "full", sm: "180px" }}
         >
           <option value="">All Categories</option>
           {Array.from(categories)
@@ -82,6 +87,30 @@ export default function Controls({
             .map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
+              </option>
+            ))}
+        </Select>
+
+        <Select
+          backdropFilter="blur(4px)"
+          bg={bg}
+          borderColor={selectedRecommender ? "accentPrimary" : borderColor}
+          focusBorderColor={focusBorderColor}
+          borderRadius="xl"
+          shadow="sm"
+          size={{ base: "md", md: "lg" }}
+          fontWeight="medium"
+          value={selectedRecommender}
+          onChange={(e) => setSelectedRecommender(e.target.value)}
+          flex="1"
+          minW={{ base: "full", sm: "200px" }}
+        >
+          <option value="">People's Picks</option>
+          {Array.from(recommenders)
+            .sort()
+            .map((rec) => (
+              <option key={rec} value={rec}>
+                {rec}
               </option>
             ))}
         </Select>
@@ -97,7 +126,7 @@ export default function Controls({
           _hover={{ bg: "accentSecondary", transform: "translateY(-1px)" }}
           onClick={onShuffle}
           w={{ base: "full", sm: "auto" }}
-          minW={{ base: "unset", sm: "140px" }}
+          minW={{ base: "unset", sm: "130px" }}
         >
           Shuffle
         </Button>
@@ -114,7 +143,7 @@ export default function Controls({
           _hover={{ bg: "surfaceHover", transform: "translateY(-1px)" }}
           onClick={onSurprise}
           w={{ base: "full", sm: "auto" }}
-          minW={{ base: "unset", sm: "160px" }}
+          minW={{ base: "unset", sm: "150px" }}
         >
           Surprise Me
         </Button>
@@ -122,3 +151,5 @@ export default function Controls({
     </Flex>
   );
 }
+
+

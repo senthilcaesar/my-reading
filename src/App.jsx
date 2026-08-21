@@ -6,12 +6,13 @@ import BookOfTheDay from "./components/BookOfTheDay";
 import Controls from "./components/Controls";
 import BookGrid from "./components/BookGrid";
 import BookDetailDrawer from "./components/BookDetailDrawer";
-import { books as initialBooks, categories } from "./data/parsedBooks";
+import { books as initialBooks, categories, recommenders } from "./data/parsedBooks";
 import { bookTags } from "./data/bookTags";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedRecommender, setSelectedRecommender] = useState("");
   const [booksList, setBooksList] = useState(initialBooks);
   const [shuffleCount, setShuffleCount] = useState(0);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -40,6 +41,7 @@ function App() {
     // Reset filters
     setSearchQuery("");
     setSelectedCategory("");
+    setSelectedRecommender("");
   }, []);
 
   // Compute filtered and sorted books
@@ -49,6 +51,13 @@ function App() {
     // Filter by category
     if (selectedCategory) {
       result = result.filter((book) => book.category === selectedCategory);
+    }
+
+    // Filter by recommender
+    if (selectedRecommender) {
+      result = result.filter(
+        (book) => book.recommender === selectedRecommender,
+      );
     }
 
     // Filter by search query
@@ -64,15 +73,20 @@ function App() {
           wordBoundaryRegex.test(book.category) ||
           wordBoundaryRegex.test(book.summary);
 
+        const matchesRecommender =
+          (book.recommender && wordBoundaryRegex.test(book.recommender)) ||
+          (book.recommendationNote &&
+            wordBoundaryRegex.test(book.recommendationNote));
+
         const tags = bookTags[book.title] || [];
         const matchesTags = tags.some((tag) => wordBoundaryRegex.test(tag));
 
-        return matchesBasicFields || matchesTags;
+        return matchesBasicFields || matchesRecommender || matchesTags;
       });
     }
 
     return result;
-  }, [booksList, debouncedSearchQuery, selectedCategory]);
+  }, [booksList, debouncedSearchQuery, selectedCategory, selectedRecommender]);
 
   // Pick a random book from the currently visible set and open its details
   const handleSurprise = useCallback(() => {
@@ -93,7 +107,10 @@ function App() {
           setSearchQuery={setSearchQuery}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          selectedRecommender={selectedRecommender}
+          setSelectedRecommender={setSelectedRecommender}
           categories={categories}
+          recommenders={recommenders}
           onShuffle={handleShuffle}
           onSurprise={handleSurprise}
         />
@@ -110,3 +127,5 @@ function App() {
 }
 
 export default App;
+
+

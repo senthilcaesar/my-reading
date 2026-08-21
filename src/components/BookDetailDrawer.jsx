@@ -14,7 +14,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Sparkles } from "lucide-react";
 import { getCategoryStyles } from "./BookCard";
 import { bookTags } from "../data/bookTags";
 
@@ -23,6 +23,7 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
 
   const categoryStyles = getCategoryStyles(book.category);
   const tags = bookTags[book.title] || [];
+  const noteText = book.recommendationNote || (book.recommender ? `Recommended by ${book.recommender}` : null);
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="md">
@@ -67,6 +68,47 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
         </DrawerHeader>
 
         <DrawerBody>
+          {noteText && (
+            <Box
+              bg="rgba(176,141,87,0.12)"
+              borderWidth="1px"
+              borderColor="rgba(176,141,87,0.3)"
+              _dark={{ bg: "rgba(0,242,255,0.12)", borderColor: "rgba(0,242,255,0.3)" }}
+              borderRadius="xl"
+              p={3.5}
+              mb={4}
+              display="flex"
+              alignItems="center"
+              gap={3}
+            >
+              <Box
+                p={2}
+                borderRadius="full"
+                bg="accentPrimary"
+                color="bg"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Sparkles size={18} />
+              </Box>
+              <Box>
+                <Text
+                  fontSize="xs"
+                  textTransform="uppercase"
+                  fontWeight="bold"
+                  letterSpacing="wider"
+                  color="textSecondary"
+                >
+                  Curated Recommendation
+                </Text>
+                <Text fontSize="sm" fontWeight="semibold" color="textPrimary">
+                  {noteText}
+                </Text>
+              </Box>
+            </Box>
+          )}
+
           {tags.length > 0 && (
             <Wrap gap={1.5} mb={4}>
               {tags.map((tag) => (
@@ -124,3 +166,4 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
     </Drawer>
   );
 }
+

@@ -106,7 +106,7 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
         transition="opacity 0.3s"
       />
 
-      <Flex justify="space-between" align="flex-start" gap={2}>
+      <Flex justify="space-between" align="flex-start" gap={2} flexWrap="wrap">
         <Badge
           colorScheme={categoryStyles.colorScheme}
           variant="subtle"
@@ -178,3 +178,4 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
 });
 
 export default BookCard;
+
