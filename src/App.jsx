@@ -1,22 +1,41 @@
-import { useState, useMemo, useCallback } from "react";
-import { useDebounce } from "./hooks/useDebounce";
-import { Box, useDisclosure } from "@chakra-ui/react";
-import Header from "./components/Header";
-import BookOfTheDay from "./components/BookOfTheDay";
-import Controls from "./components/Controls";
-import BookGrid from "./components/BookGrid";
-import BookDetailDrawer from "./components/BookDetailDrawer";
-import { books as initialBooks, categories, recommenders } from "./data/parsedBooks";
-import { bookTags } from "./data/bookTags";
+import { useState, useMemo, useCallback } from 'react';
+import { useDebounce } from './hooks/useDebounce';
+import { Box, useDisclosure } from '@chakra-ui/react';
+import Header from './components/Header';
+import BookOfTheDay from './components/BookOfTheDay';
+import Controls from './components/Controls';
+import BookGrid from './components/BookGrid';
+import BookDetailDrawer from './components/BookDetailDrawer';
+import BookRouletteModal from './components/BookRouletteModal';
+import {
+  books as initialBooks,
+  categories,
+  recommenders,
+} from './data/parsedBooks';
+import { bookTags } from './data/bookTags';
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedRecommender, setSelectedRecommender] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedRecommender, setSelectedRecommender] = useState('');
   const [booksList, setBooksList] = useState(initialBooks);
   const [shuffleCount, setShuffleCount] = useState(0);
   const [selectedBook, setSelectedBook] = useState(null);
+
+  // Drawer disclosure for full book details
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // Roulette modal disclosure
+  const {
+    isOpen: isRouletteOpen,
+    onOpen: onOpenRoulette,
+    onClose: onCloseRoulette,
+  } = useDisclosure();
+  const [rouletteSession, setRouletteSession] = useState(0);
+
+  const handleOpenRoulette = useCallback(() => {
+    setRouletteSession((prev) => prev + 1);
+    onOpenRoulette();
+  }, [onOpenRoulette]);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
@@ -39,9 +58,9 @@ function App() {
     });
     setShuffleCount((prev) => prev + 1);
     // Reset filters
-    setSearchQuery("");
-    setSelectedCategory("");
-    setSelectedRecommender("");
+    setSearchQuery('');
+    setSelectedCategory('');
+    setSelectedRecommender('');
   }, []);
 
   // Compute filtered and sorted books
@@ -63,8 +82,8 @@ function App() {
     // Filter by search query
     if (debouncedSearchQuery) {
       const query = debouncedSearchQuery.toLowerCase();
-      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, "i");
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, 'i');
 
       result = result.filter((book) => {
         const matchesBasicFields =
@@ -88,17 +107,8 @@ function App() {
     return result;
   }, [booksList, debouncedSearchQuery, selectedCategory, selectedRecommender]);
 
-  // Pick a random book from the currently visible set and open its details
-  const handleSurprise = useCallback(() => {
-    if (filteredBooks.length === 0) return;
-    const pick =
-      filteredBooks[Math.floor(Math.random() * filteredBooks.length)];
-    setSelectedBook(pick);
-    onOpen();
-  }, [filteredBooks, onOpen]);
-
   return (
-    <Box minH="100vh" transition="colors 0.3s">
+    <Box minH='100vh' transition='colors 0.3s'>
       <Header bookCount={filteredBooks.length} />
       <BookOfTheDay />
       <Box pt={8}>
@@ -112,7 +122,7 @@ function App() {
           categories={categories}
           recommenders={recommenders}
           onShuffle={handleShuffle}
-          onSurprise={handleSurprise}
+          onRoulette={handleOpenRoulette}
         />
         <BookGrid
           books={filteredBooks}
@@ -122,10 +132,15 @@ function App() {
         />
       </Box>
       <BookDetailDrawer book={selectedBook} isOpen={isOpen} onClose={onClose} />
+      <BookRouletteModal
+        key={rouletteSession}
+        isOpen={isRouletteOpen}
+        onClose={onCloseRoulette}
+        books={filteredBooks}
+        onBookSelect={handleBookSelect}
+      />
     </Box>
   );
 }
 
 export default App;
-
-

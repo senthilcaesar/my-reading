@@ -6,8 +6,8 @@ import {
   InputRightElement,
   Select,
   Button,
-} from "@chakra-ui/react";
-import { Search, X, Shuffle, Sparkles } from "lucide-react";
+} from '@chakra-ui/react';
+import { Search, X, Shuffle, Dices } from 'lucide-react';
 
 export default function Controls({
   searchQuery,
@@ -19,46 +19,46 @@ export default function Controls({
   categories,
   recommenders,
   onShuffle,
-  onSurprise,
+  onRoulette,
 }) {
-  const bg = "surfaceHover";
-  const borderColor = "borderPrimary";
-  const focusBorderColor = "accentPrimary";
-  const iconColor = "textSecondary";
+  const bg = 'surfaceHover';
+  const borderColor = 'borderPrimary';
+  const focusBorderColor = 'accentPrimary';
+  const iconColor = 'textSecondary';
 
   return (
     <Flex
-      direction="column"
-      maxW="7xl"
-      mx="auto"
+      direction='column'
+      maxW='7xl'
+      mx='auto'
       px={{ base: 3, sm: 4, md: 6, lg: 8 }}
       mb={{ base: 4, sm: 6, md: 8 }}
       gap={{ base: 2.5, sm: 3, md: 4 }}
     >
-      <InputGroup size={{ base: "md", md: "lg" }}>
-        <InputLeftElement pointerEvents="none">
+      <InputGroup size={{ base: 'md', md: 'lg' }}>
+        <InputLeftElement pointerEvents='none'>
           <Search size={20} color={iconColor} />
         </InputLeftElement>
         <Input
-          backdropFilter="blur(4px)"
+          backdropFilter='blur(4px)'
           bg={bg}
           borderColor={borderColor}
           focusBorderColor={focusBorderColor}
-          borderRadius="full"
-          shadow="lg"
+          borderRadius='full'
+          shadow='lg'
           pl={12}
-          placeholder="Search by title, author, category, or recommender..."
+          placeholder='Search by title, author, category, or recommender...'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {searchQuery && (
-          <InputRightElement width="4.5rem">
+          <InputRightElement width='4.5rem'>
             <Button
-              h="1.75rem"
-              size="sm"
-              onClick={() => setSearchQuery("")}
-              variant="ghost"
-              borderRadius="full"
+              h='1.75rem'
+              size='sm'
+              onClick={() => setSearchQuery('')}
+              variant='ghost'
+              borderRadius='full'
             >
               <X size={16} />
             </Button>
@@ -66,22 +66,26 @@ export default function Controls({
         )}
       </InputGroup>
 
-      <Flex gap={{ base: 2, sm: 3 }} direction={{ base: "column", sm: "row" }} flexWrap="wrap">
+      <Flex
+        gap={{ base: 2, sm: 3 }}
+        direction={{ base: 'column', sm: 'row' }}
+        flexWrap='wrap'
+      >
         <Select
-          backdropFilter="blur(4px)"
+          backdropFilter='blur(4px)'
           bg={bg}
           borderColor={borderColor}
           focusBorderColor={focusBorderColor}
-          borderRadius="xl"
-          shadow="sm"
-          size={{ base: "md", md: "lg" }}
-          fontWeight="medium"
+          borderRadius='xl'
+          shadow='sm'
+          size={{ base: 'md', md: 'lg' }}
+          fontWeight='medium'
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          flex="1"
-          minW={{ base: "full", sm: "180px" }}
+          flex='1'
+          minW={{ base: 'full', sm: '180px' }}
         >
-          <option value="">All Categories</option>
+          <option value=''>All Categories</option>
           {Array.from(categories)
             .sort()
             .map((cat) => (
@@ -92,20 +96,20 @@ export default function Controls({
         </Select>
 
         <Select
-          backdropFilter="blur(4px)"
+          backdropFilter='blur(4px)'
           bg={bg}
-          borderColor={selectedRecommender ? "accentPrimary" : borderColor}
+          borderColor={selectedRecommender ? 'accentPrimary' : borderColor}
           focusBorderColor={focusBorderColor}
-          borderRadius="xl"
-          shadow="sm"
-          size={{ base: "md", md: "lg" }}
-          fontWeight="medium"
+          borderRadius='xl'
+          shadow='sm'
+          size={{ base: 'md', md: 'lg' }}
+          fontWeight='medium'
           value={selectedRecommender}
           onChange={(e) => setSelectedRecommender(e.target.value)}
-          flex="1"
-          minW={{ base: "full", sm: "200px" }}
+          flex='1'
+          minW={{ base: 'full', sm: '200px' }}
         >
-          <option value="">People's Picks</option>
+          <option value=''>People's Picks</option>
           {Array.from(recommenders)
             .sort()
             .map((rec) => (
@@ -117,39 +121,37 @@ export default function Controls({
 
         <Button
           leftIcon={<Shuffle size={18} />}
-          size={{ base: "md", md: "lg" }}
-          borderRadius="xl"
-          shadow="sm"
-          fontWeight="bold"
-          bg="accentPrimary"
-          color="bg"
-          _hover={{ bg: "accentSecondary", transform: "translateY(-1px)" }}
+          size={{ base: 'md', md: 'lg' }}
+          borderRadius='xl'
+          shadow='sm'
+          fontWeight='bold'
+          bg='accentPrimary'
+          color='bg'
+          _hover={{ bg: 'accentSecondary', transform: 'translateY(-1px)' }}
           onClick={onShuffle}
-          w={{ base: "full", sm: "auto" }}
-          minW={{ base: "unset", sm: "130px" }}
+          w={{ base: 'full', sm: 'auto' }}
+          minW={{ base: 'unset', sm: '130px' }}
         >
           Shuffle
         </Button>
 
         <Button
-          leftIcon={<Sparkles size={18} />}
-          size={{ base: "md", md: "lg" }}
-          borderRadius="xl"
-          shadow="sm"
-          fontWeight="bold"
-          variant="outline"
-          borderColor="accentPrimary"
-          color="accentPrimary"
-          _hover={{ bg: "surfaceHover", transform: "translateY(-1px)" }}
-          onClick={onSurprise}
-          w={{ base: "full", sm: "auto" }}
-          minW={{ base: "unset", sm: "150px" }}
+          leftIcon={<Dices size={18} />}
+          size={{ base: 'md', md: 'lg' }}
+          borderRadius='xl'
+          shadow='sm'
+          fontWeight='bold'
+          variant='outline'
+          borderColor='accentPrimary'
+          color='accentPrimary'
+          _hover={{ bg: 'surfaceHover', transform: 'translateY(-1px)' }}
+          onClick={onRoulette}
+          w={{ base: 'full', sm: 'auto' }}
+          minW={{ base: 'unset', sm: '150px' }}
         >
-          Surprise Me
+          Roulette
         </Button>
       </Flex>
     </Flex>
   );
 }
-
-
