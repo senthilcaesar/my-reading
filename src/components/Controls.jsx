@@ -6,8 +6,13 @@ import {
   InputRightElement,
   Select,
   Button,
+  Box,
 } from '@chakra-ui/react';
 import { Search, X, Shuffle, Dices } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+
+const MotionBox = motion(Box);
 
 export default function Controls({
   searchQuery,
@@ -21,6 +26,7 @@ export default function Controls({
   onShuffle,
   onRoulette,
 }) {
+  const [isShuffling, setIsShuffling] = useState(false);
   const bg = 'surfaceHover';
   const borderColor = 'borderPrimary';
   const focusBorderColor = 'accentPrimary';
@@ -43,6 +49,7 @@ export default function Controls({
           backdropFilter='blur(4px)'
           bg={bg}
           borderColor={borderColor}
+          transition='background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease'
           focusBorderColor={focusBorderColor}
           borderRadius='full'
           shadow='lg'
@@ -75,6 +82,7 @@ export default function Controls({
           backdropFilter='blur(4px)'
           bg={bg}
           borderColor={borderColor}
+          transition='background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease'
           focusBorderColor={focusBorderColor}
           borderRadius='xl'
           shadow='sm'
@@ -99,6 +107,7 @@ export default function Controls({
           backdropFilter='blur(4px)'
           bg={bg}
           borderColor={selectedRecommender ? 'accentPrimary' : borderColor}
+          transition='background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease'
           focusBorderColor={focusBorderColor}
           borderRadius='xl'
           shadow='sm'
@@ -120,7 +129,15 @@ export default function Controls({
         </Select>
 
         <Button
-          leftIcon={<Shuffle size={18} />}
+          leftIcon={
+            <MotionBox
+              display="flex"
+              animate={isShuffling ? { rotate: 360 } : { rotate: 0 }}
+              transition={{ duration: 0.45, ease: 'easeInOut' }}
+            >
+              <Shuffle size={18} />
+            </MotionBox>
+          }
           size={{ base: 'md', md: 'lg' }}
           borderRadius='xl'
           shadow='sm'
@@ -128,7 +145,11 @@ export default function Controls({
           bg='accentPrimary'
           color='bg'
           _hover={{ bg: 'accentSecondary', transform: 'translateY(-1px)' }}
-          onClick={onShuffle}
+          onClick={() => {
+            setIsShuffling(true);
+            onShuffle();
+            window.setTimeout(() => setIsShuffling(false), 500);
+          }}
           w={{ base: 'full', sm: 'auto' }}
           minW={{ base: 'unset', sm: '130px' }}
         >

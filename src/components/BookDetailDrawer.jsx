@@ -16,8 +16,11 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { ExternalLink, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import { getCategoryStyles } from "./BookCard";
 import { bookTags } from "../data/bookTags";
+
+const MotionBox = motion(Box);
 
 export default function BookDetailDrawer({ book, isOpen, onClose }) {
   if (!book) return null;
@@ -37,7 +40,15 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
         />
         <DrawerCloseButton color="textSecondary" borderRadius="full" mt={3} />
 
-        <DrawerHeader pt={8} pb={2}>
+        <MotionBox
+          as={DrawerHeader}
+          key={book.id}
+          pt={8}
+          pb={2}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+        >
           <Badge
             colorScheme={categoryStyles.colorScheme}
             variant="subtle"
@@ -66,7 +77,7 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
           <Text color="textSecondary" fontSize="md" fontStyle="italic" mt={1}>
             by {book.author}
           </Text>
-        </DrawerHeader>
+        </MotionBox>
 
         <DrawerBody>
           {noteText && (

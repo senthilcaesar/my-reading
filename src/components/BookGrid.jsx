@@ -6,18 +6,18 @@ const MotionSimpleGrid = motion(SimpleGrid);
 const MotionBox = motion(Box);
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 22, scale: 0.97 },
+  hidden: { opacity: 0, y: 12, scale: 0.985 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: Math.min(i, 14) * 0.045,
-      duration: 0.38,
+      delay: Math.min(i, 14) * 0.025,
+      duration: 0.32,
       ease: [0.4, 0, 0.2, 1],
     },
   }),
-  exit: { opacity: 0, scale: 0.95, transition: { duration: 0.15 } },
+  exit: { opacity: 0, scale: 0.98, transition: { duration: 0.2, ease: 'easeOut' } },
 };
 
 export default function BookGrid({
@@ -46,6 +46,7 @@ export default function BookGrid({
       px={{ base: 3, sm: 4, md: 6, lg: 8 }}
       pb={16}
       layout
+      transition={{ layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }}
     >
       <AnimatePresence mode="popLayout" initial={false}>
         {books.map((book, idx) => (

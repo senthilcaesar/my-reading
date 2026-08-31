@@ -1,7 +1,10 @@
 import { Box, Flex, Heading, Text, useColorMode, Button, useDisclosure, Icon, IconButton } from '@chakra-ui/react';
 import { Moon, Sun, BookMarked, Code } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import TechStackModal from './TechStackModal';
+
+const MotionBox = motion(Box);
 
 export default function Header({ bookCount }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -32,7 +35,7 @@ export default function Header({ bookCount }) {
         sx={{ WebkitBackdropFilter: 'blur(16px) saturate(180%)' }}
         borderBottom="1px solid"
         borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(67,52,34,0.12)'}
-        transition="padding 0.35s ease, box-shadow 0.35s ease"
+        transition="padding 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease"
         pt={{ base: scrolled ? 2 : 3, md: scrolled ? 3 : 5 }}
         pb={{ base: scrolled ? 2 : 3, md: scrolled ? 3 : 5 }}
         px={{ base: 3, sm: 4, md: 5 }}
@@ -128,7 +131,15 @@ export default function Header({ bookCount }) {
               onClick={toggleColorMode}
               minW={{ base: '32px', sm: 'auto' }}
             >
-              {colorMode === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              <MotionBox
+                key={colorMode}
+                display="flex"
+                initial={{ rotate: -90, opacity: 0, scale: 0.7 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
+              >
+                {colorMode === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              </MotionBox>
               <Text display={{ base: 'none', sm: 'inline' }} fontSize="xs">
                 {colorMode === 'dark' ? 'Light' : 'Dark'}
               </Text>
