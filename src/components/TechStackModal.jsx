@@ -3,257 +3,309 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalBody,
-  ModalCloseButton,
+  Grid,
+  GridItem,
   Box,
   Flex,
   Text,
+  Button,
   Icon,
-  IconButton,
-  Tooltip,
   useClipboard,
-  useToast,
-  SimpleGrid,
 } from '@chakra-ui/react';
-import { 
-  Zap, 
-  Layers, 
-  Palette, 
-  MousePointer2, 
-  Github,
-  Component,
-  Monitor,
+import { motion } from 'framer-motion';
+import {
+  Atom,
+  Zap,
+  Palette,
+  Waves,
   Braces,
+  Shapes,
   AudioLines,
   Type,
   Database,
-  CheckCircle2,
+  ShieldCheck,
+  Github,
+  Monitor,
+  X,
+  Check,
   Copy,
-  Check
 } from 'lucide-react';
 
+const MotionGridItem = motion(GridItem);
+
+/* Bento tiles — `col`/`row` are the md-and-up grid spans (4-column grid). */
 const techStack = [
   {
     name: 'React 19',
-    description: 'Fast, modern, component-driven UI framework.',
-    icon: Component,
-    color: 'accentSecondary',
-    category: 'Frontend',
-  },
-  {
-    name: 'React DOM',
-    description: 'Connects the React interface to the browser DOM.',
-    icon: Monitor,
-    color: 'accentSecondary',
-    category: 'Frontend',
-  },
-  {
-    name: 'Chakra UI v2',
-    description: 'Accessible, composable components and design tokens.',
-    icon: Palette,
-    color: 'accentMagenta',
-    category: 'UI',
-  },
-  {
-    name: 'Framer Motion',
-    description: 'Smooth layout, drawer, filter, and interaction motion.',
-    icon: MousePointer2,
-    color: 'accentMagenta',
-    category: 'UI',
+    category: 'Framework',
+    short: 'The whole UI, as a function of state',
+    description:
+      'Every card, drawer, and filter on this page is derived state. No manual DOM, no sync bugs.',
+    icon: Atom,
+    accent: 'accentSecondary',
+    col: 2,
+    row: 2,
+    hero: true,
   },
   {
     name: 'Vite 7',
-    description: 'Fast development server and production build tooling.',
+    category: 'Build',
+    short: 'Cold start in milliseconds',
+    description: 'Native ES modules in dev, a rolled-up bundle in production.',
     icon: Zap,
-    color: 'accentPrimary',
-    category: 'Tooling',
+    accent: 'accentPrimary',
+    col: 2,
+    row: 1,
+    feature: true,
   },
   {
-    name: 'Emotion',
-    description: 'Runtime styling engine used by Chakra UI.',
-    icon: Braces,
-    color: 'accentPrimary',
-    category: 'Styling',
+    name: 'Chakra UI v2',
+    category: 'Components',
+    short: 'Accessible primitives + semantic tokens',
+    description: 'Light and dark mode swap without a single hardcoded hex.',
+    icon: Palette,
+    accent: 'accentMagenta',
+    col: 2,
+    row: 1,
   },
   {
-    name: 'Lucide React',
-    description: 'Consistent icons for controls, actions, and feedback.',
-    icon: Layers,
-    color: 'accentPrimary',
-    category: 'UI',
-  },
-  {
-    name: 'Web Audio API',
-    description: 'Synthesized ticker and victory sounds for Roulette.',
-    icon: AudioLines,
-    color: 'accentMagenta',
-    category: 'Browser API',
-  },
-  {
-    name: 'Google Fonts',
-    description: 'Poppins, Lora, Pacifico, and Rye typefaces.',
-    icon: Type,
-    color: 'accentSecondary',
-    category: 'Typography',
+    name: 'Framer Motion',
+    category: 'Motion',
+    short: 'Layout animation for grid, drawer, shuffle',
+    description: 'Exits stay under 200ms so filtering never feels sluggish.',
+    icon: Waves,
+    accent: 'accentMagenta',
+    col: 2,
+    row: 1,
+    feature: true,
   },
   {
     name: 'CSV Data Layer',
-    description: 'Embedded book catalog parsed into searchable records.',
-    icon: Database,
-    color: 'accentSecondary',
     category: 'Data',
+    short: 'The full catalogue, parsed at load',
+    description: 'No network, no database, no waiting.',
+    icon: Database,
+    accent: 'accentSecondary',
+    col: 2,
+    row: 1,
   },
-  {
-    name: 'ESLint',
-    description: 'Static checks for maintainable JavaScript and JSX.',
-    icon: CheckCircle2,
-    color: 'accentSecondary',
-    category: 'Tooling',
-  },
-  {
-    name: 'GitHub Actions',
-    description: 'Build and deployment pipeline for GitHub Pages.',
-    icon: Github,
-    color: 'textSecondary',
-    category: 'Delivery',
-  },
+  { name: 'Emotion',       category: 'Styling',    short: 'CSS-in-JS under Chakra',     icon: Braces,      accent: 'accentPrimary',   col: 1, row: 1 },
+  { name: 'Lucide React',  category: 'Icons',      short: 'One stroke-consistent set',  icon: Shapes,      accent: 'accentPrimary',   col: 1, row: 1 },
+  { name: 'React DOM',     category: 'Renderer',   short: 'Tree → DOM, minimally',      icon: Monitor,     accent: 'accentSecondary', col: 1, row: 1 },
+  { name: 'Web Audio API', category: 'Browser',    short: 'Synthesised, no audio files',icon: AudioLines,  accent: 'accentMagenta',   col: 1, row: 1 },
+  { name: 'Google Fonts',  category: 'Typography', short: 'Poppins · Lora · Rye',       icon: Type,        accent: 'accentSecondary', col: 2, row: 1 },
+  { name: 'ESLint',        category: 'Quality',    short: 'Static checks on every file',icon: ShieldCheck, accent: 'accentPrimary',   col: 1, row: 1 },
+  { name: 'GitHub Actions',category: 'Delivery',   short: 'Push to main, ships itself', icon: Github,      accent: 'textSecondary',   col: 1, row: 1 },
 ];
 
 const formattedTechStackText = `Project Tech Stack:
-${techStack.map(t => `• ${t.name}: ${t.description}`).join('\n')}`;
+${techStack.map((t) => `• ${t.name} (${t.category}): ${t.description || t.short}`).join('\n')}`;
 
 export default function TechStackModal({ isOpen, onClose }) {
   const { hasCopied, onCopy } = useClipboard(formattedTechStackText);
-  const toast = useToast();
-
-  const handleCopy = () => {
-    onCopy();
-    toast({
-      title: 'Copied to clipboard!',
-      description: 'Tech stack details copied to your clipboard.',
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-      position: 'top',
-    });
-  };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl" motionPreset="scale">
-      <ModalOverlay backdropFilter="blur(6px)" bg="blackAlpha.600" />
-      <ModalContent 
-        position="relative"
-        borderRadius="3xl"
-        shadow="2xl"
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl" motionPreset="slideInBottom" scrollBehavior="inside">
+      <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.600" />
+      <ModalContent
         bg="bg"
         borderWidth="1px"
         borderColor="borderPrimary"
+        borderRadius="2xl"
+        shadow="2xl"
         mx={4}
+        maxW="940px"
+        maxH="min(720px, calc(100vh - 40px))"
         overflow="hidden"
-        maxW="920px"
-        maxH="min(720px, calc(100vh - 32px))"
-        backdropFilter="blur(22px) saturate(130%)"
       >
-        <Box position="absolute" top="-100px" left="18%" w="280px" h="220px" borderRadius="full" bg="accentSecondary" opacity={0.13} filter="blur(65px)" pointerEvents="none" />
-        <Box position="absolute" bottom="-120px" right="8%" w="320px" h="240px" borderRadius="full" bg="accentMagenta" opacity={0.11} filter="blur(75px)" pointerEvents="none" />
-        <ModalHeader
-          position="relative"
-          px={{ base: 6, md: 10 }}
-          pt={{ base: 6, md: 8 }}
-          pb={5}
-          pr={16}
+        {/* ── Bar ─────────────────────────────────── */}
+        <Flex
+          align="center"
+          justify="space-between"
+          px={{ base: 5, md: 7 }}
+          py={4}
+          flexShrink={0}
         >
-          <Flex align="flex-start" justify="space-between" gap={4}>
-            <Box>
-              <Text color="accentPrimary" fontSize="xs" fontWeight="bold" letterSpacing="0.18em" textTransform="uppercase" mb={2}>
-                ✦ A little magic, under the hood
-              </Text>
-              <Text color="textPrimary" fontSize="2xl" fontWeight="bold" fontFamily="heading" letterSpacing="tight">
-                Project Tech Stack
-              </Text>
-              <Text color="textSecondary" fontSize="sm" mt={2} maxW="520px" fontWeight="normal" lineHeight="tall">
-                A constellation of tools working together to make this library feel alive.
-              </Text>
-            </Box>
-
-            <Flex align="center" gap={2} flexShrink={0}>
-              <Tooltip label={hasCopied ? "Copied!" : "Copy all tech stack details"} hasArrow>
-                <IconButton
-                  size="sm"
-                  variant="outline"
-                  borderColor={hasCopied ? "accentMagenta" : "borderPrimary"}
-                  color={hasCopied ? "accentMagenta" : "textSecondary"}
-                  _hover={{
-                    bg: "surfaceHover",
-                    borderColor: "accentPrimary",
-                    color: "accentPrimary",
-                  }}
-                  borderRadius="xl"
-                  aria-label="Copy tech stack details"
-                  icon={hasCopied ? <Check size={16} /> : <Copy size={16} />}
-                  onClick={handleCopy}
-                />
-              </Tooltip>
-              <ModalCloseButton
-                position="static"
-                size="sm"
-                borderRadius="full"
-                color="textSecondary"
-              />
-            </Flex>
+          <Flex align="baseline" gap={3} minW={0}>
+            <Text
+              fontFamily="heading"
+              fontSize={{ base: 'md', md: 'lg' }}
+              fontWeight="600"
+              color="textPrimary"
+              letterSpacing="-0.01em"
+              noOfLines={1}
+            >
+              Project Tech Stack
+            </Text>
+            <Text
+              fontSize="10px"
+              letterSpacing="0.18em"
+              textTransform="uppercase"
+              color="textSecondary"
+              display={{ base: 'none', sm: 'block' }}
+            >
+              {techStack.length} tools
+            </Text>
           </Flex>
-        </ModalHeader>
-        
-        <ModalBody position="relative" px={{ base: 6, md: 10 }} pt={0} pb={{ base: 7, md: 10 }} overflowY="auto">
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, md: 4 }}
-            autoRows={{ base: 'auto', md: 'minmax(150px, auto)' }}
-            gap={3}
+
+          <Flex align="center" gap={1}>
+            <Button
+              onClick={onCopy}
+              size="xs"
+              variant="ghost"
+              color={hasCopied ? 'accentPrimary' : 'textSecondary'}
+              fontWeight="500"
+              fontSize="11px"
+              borderRadius="lg"
+              leftIcon={hasCopied ? <Check size={12} /> : <Copy size={12} />}
+              _hover={{ bg: 'surfaceHover', color: 'accentPrimary' }}
+            >
+              {hasCopied ? 'Copied' : 'Copy'}
+            </Button>
+            <Box
+              as="button"
+              aria-label="Close"
+              onClick={onClose}
+              p={1.5}
+              borderRadius="lg"
+              color="textSecondary"
+              transition="all 0.2s"
+              _hover={{ bg: 'surfaceHover', color: 'textPrimary' }}
+            >
+              <X size={16} />
+            </Box>
+          </Flex>
+        </Flex>
+
+        {/* ── Bento grid ──────────────────────────── */}
+        <ModalBody
+          px={{ base: 4, md: 7 }}
+          pt={0}
+          pb={{ base: 5, md: 7 }}
+          overflowY="auto"
+          sx={{
+            '&::-webkit-scrollbar': { width: '5px' },
+            '&::-webkit-scrollbar-thumb': { background: 'var(--chakra-colors-borderPrimary)', borderRadius: '5px' },
+          }}
+        >
+          <Grid
+            templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}
+            autoRows={{ base: '110px', md: '104px' }}
+            autoFlow="row dense"
+            gap={{ base: 2.5, md: 3 }}
           >
-            {techStack.map((tech) => (
-              <Flex 
-                key={tech.name} 
-                align="flex-start"
-                gap={3}
-                p={3.5}
-                borderWidth="1px"
-                borderColor="borderPrimary"
-                borderRadius="2xl"
-                bg="surface"
-                transition="all 0.25s ease"
-                _hover={{ transform: 'translateY(-2px)', borderColor: 'accentPrimary', bg: 'surfaceHover', shadow: 'md' }}
-                flexDirection="column"
-                position="relative"
-                overflow="hidden"
+            {techStack.map((tech, idx) => (
+              <MotionGridItem
+                key={tech.name}
+                colSpan={{ base: tech.hero ? 2 : tech.col > 1 ? 2 : 1, md: tech.col }}
+                rowSpan={{ base: tech.hero ? 2 : 1, md: tech.row }}
+                initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.32, delay: Math.min(idx, 10) * 0.028, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Box position="absolute" top={0} left={0} right={0} h="3px" bg={tech.color} opacity={0.8} />
-                <Box 
-                p={2}
-                borderRadius="full"
-                bg="surfaceHover"
-                  color={tech.color}
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  flexShrink={0}
+                <Flex
+                  h="full"
+                  direction="column"
+                  justify="space-between"
+                  position="relative"
+                  overflow="hidden"
+                  p={{ base: 3.5, md: 4 }}
+                  borderRadius="20px"
+                  borderWidth="1px"
+                  borderColor="borderPrimary"
+                  bg="surface"
+                  role="group"
+                  transition="transform 0.25s cubic-bezier(0.22,1,0.36,1), border-color 0.25s, background 0.25s, box-shadow 0.25s"
+                  _hover={{
+                    transform: 'translateY(-3px)',
+                    borderColor: tech.accent,
+                    bg: 'surfaceHover',
+                    shadow: 'lg',
+                  }}
                 >
-                  <Icon as={tech.icon} boxSize={4} />
-                </Box>
-                <Box minW={0} w="full">
-                  <Text fontWeight="semibold" color="textPrimary" fontSize="sm">
-                    {tech.name}
-                  </Text>
-                  <Text color={tech.color} fontSize="9px" fontWeight="bold" letterSpacing="0.1em" textTransform="uppercase" mt={1}>
-                    {tech.category}
-                  </Text>
-                  <Text color="textSecondary" fontSize="xs" mt={1} lineHeight="short">
-                    {tech.description}
-                  </Text>
-                </Box>
-              </Flex>
+                  {/* corner wash */}
+                  <Box
+                    position="absolute"
+                    top="-40%"
+                    right="-25%"
+                    w="70%"
+                    h="140%"
+                    bg={tech.accent}
+                    opacity={tech.hero ? 0.14 : tech.feature ? 0.09 : 0.05}
+                    filter="blur(38px)"
+                    pointerEvents="none"
+                    transition="opacity 0.3s"
+                    _groupHover={{ opacity: tech.hero ? 0.22 : 0.16 }}
+                  />
+
+                  {/* oversized watermark icon — hero only */}
+                  {tech.hero && (
+                    <Icon
+                      as={tech.icon}
+                      position="absolute"
+                      bottom="-18px"
+                      right="-14px"
+                      boxSize="128px"
+                      color={tech.accent}
+                      opacity={0.1}
+                      strokeWidth={1}
+                      pointerEvents="none"
+                    />
+                  )}
+
+                  <Flex align="center" justify="space-between" position="relative" gap={2}>
+                    <Flex
+                      align="center"
+                      justify="center"
+                      boxSize={tech.hero ? 9 : 7}
+                      borderRadius={tech.hero ? 'xl' : 'lg'}
+                      bg="bg"
+                      borderWidth="1px"
+                      borderColor="borderPrimary"
+                      color={tech.accent}
+                      flexShrink={0}
+                    >
+                      <Icon as={tech.icon} boxSize={tech.hero ? 5 : 3.5} strokeWidth={1.75} />
+                    </Flex>
+                    <Text
+                      fontSize="9px"
+                      letterSpacing="0.16em"
+                      textTransform="uppercase"
+                      color="textSecondary"
+                      opacity={0.7}
+                      noOfLines={1}
+                    >
+                      {tech.category}
+                    </Text>
+                  </Flex>
+
+                  <Box position="relative" minW={0}>
+                    <Text
+                      fontFamily="heading"
+                      fontSize={tech.hero ? { base: 'xl', md: '2xl' } : tech.col > 1 ? 'sm' : 'xs'}
+                      fontWeight="600"
+                      color="textPrimary"
+                      letterSpacing="-0.01em"
+                      lineHeight="1.2"
+                      noOfLines={1}
+                    >
+                      {tech.name}
+                    </Text>
+                    <Text
+                      fontSize={tech.hero ? 'sm' : '11px'}
+                      color="textSecondary"
+                      lineHeight="1.45"
+                      mt={1}
+                      noOfLines={tech.hero ? 3 : 2}
+                    >
+                      {tech.hero ? tech.description : tech.short}
+                    </Text>
+                  </Box>
+                </Flex>
+              </MotionGridItem>
             ))}
-          </SimpleGrid>
+          </Grid>
         </ModalBody>
       </ModalContent>
     </Modal>
