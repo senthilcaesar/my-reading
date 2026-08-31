@@ -354,7 +354,7 @@ export const bookCovers = {
   "Infidel": "https://covers.openlibrary.org/b/isbn/0743289692-M.jpg?default=false",
   "Inflation": "https://images-na.ssl-images-amazon.com/images/P/1641772433.01.LZZZZZZZ.jpg",
   "Influence: The Psychology of Persuasion": "https://covers.openlibrary.org/b/isbn/006124189X-M.jpg?default=false",
-  "Innumeracy": "https://covers.openlibrary.org/b/isbn/0809074478-M.jpg?default=false",
+  "Innumeracy": "/covers/innum.png",
   "Inside the Secret Network of George Soros": "https://images-na.ssl-images-amazon.com/images/P/163758332X.01.LZZZZZZZ.jpg",
   "Intellectuals and Society": "https://covers.openlibrary.org/b/isbn/0465025226-M.jpg?default=false",
   "Intelligent Disobedience": "https://images-na.ssl-images-amazon.com/images/P/1626564272.01.LZZZZZZZ.jpg",

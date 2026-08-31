@@ -28,7 +28,7 @@ Why Machines Learn,Anil Ananthaswamy,Non-fiction,https://www.amazon.com/gp/produ
 Bring Yourself,Mori Taheripour,Non-fiction,https://www.amazon.com/gp/product/0593542053,"How to Negotiate Fearlessly"
 "In This Economy?: How Money & Markets Really Work",Kyla Scanlon,Economics,https://www.amazon.com/gp/product/0593727878,"For anyone trying to make sense of disorienting headlines, there’s no better interpreter than Kyla Scanlon. Through her trademark blend of witty illustrations, creative analogies, and insights from behavioral economics, literature, and philosophy, Scanlon breaks down everything you need to know about how money and markets really work."
 Trillion Dollar Triage,Nick Timiraos,Non-fiction,https://www.amazon.com/gp/product/0316272817,"How Jay Powell and the Fed Battled a President and a Pandemic and Prevented Economic Disaster"
-Innumeracy,John Allen Paulos,Non-fiction,https://www.amazon.com/Innumeracy-Mathematical-Illiteracy-Its-Consequences/dp/0809074478,"Mathematical Illiteracy and Its Consequences"
+Innumeracy,John Allen Paulos,Non-fiction,https://www.amazon.com/Innumeracy-Mathematical-Illiteracy-Its-Consequences/dp/0809058405,"Mathematical Illiteracy and Its Consequences"
 
 Notes on a Foreign Country,Suzy Hansen,Non-fiction,https://www.amazon.com/Notes-Foreign-Country-American-Post-American/dp/0374537836,"An American Abroad in a Post-American World"
 Citizens of London,Lynne Olson,History,https://www.amazon.com/gp/product/0812979354?smid=ATVPDKIKX0DER,"The Americans Who Stood with Britain in Its Darkest, Finest Hour"
