@@ -186,7 +186,7 @@ export const bookCovers = {
   "Democracy at Work": "https://covers.openlibrary.org/b/isbn/1608462471-M.jpg?default=false",
   "Democracy: Stories from the Long Road to Freedom": "https://images-na.ssl-images-amazon.com/images/P/B01LL8C1FG.01.LZZZZZZZ.jpg",
   "Den of Thieves": "https://images-na.ssl-images-amazon.com/images/P/067179227X.01.LZZZZZZZ.jpg",
-  "Deng Xiaoping and the Transformation of China": "https://covers.openlibrary.org/b/isbn/0674055446-M.jpg?default=false",
+  "Deng Xiaoping and the Transformation of China": "/covers/deng.png",
   "Devil Take the Hindmost: A History of Financial Speculation": "https://covers.openlibrary.org/b/isbn/0452281806-M.jpg?default=false",
   "Diet, Drugs, and Dopamine: The New Science of Achieving a Healthy Weight": "https://images-na.ssl-images-amazon.com/images/P/1250381274.01.LZZZZZZZ.jpg",
   "Dinners with Ruth: A Memoir on the Power of Friendships": "https://covers.openlibrary.org/b/isbn/198218809X-M.jpg?default=false",
