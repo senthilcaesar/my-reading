@@ -401,6 +401,7 @@ export const bookCovers = {
   "Lioness": "https://covers.openlibrary.org/b/isbn/0805211934-M.jpg?default=false",
   "Long Time Passing: Vietnam and the Haunted Generation": "https://covers.openlibrary.org/b/isbn/0253214955-M.jpg?default=false",
   "Long Walk to Freedom": "https://covers.openlibrary.org/b/isbn/0316548189-M.jpg?default=false",
+  "The Lords of Easy Money": "https://images-na.ssl-images-amazon.com/images/P/1982166649.01.LZZZZZZZ.jpg",
   "Looking at Women Looking at War: A War and Justice Diary": "https://images-na.ssl-images-amazon.com/images/P/1250367689.01.LZZZZZZZ.jpg",
   "Lords of Finance": "https://covers.openlibrary.org/b/isbn/159420182X-M.jpg?default=false",
   "Lost Connections": "https://covers.openlibrary.org/b/isbn/163286830X-M.jpg?default=false",
