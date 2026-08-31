@@ -22,6 +22,18 @@ export default function Header({ bookCount }) {
   const glassBg    = colorMode === 'dark' ? glassDark : glassLight;
   const pillBg     = colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(67,52,34,0.06)';
 
+  const handleThemeToggle = () => {
+    if (
+      typeof document !== 'undefined' &&
+      'startViewTransition' in document &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      document.startViewTransition(() => toggleColorMode());
+      return;
+    }
+    toggleColorMode();
+  };
+
   return (
     <>
       <Box
@@ -128,7 +140,7 @@ export default function Header({ bookCount }) {
               transition="all 0.3s"
               _hover={{ shadow: 'lg', transform: 'translateY(-1px)', borderColor: 'accentPrimary', color: 'accentPrimary' }}
               fontSize="sm" fontWeight="medium" color="textSecondary"
-              onClick={toggleColorMode}
+              onClick={handleThemeToggle}
               minW={{ base: '32px', sm: 'auto' }}
             >
               <MotionBox

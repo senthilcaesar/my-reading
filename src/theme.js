@@ -56,7 +56,27 @@ const theme = extendTheme({
       body: {
         bg: 'bg',
         color: 'textPrimary',
-        transition: 'background-color 0.3s, color 0.3s',
+        transition: 'background-color 0.6s ease, color 0.6s ease',
+      },
+      '::view-transition-old(root)': {
+        animation: 'theme-fade-out 0.55s cubic-bezier(0.22, 1, 0.36, 1) both',
+      },
+      '::view-transition-new(root)': {
+        animation: 'theme-fade-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both',
+        mixBlendMode: 'normal',
+      },
+      '@keyframes theme-fade-out': {
+        from: { opacity: 1, transform: 'scale(1)' },
+        to: { opacity: 0, transform: 'scale(0.995)' },
+      },
+      '@keyframes theme-fade-in': {
+        from: { opacity: 0, transform: 'scale(1.005)' },
+        to: { opacity: 1, transform: 'scale(1)' },
+      },
+      '@media (prefers-reduced-motion: reduce)': {
+        '::view-transition-old(root), ::view-transition-new(root)': {
+          animationDuration: '0.01ms',
+        },
       },
     },
   },
