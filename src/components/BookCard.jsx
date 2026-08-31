@@ -62,11 +62,19 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
   const borderColor = "borderPrimary";
   const categoryStyles = getCategoryStyles(book.category);
 
+  const prefetchCover = () => {
+    if (!book.coverUrl || typeof window === "undefined") return;
+    const image = new window.Image();
+    image.src = book.coverUrl;
+  };
+
   return (
     <Box
       as="button"
       type="button"
       onClick={() => onSelect(book)}
+      onMouseEnter={prefetchCover}
+      onFocus={prefetchCover}
       textAlign="left"
       w="full"
       cursor="pointer"
@@ -178,4 +186,3 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
 });
 
 export default BookCard;
-

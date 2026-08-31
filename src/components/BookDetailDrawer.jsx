@@ -11,6 +11,7 @@ import {
   Button,
   Heading,
   Text,
+  Image,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -135,6 +136,24 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
           <Text color="textSecondary" fontSize="md" lineHeight="tall">
             {book.summary}
           </Text>
+
+          {book.coverUrl && (
+            <Image
+              src={book.coverUrl}
+              alt={`Cover of ${book.title}`}
+              w="220px"
+              h="320px"
+              maxW="full"
+              objectFit="cover"
+              borderRadius="lg"
+              mt={6}
+              mx="auto"
+              shadow="lg"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+          )}
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px" borderColor="borderPrimary" gap={3}>
@@ -166,4 +185,3 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
     </Drawer>
   );
 }
-

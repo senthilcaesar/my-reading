@@ -1,5 +1,6 @@
 import { csvData } from './csvString.js';
 import { bookRecommendations } from './recommendations.js';
+import { bookCovers } from './bookCovers.js';
 
 // Robust line-by-line CSV parser
 function parseCSV(csvText) {
@@ -35,6 +36,8 @@ const headerMap = {};
 export const books = [];
 export const categories = new Set();
 export const recommenders = new Set();
+const seenBookKeys = new Set();
+const normalizeIdentity = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 if (parsed.length > 0) {
   const headers = parsed[0].map(h => h.toLowerCase());
@@ -51,6 +54,11 @@ if (parsed.length > 0) {
     if (!rawTitle) continue;
 
     const title = rawTitle.replace(/^"|"$/g, '').trim();
+    const author = (row[headerMap['author']] || '').replace(/^"|"$/g, '').trim();
+    const link = (row[headerMap['link']] || '').replace(/^"|"$/g, '').trim();
+    const bookKey = `${normalizeIdentity(title)}\u0000${normalizeIdentity(author)}`;
+    if (seenBookKeys.has(bookKey)) continue;
+    seenBookKeys.add(bookKey);
     
     let category = row[headerMap['category']] || 'Unknown';
     category = category.trim();
@@ -79,14 +87,13 @@ if (parsed.length > 0) {
     books.push({
       id: i,
       title: title,
-      author: (row[headerMap['author']] || '').replace(/^"|"$/g, '').trim(),
+      author: author,
       category: category,
-      link: (row[headerMap['link']] || '').replace(/^"|"$/g, '').trim(),
+      link: link,
       summary: (row[headerMap['summary']] || '').replace(/^"|"$/g, '').trim(),
       recommender: recommender,
       recommendationNote: recommendationNote,
+      coverUrl: bookCovers[title] || null,
     });
   }
 }
-
-
