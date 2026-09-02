@@ -683,7 +683,7 @@ It Didn't Start with You,Mark Wolynn,Non-fiction,https://www.amazon.com/Didnt-St
 
 Introduction to Mathematical Thinking,Keith Devlin,Non-fiction,https://www.amazon.com/dp/0615653634,"Dr. Keith Devlin is a professional mathematician at Stanford University and the author of 31 previous books and over 80 research papers"
 
-A Taste of Power,Bill Treasurer,Non-fiction,https://www.amazon.com/dp/1523098562,"How to Build Backbones, Boost Performance, and Get Results"
+Courage goes to work,Bill Treasurer,Non-fiction,https://www.amazon.com/dp/1523098562,"How to Build Backbones, Boost Performance, and Get Results"
 
 "How Stella Saved the Farm: A Tale About Making Innovation Happen",Vijay Govindarajan,Business,https://www.amazon.com/How-Stella-Saved-Farm-Innovation/dp/1250002125,"The parable is about a farm in trouble. Bankruptcy, or the grim prospect of being acquired by a hostile competitor, threaten. The farm succeeds only if the team pulls together and innovates."
 
