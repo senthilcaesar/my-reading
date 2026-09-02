@@ -147,4 +147,13 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
+  'Autobiography of Malcolm X': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  'Steve Jobs': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
 };
+

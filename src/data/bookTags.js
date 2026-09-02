@@ -66,7 +66,7 @@ export const bookTags = {
   "How Google Works": ["Business", "Technology"],
   "Rework: Change The Way You Work Forever": ["Business", "Entrepreneurship"],
   "Creative Selection: Inside Apple's Design Process During the Golden Age of Steve Jobs": ["Business", "Design"],
-  "Steve Jobs": ["Biography", "Technology"],
+  "Steve Jobs": ["Biography", "Technology", "Non-fiction"],
   "The Magic of Thinking Big": ["Self-Help", "Psychology"],
   "The E-Myth Revisited": ["Business", "Entrepreneurship"],
   "Traction: Get a Grip on Your Business": ["Business", "Management"],

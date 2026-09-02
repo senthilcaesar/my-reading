@@ -599,7 +599,7 @@ export const bookCovers = {
   "Start with Why": "https://covers.openlibrary.org/b/isbn/1591846447-M.jpg?default=false",
   "State and Revolution": "https://covers.openlibrary.org/b/isbn/1614271925-M.jpg?default=false",
   "Step Up, Step Back: How to Really Deliver Strategic Change in Your Organization": "https://images-na.ssl-images-amazon.com/images/P/139942467X.01.LZZZZZZZ.jpg",
-  "Steve Jobs": "https://covers.openlibrary.org/b/isbn/1982176865-M.jpg?default=false",
+  "Steve Jobs": "https://images-na.ssl-images-amazon.com/images/P/1982176865.01.LZZZZZZZ.jpg",
   "Stilwell and the American Experience in China": "https://covers.openlibrary.org/b/isbn/0812986202-M.jpg?default=false",
   "Stocks for the Long Run": "https://covers.openlibrary.org/b/isbn/1264269803-M.jpg?default=false",
   "Stolen Focus": "https://covers.openlibrary.org/b/isbn/0593138511-M.jpg?default=false",
