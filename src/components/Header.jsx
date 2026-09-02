@@ -1,8 +1,9 @@
 import { Box, Flex, Heading, Text, useColorMode, Button, useDisclosure, Icon, IconButton } from '@chakra-ui/react';
-import { Moon, Sun, BookMarked, Code } from 'lucide-react';
+import { Moon, Sun, Code } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import TechStackModal from './TechStackModal';
+import OpenLibraryBadge from './OpenLibraryBadge';
 
 const MotionBox = motion(Box);
 
@@ -48,8 +49,8 @@ export default function Header({ bookCount }) {
         borderBottom="1px solid"
         borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(67,52,34,0.12)'}
         transition="padding 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease"
-        pt={{ base: scrolled ? 2 : 3, md: scrolled ? 3 : 5 }}
-        pb={{ base: scrolled ? 2 : 3, md: scrolled ? 3 : 5 }}
+        pt={{ base: scrolled ? 1 : 1.5, md: scrolled ? 1.5 : 2.5 }}
+        pb={{ base: scrolled ? 1 : 1.5, md: scrolled ? 1.5 : 2.5 }}
         px={{ base: 3, sm: 4, md: 5 }}
         boxShadow={scrolled
           ? colorMode === 'dark'
@@ -59,31 +60,18 @@ export default function Header({ bookCount }) {
       >
         <Flex align="center" justify="space-between" maxW="1400px" mx="auto" gap={2}>
 
-          {/* Left — Book Count Badge */}
-          <Flex
-            align="center" gap={1.5}
-            px={{ base: 2, sm: 3 }} py={1.5}
-            bg={pillBg}
-            borderWidth="1px" borderColor="borderPrimary"
-            borderRadius="full" shadow="sm"
-            fontSize={{ base: 'xs', sm: 'sm' }} fontWeight="medium" color="textSecondary"
-            transition="all 0.3s"
-            _hover={{ borderColor: 'accentPrimary', shadow: 'md' }}
-            flexShrink={0}
-          >
-            <BookMarked size={14} />
-            <Text display={{ base: 'none', sm: 'inline' }}>{bookCount} Books</Text>
-            <Text display={{ base: 'inline', sm: 'none' }}>{bookCount}</Text>
-          </Flex>
+          {/* Left — Open Library Badge & Book Count */}
+          <OpenLibraryBadge bookCount={bookCount} />
 
           {/* Center — Title */}
           <Heading
             as="h1"
             fontFamily="'Rye', serif"
             fontSize={scrolled
-              ? { base: 'md', sm: 'lg', md: '2xl' }
-              : { base: 'lg', sm: 'xl', md: '3xl' }
+              ? { base: 'sm', sm: 'md', md: 'xl' }
+              : { base: 'md', sm: 'lg', md: '2xl' }
             }
+            lineHeight="shorter"
             fontWeight="400"
             color="textPrimary"
             letterSpacing={{ base: '0.02em', md: '0.04em' }}
