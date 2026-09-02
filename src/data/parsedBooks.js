@@ -68,13 +68,13 @@ if (parsed.length > 0) {
     let lookupRec = bookRecommendations[title];
     if (!lookupRec) {
       const titleLower = title.toLowerCase();
-      const matchKey = Object.keys(bookRecommendations).find(
-        (key) =>
-          titleLower.startsWith(key.toLowerCase()) ||
-          key.toLowerCase().startsWith(titleLower) ||
-          titleLower.includes(key.toLowerCase()) ||
-          key.toLowerCase().includes(titleLower),
-      );
+      const baseTitle = titleLower.split(/[:\-(–—]/)[0].trim();
+      const matchKey = Object.keys(bookRecommendations).find((key) => {
+        const keyLower = key.toLowerCase();
+        if (keyLower === titleLower) return true;
+        const baseKey = keyLower.split(/[:\-(–—]/)[0].trim();
+        return baseKey === baseTitle && baseTitle.length > 3;
+      });
       if (matchKey) {
         lookupRec = bookRecommendations[matchKey];
       }
