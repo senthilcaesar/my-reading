@@ -29,7 +29,7 @@ export const categoryAliases = {
 
 export const categoryOverrides = {
   'A Vindication of the Rights of Men': 'Politics',
-  'A Brief History of Intelligence': 'Science',
+  'A Brief History of Intelligence': 'Neuroscience',
   'A Mind of Your Own': 'Health',
   'A People\'s Tragedy: The Russian Revolution': 'History',
   'A Short History of Nearly Everything': 'Science',

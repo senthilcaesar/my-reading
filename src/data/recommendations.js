@@ -87,6 +87,10 @@ export const bookRecommendations = {
     recommender: 'Nicolai Tangen',
     note: 'Recommended by Nicolai Tangen',
   },
+  'The Tale of the Dueling Neurosurgeons': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
   'Why Machines Learn': {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
@@ -156,4 +160,3 @@ export const bookRecommendations = {
     note: 'Recommended by Senthil Palanivelu',
   },
 };
-
