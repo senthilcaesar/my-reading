@@ -17,8 +17,8 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLink, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { getCategoryStyles } from "./BookCard";
 import { bookTags } from "../data/bookTags";
+import { getCategoryStyles } from "../utils/categoryStyles";
 
 const MotionBox = motion(Box);
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export const csvData = `Title,Author,Category,Link,Summary
 
 

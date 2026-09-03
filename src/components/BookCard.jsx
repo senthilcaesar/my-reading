@@ -9,6 +9,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { bookTags } from "../data/bookTags";
+import { getCategoryStyles } from "../utils/categoryStyles";
 
 // ── Highlight matching text ────────────────────────────────────────────────────
 function HighlightText({ text, query }) {
@@ -40,21 +41,6 @@ function HighlightText({ text, query }) {
     </>
   );
 }
-
-// ── Category styling ──────────────────────────────────────────────────────────
-export const getCategoryStyles = (category) => {
-  const cat = category?.toLowerCase() || "";
-  if (cat.includes("business")) return { colorScheme: "blue", icon: "💼" };
-  if (cat.includes("science")) return { colorScheme: "purple", icon: "🔬" };
-  if (cat.includes("history")) return { colorScheme: "amber", icon: "🏺" };
-  if (cat.includes("fiction")) return { colorScheme: "pink", icon: "🎭" };
-  if (cat.includes("technology") || cat.includes("computer"))
-    return { colorScheme: "cyan", icon: "💻" };
-  if (cat.includes("biography") || cat.includes("memoir"))
-    return { colorScheme: "emerald", icon: "👤" };
-  if (cat.includes("philosophy")) return { colorScheme: "indigo", icon: "🤔" };
-  return { colorScheme: "slate", icon: "📚" };
-};
 
 // ── BookCard ──────────────────────────────────────────────────────────────────
 const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
@@ -124,9 +110,19 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
           display="flex"
           alignItems="center"
           gap={1}
+          maxW="full"
+          minW={0}
         >
-          <Text as="span">{categoryStyles.icon}</Text>
-          <Text as="span" fontWeight="bold" letterSpacing="wider">
+          <Text as="span" flex="0 0 auto">
+            {categoryStyles.icon}
+          </Text>
+          <Text
+            as="span"
+            fontWeight="bold"
+            letterSpacing="wider"
+            minW={0}
+            noOfLines={1}
+          >
             {book.category}
           </Text>
         </Badge>

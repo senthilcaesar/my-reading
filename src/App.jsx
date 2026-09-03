@@ -38,6 +38,7 @@ function App() {
   }, [onOpenRoulette]);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const isSearchSettling = searchQuery !== debouncedSearchQuery;
 
   const handleBookSelect = useCallback(
     (book) => {
@@ -121,6 +122,9 @@ function App() {
           setSelectedRecommender={setSelectedRecommender}
           categories={categories}
           recommenders={recommenders}
+          resultCount={filteredBooks.length}
+          totalCount={booksList.length}
+          isSearchSettling={isSearchSettling}
           onShuffle={handleShuffle}
           onRoulette={handleOpenRoulette}
         />
@@ -128,6 +132,7 @@ function App() {
           books={filteredBooks}
           searchQuery={debouncedSearchQuery}
           shuffleCount={shuffleCount}
+          isFiltering={isSearchSettling}
           onBookSelect={handleBookSelect}
         />
       </Box>

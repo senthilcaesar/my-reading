@@ -24,50 +24,76 @@ export default function BookGrid({
   books,
   searchQuery,
   shuffleCount,
+  isFiltering,
   onBookSelect,
 }) {
-  if (!books || books.length === 0) {
-    return (
-      <Box textAlign="center" py={12} px={4}>
-        <Text fontSize="xl" color="textSecondary">
-          No books found matching your criteria.
-        </Text>
-      </Box>
-    );
-  }
+  const hasBooks = books && books.length > 0;
 
   return (
-    <MotionSimpleGrid
-      key={shuffleCount}
-      columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
-      spacing={{ base: 4, md: 5, lg: 6 }}
+    <MotionBox
       maxW="7xl"
       mx="auto"
       px={{ base: 3, sm: 4, md: 6, lg: 8 }}
       pb={16}
       layout
-      transition={{ layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }}
+      animate={{ opacity: isFiltering ? 0.72 : 1 }}
+      transition={{ duration: 0.18, ease: 'easeOut' }}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        {books.map((book, idx) => (
+      <AnimatePresence mode="wait" initial={false}>
+        {!hasBooks ? (
           <MotionBox
-            key={book.id}
-            custom={idx}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            key="empty"
+            textAlign="center"
+            py={12}
+            px={4}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
             layout
-            h="full"
           >
-            <BookCard
-              book={book}
-              searchQuery={searchQuery}
-              onSelect={onBookSelect}
-            />
+            <Text fontSize="xl" color="textSecondary">
+              No books found matching your criteria.
+            </Text>
           </MotionBox>
-        ))}
+        ) : (
+          <MotionSimpleGrid
+            key={`grid-${shuffleCount}`}
+            columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+            spacing={{ base: 4, md: 5, lg: 6 }}
+            layout
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{
+              duration: 0.22,
+              ease: 'easeOut',
+              layout: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+            }}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              {books.map((book, idx) => (
+                <MotionBox
+                  key={book.id}
+                  custom={idx}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  layout
+                  h="full"
+                >
+                  <BookCard
+                    book={book}
+                    searchQuery={searchQuery}
+                    onSelect={onBookSelect}
+                  />
+                </MotionBox>
+              ))}
+            </AnimatePresence>
+          </MotionSimpleGrid>
+        )}
       </AnimatePresence>
-    </MotionSimpleGrid>
+    </MotionBox>
   );
 }

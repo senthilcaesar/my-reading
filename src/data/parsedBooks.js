@@ -1,6 +1,12 @@
 import { csvData } from './csvString.js';
 import { bookRecommendations } from './recommendations.js';
 import { bookCovers } from './bookCovers.js';
+import {
+  categoryAliases,
+  categoryOverrides,
+  summaryOverrides,
+} from './categoryOverrides.js';
+import { generatedCategoryOverrides } from './generatedCategoryOverrides.js';
 
 // Robust line-by-line CSV parser
 function parseCSV(csvText) {
@@ -38,6 +44,7 @@ export const categories = new Set();
 export const recommenders = new Set();
 const seenBookKeys = new Set();
 const normalizeIdentity = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+const normalizeCategory = (category) => categoryAliases[category] || category;
 
 if (parsed.length > 0) {
   const headers = parsed[0].map(h => h.toLowerCase());
@@ -61,7 +68,8 @@ if (parsed.length > 0) {
     seenBookKeys.add(bookKey);
     
     let category = row[headerMap['category']] || 'Unknown';
-    category = category.trim();
+    category = normalizeCategory(category.trim());
+    category = categoryOverrides[title] || generatedCategoryOverrides[title] || category;
     if (category) categories.add(category);
 
     const csvRecommender = recommenderHeaderIdx !== undefined ? (row[recommenderHeaderIdx] || '').replace(/^"|"$/g, '').trim() : '';
@@ -90,7 +98,7 @@ if (parsed.length > 0) {
       author: author,
       category: category,
       link: link,
-      summary: (row[headerMap['summary']] || '').replace(/^"|"$/g, '').trim(),
+      summary: summaryOverrides[title] || (row[headerMap['summary']] || '').replace(/^"|"$/g, '').trim(),
       recommender: recommender,
       recommendationNote: recommendationNote,
       coverUrl: bookCovers[title] || null,

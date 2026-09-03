@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dices, Volume2, VolumeX, Sparkles, ExternalLink, BookOpen, RotateCcw } from "lucide-react";
-import { getCategoryStyles } from "./BookCard";
+import { getCategoryStyles } from "../utils/categoryStyles";
 
 const MotionBox = motion(Box);
 
