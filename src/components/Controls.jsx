@@ -33,7 +33,6 @@ const MotionInputGroup = motion(InputGroup);
 
 function FilterMenu({
   icon,
-  label,
   placeholder,
   options,
   value,
@@ -51,8 +50,9 @@ function FilterMenu({
           <MenuButton
             as={Button}
             w='full'
-            h={{ base: '40px', md: '48px' }}
+            h={{ base: '40px', md: '44px' }}
             px={{ base: 3, md: 4 }}
+            py={1}
             bg='surfaceHover'
             border='1px solid'
             borderColor={isActive ? activeBorderColor : 'borderPrimary'}
@@ -77,26 +77,16 @@ function FilterMenu({
                 borderRadius='lg'
                 bg={isActive ? 'accentPrimary' : 'surface'}
                 color={isActive ? 'bg' : 'accentPrimary'}
-              >
-                <IconComponent size={16} />
-              </Box>
+                >
+                  <IconComponent size={16} />
+                </Box>
               <Box minW={0} flex='1'>
                 <Text
                   as='span'
                   display='block'
-                  color='textSecondary'
-                  fontSize='xs'
-                  lineHeight='1'
-                >
-                  {label}
-                </Text>
-                <Text
-                  as='span'
-                  display='block'
-                  mt={1}
                   color={isActive ? 'accentPrimary' : 'textPrimary'}
                   fontSize={{ base: 'sm', md: 'md' }}
-                  lineHeight='1.1'
+                  lineHeight='1.35'
                   noOfLines={1}
                 >
                   {selectedLabel}
@@ -188,10 +178,10 @@ export default function Controls({
 }) {
   const [isShuffling, setIsShuffling] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const bg = 'surfaceHover';
+  const bg = 'searchInputBg';
   const borderColor = 'borderPrimary';
-  const focusBorderColor = 'accentPrimary';
-  const iconColor = 'textSecondary';
+  const focusBorderColor = 'searchInputFocusBorder';
+  const iconColor = 'searchInputPlaceholder';
   const categoryOptions = useMemo(() => Array.from(categories).sort(), [categories]);
   const recommenderOptions = useMemo(
     () => Array.from(recommenders).sort(),
@@ -210,20 +200,36 @@ export default function Controls({
       <MotionInputGroup
         size={{ base: 'md', md: 'lg' }}
         animate={{
-          scale: isSearchFocused ? 1.01 : 1,
+          scale: isSearchFocused ? 1.012 : 1,
         }}
-        transition={{ duration: 0.18, ease: 'easeOut' }}
+        transition={{ duration: 0.22, ease: 'easeOut' }}
       >
+        <MotionBox
+          position='absolute'
+          inset='-3px'
+          borderRadius='full'
+          pointerEvents='none'
+          bg='searchInputFocusHalo'
+          initial={false}
+          animate={{
+            opacity: isSearchFocused ? 0.34 : 0,
+            scale: isSearchFocused ? 1 : 0.98,
+          }}
+          transition={{ duration: 0.24, ease: 'easeOut' }}
+          filter='blur(10px)'
+        />
         <InputLeftElement pointerEvents='none' h='full'>
-          <Box color={searchQuery || isSearchFocused ? 'accentPrimary' : iconColor}>
+          <Box color={searchQuery || isSearchFocused ? 'accentSecondary' : iconColor}>
             <Search size={20} />
           </Box>
         </InputLeftElement>
         <Input
           backdropFilter='blur(10px)'
           bg={bg}
+          color='searchInputText'
+          caretColor='accentSecondary'
           border='1px solid'
-          borderColor={searchQuery ? 'accentPrimary' : borderColor}
+          borderColor={searchQuery || isSearchFocused ? focusBorderColor : borderColor}
           transition='background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease'
           focusBorderColor={focusBorderColor}
           borderRadius='full'
@@ -235,9 +241,9 @@ export default function Controls({
           onFocus={() => setIsSearchFocused(true)}
           onBlur={() => setIsSearchFocused(false)}
           onChange={(e) => setSearchQuery(e.target.value)}
-          _placeholder={{ color: 'textSecondary' }}
+          _placeholder={{ color: 'searchInputPlaceholder' }}
           _focusVisible={{
-            boxShadow: '0 0 0 1px var(--chakra-colors-accentPrimary), 0 18px 42px rgba(0,0,0,0.18)',
+            boxShadow: '0 0 0 1px var(--chakra-colors-searchInputFocusBorder), 0 16px 36px rgba(0,0,0,0.12)',
           }}
         />
         {searchQuery && (
@@ -302,8 +308,8 @@ export default function Controls({
             borderRadius='full'
             pointerEvents='none'
             border='1px solid'
-            borderColor='accentPrimary'
-            opacity={0.35}
+            borderColor='searchInputFocusBorder'
+            opacity={0.65}
           />
         )}
       </MotionInputGroup>
@@ -354,7 +360,6 @@ export default function Controls({
       >
         <FilterMenu
           icon={LibraryBig}
-          label='Category'
           placeholder='All Categories'
           options={categoryOptions}
           value={selectedCategory}
@@ -363,7 +368,6 @@ export default function Controls({
 
         <FilterMenu
           icon={UsersRound}
-          label='People'
           placeholder="People's Picks"
           options={recommenderOptions}
           value={selectedRecommender}

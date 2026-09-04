@@ -25,6 +25,26 @@ const theme = extendTheme({
         default: '#d4d1c4',
         _dark: '#51576d',
       },
+      searchInputBg: {
+        default: '#fffdf5',
+        _dark: '#f8fafc',
+      },
+      searchInputText: {
+        default: '#141413',
+        _dark: '#141413',
+      },
+      searchInputPlaceholder: {
+        default: '#5c5c56',
+        _dark: '#5c5c56',
+      },
+      searchInputFocusBorder: {
+        default: '#e6e1d6',
+        _dark: '#e5e7eb',
+      },
+      searchInputFocusHalo: {
+        default: '#ffffff',
+        _dark: '#ffffff',
+      },
       borderPrimary: {
         default: '#b0aea5',
         _dark: '#626880',
