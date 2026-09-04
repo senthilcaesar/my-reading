@@ -47,6 +47,18 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
+  'The Last Lecture': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  'Sam Walton': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  'My Life & the Principles for Success': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
   'Up Close and All In': {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
