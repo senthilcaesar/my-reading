@@ -43,6 +43,7 @@ src/
 │   ├── BookCard.jsx             # Individual card + HighlightText component
 │   ├── BookDetailDrawer.jsx     # Chakra Drawer showing complete book details, tags, and link
 │   ├── BookRouletteModal.jsx    # Interactive spinning roulette wheel with synthesized audio ticks & win celebration
+│   ├── NewspaperBackground.jsx  # Subtle editorial broadsheet SVG background with adaptive vignette
 │   └── TechStackModal.jsx       # Chakra Modal listing the tech stack
 │
 ├── data/
@@ -147,6 +148,12 @@ const [selectedBook, setSelectedBook]; // book selected for detail drawer
 - Each card is an interactive card opening the detail drawer
 - Hover effect: `translateY(-8px)` + gradient top border reveal
 - `h="full"` ensures cards in the same grid row share height
+
+### `NewspaperBackground.jsx`
+
+- Ambient fixed broadsheet newspaper texture rendered via high-performance vector SVG
+- Adapts dynamically to light and dark color modes with subtle opacity (`~0.04` - `0.055`)
+- Gentle radial vignette overlay ensures content readability remains crisp in the center
 
 ---
 

@@ -143,7 +143,7 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
-  'Superior': {
+  Superior: {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },

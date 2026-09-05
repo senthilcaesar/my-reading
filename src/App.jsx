@@ -7,6 +7,7 @@ import Controls from './components/Controls';
 import BookGrid from './components/BookGrid';
 import BookDetailDrawer from './components/BookDetailDrawer';
 import BookRouletteModal from './components/BookRouletteModal';
+import NewspaperBackground from './components/NewspaperBackground';
 import {
   books as initialBooks,
   categories,
@@ -109,32 +110,35 @@ function App() {
   }, [booksList, debouncedSearchQuery, selectedCategory, selectedRecommender]);
 
   return (
-    <Box minH='100vh' transition='colors 0.3s'>
-      <Header bookCount={filteredBooks.length} />
-      <BookOfTheDay />
-      <Box pt={8}>
-        <Controls
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedRecommender={selectedRecommender}
-          setSelectedRecommender={setSelectedRecommender}
-          categories={categories}
-          recommenders={recommenders}
-          resultCount={filteredBooks.length}
-          totalCount={booksList.length}
-          isSearchSettling={isSearchSettling}
-          onShuffle={handleShuffle}
-          onRoulette={handleOpenRoulette}
-        />
-        <BookGrid
-          books={filteredBooks}
-          searchQuery={debouncedSearchQuery}
-          shuffleCount={shuffleCount}
-          isFiltering={isSearchSettling}
-          onBookSelect={handleBookSelect}
-        />
+    <Box minH='100vh' position='relative' transition='colors 0.3s'>
+      <NewspaperBackground />
+      <Box position='relative' zIndex={1}>
+        <Header bookCount={filteredBooks.length} />
+        <BookOfTheDay />
+        <Box pt={8}>
+          <Controls
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedRecommender={selectedRecommender}
+            setSelectedRecommender={setSelectedRecommender}
+            categories={categories}
+            recommenders={recommenders}
+            resultCount={filteredBooks.length}
+            totalCount={booksList.length}
+            isSearchSettling={isSearchSettling}
+            onShuffle={handleShuffle}
+            onRoulette={handleOpenRoulette}
+          />
+          <BookGrid
+            books={filteredBooks}
+            searchQuery={debouncedSearchQuery}
+            shuffleCount={shuffleCount}
+            isFiltering={isSearchSettling}
+            onBookSelect={handleBookSelect}
+          />
+        </Box>
       </Box>
       <BookDetailDrawer book={selectedBook} isOpen={isOpen} onClose={onClose} />
       <BookRouletteModal
