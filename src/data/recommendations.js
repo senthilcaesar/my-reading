@@ -171,4 +171,8 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
+  'Age of Ambition': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
 };

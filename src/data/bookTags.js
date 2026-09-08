@@ -71,4 +71,13 @@ export const bookTags = {
   "The E-Myth Revisited": ["Business", "Entrepreneurship"],
   "Traction: Get a Grip on Your Business": ["Business", "Management"],
   "The Case Against the Sexual Revolution": ["History", "Politics"],
+  "Eichmann in Jerusalem": ["History", "Holocaust", "Philosophy"],
+  "Enlightenment Now": ["Science", "Humanism", "Philosophy"],
+  "Jimmy Breslin": ["Biography", "Journalism"],
+  "I Feel Bad About My Neck": ["Humor", "Essays", "Women"],
+  "The Tennis Partner": ["Memoir", "Medicine", "Friendship"],
+  "The Great Influenza": ["History", "Medicine", "Pandemic"],
+  "A Planet of Viruses": ["Science", "Biology", "Virology"],
+  "The Snowball": ["Biography", "Finance", "Investing"],
+  "The Gatekeepers": ["History", "Politics", "Presidency"],
 };
