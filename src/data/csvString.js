@@ -1439,4 +1439,10 @@ The Great Influenza,John M. Barry,Science,https://www.amazon.com/Great-Influenza
 A Planet of Viruses,Carl Zimmer,Science,https://www.amazon.com/gp/product/022678259X,"How viruses are producing new diseases, how we can harness viruses for our own ends, and how viruses will continue to control our fate as long as life endures."
 The Snowball,Alice Schroeder,Non-fiction,https://www.amazon.com/gp/product/0553384619,"Warren Buffett and the Business of Life"
 The Gatekeepers,Chris Whipple,History,https://www.amazon.com/gp/product/0804138265,"How the White House Chiefs of Staff Define Every Presidency"
+The Chip,T.R. Reid,Non-fiction,https://www.amazon.com/gp/product/0375758283,"How Two Americans Invented the Microchip and Launched a Revolution"
+Morris Chang,Morgenfeld Research,Non-fiction,https://www.amazon.com/gp/product/B0HH8HRV84,"TSMC, Semiconductors, and the Company That Powers the Digital World"
+Chip War,Chris Miller,Non-fiction,https://www.amazon.com/gp/product/1982172010,"The Fight for the World's Most Critical Technology"
+JFK and the Reagan Revolution,Lawrence Kudlow,History,https://www.amazon.com/gp/product/1595231145,"A Secret History of American Prosperity"
+Agents of Subversion,John P. Delury,Non-fiction,https://www.amazon.com/gp/product/1501765973,"The Fate of John T. Downey and the CIA's Covert War in China"
+This Cursed Beautiful Land,Evan Gershkovich,Non-fiction,https://www.amazon.com/gp/product/B0GQLDV1Z8,"A Russian-American Story"
 `;

@@ -80,4 +80,10 @@ export const bookTags = {
   "A Planet of Viruses": ["Science", "Biology", "Virology"],
   "The Snowball": ["Biography", "Finance", "Investing"],
   "The Gatekeepers": ["History", "Politics", "Presidency"],
+  "The Chip": ["Technology", "Semiconductors", "History"],
+  "Morris Chang": ["Semiconductors", "Biography", "Business"],
+  "Chip War": ["Technology", "Geopolitics", "Semiconductors"],
+  "JFK and the Reagan Revolution": ["History", "Economics", "Politics"],
+  "Agents of Subversion": ["History", "Cold War", "Espionage"],
+  "This Cursed Beautiful Land": ["Journalism", "Memoir", "Russia"],
 };
