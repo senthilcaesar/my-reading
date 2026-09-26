@@ -698,6 +698,28 @@ export default function NewspaperBackground() {
               {/* ========================================================= */}
               {/* COLUMN 2: ARTIFICIAL INTELLIGENCE, GENOMICS & MENTAL HEALTH*/}
               {/* ========================================================= */}
+              {/* COLUMN 2: BAKING, TOURISM/TRAVEL & ENTREPRENEURSHIP       */}
+              {/* ========================================================= */}
+              <text
+                x='345'
+                y='136'
+                fill={subtextColor}
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
+              >
+                CULINARY ARTS &amp; FERMENTATION
+              </text>
+              <line
+                x1='345'
+                y1='142'
+                x2='520'
+                y2='142'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
               <text
                 x='345'
                 y='162'
@@ -706,7 +728,7 @@ export default function NewspaperBackground() {
                 fontFamily="'Lora', Georgia, serif"
                 fontWeight='bold'
               >
-                Artificial Intelligence
+                Artisan Bakers Revive Ancient
               </text>
               <text
                 x='345'
@@ -716,7 +738,7 @@ export default function NewspaperBackground() {
                 fontFamily="'Lora', Georgia, serif"
                 fontWeight='bold'
               >
-                Achieves Reasoning Feat
+                Fermentation Traditions
               </text>
               <text
                 x='345'
@@ -726,7 +748,7 @@ export default function NewspaperBackground() {
                 fontFamily="'Lora', Georgia, serif"
                 fontStyle='italic'
               >
-                Autonomous Neural Models Solve Complex Symbolic Proofs
+                Wild Sourdough Cultures and Heritage Grains Transform Baking
               </text>
 
               <text
@@ -736,7 +758,7 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                GENEVA &amp; SAN FRANCISCO — Leading research laboratories
+                PARIS &amp; COPENHAGEN — Across European academies and craft
               </text>
               <text
                 x='345'
@@ -745,7 +767,7 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                announced a historic milestone in artificial intelligence as new
+                bakeries, a renaissance in ancient grain milling and spontaneous
               </text>
               <text
                 x='345'
@@ -754,7 +776,7 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                foundation architectures demonstrated verified multi-step
+                fermentation is reshaping modern culinary craft. Master bakers
               </text>
               <text
                 x='345'
@@ -763,7 +785,7 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                reasoning across formal logic and software engineering.
+                are abandoning commercial yeast additives in favor of biodynamic
               </text>
               <text
                 x='345'
@@ -772,36 +794,39 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                By integrating test-time verification with iterative chain-of-
-              </text>
-              <text
-                x='345'
-                y='290'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                thought deliberation, the models autonomously formulate
-              </text>
-              <text
-                x='345'
-                y='304'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                hypotheses and debug algorithmic errors without human
-                supervision.
+                heritage wheats, including emmer, einkorn, and stone-ground
+                spelt.
               </text>
 
               <text
                 x='360'
+                y='298'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Laboratory assays indicate that slow, forty-eight-hour
+                fermentation
+              </text>
+              <text
+                x='345'
+                y='312'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                cycles dramatically lower glycemic impact while cultivating
+                complex
+              </text>
+              <text
+                x='345'
                 y='326'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                International safety institutes certified the findings,
+                organic acids that lend unmatched depth of flavor and crisp
+                aeration
               </text>
               <text
                 x='345'
@@ -810,7 +835,8 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                noting that automated reasoning marks a transition from
+                to crusty hearth boules. Guilds report record apprentice
+                enrollment
               </text>
               <text
                 x='345'
@@ -819,758 +845,843 @@ export default function NewspaperBackground() {
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                passive statistical pattern-matching to active scientific
-              </text>
-              <text
-                x='345'
-                y='368'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                discovery, accelerating development across all technical fields.
+                as consumers seek unhurried, authentic craftsmanship.
               </text>
 
-              <text
-                x='360'
-                y='390'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                Researchers reported that models autonomously designed
-              </text>
-              <text
-                x='345'
-                y='404'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                novel molecular catalysts in hours, solving challenges that had
-              </text>
-              <text
-                x='345'
-                y='418'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                remained unresolved through decades of laboratory trials.
-              </text>
-
+              {/* Dividing Hairline */}
               <line
-                x1='380'
-                y1='438'
-                x2='615'
-                y2='438'
+                x1='365'
+                y1='378'
+                x2='625'
+                y2='378'
                 stroke={ruleColor}
                 strokeWidth='0.5'
               />
 
-              {/* Story 2: Genome Sequencing */}
+              {/* Story 2: Tourism / Travel */}
               <text
                 x='345'
-                y='462'
-                fill={headlineColor}
-                fontSize='15'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                Rapid Genome Sequencing
-              </text>
-              <text
-                x='345'
-                y='480'
-                fill={headlineColor}
-                fontSize='15'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                Transforms Clinical Care
-              </text>
-              <text
-                x='345'
-                y='498'
+                y='402'
                 fill={subtextColor}
-                fontSize='9'
-                fontFamily="'Lora', Georgia, serif"
-                fontStyle='italic'
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
               >
-                Ultra-High Throughput Platforms Map Entire Chromosomes in
-                Minutes
+                GLOBAL TOURISM &amp; EXPEDITIONS
               </text>
-
-              <text
-                x='360'
-                y='520'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                CAMBRIDGE &amp; BETHESDA — Biomedical consortia unveiled
-              </text>
-              <text
-                x='345'
-                y='534'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                next-generation long-read sequencing technology capable of
-              </text>
-              <text
-                x='345'
-                y='548'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                mapping a complete, telomere-to-telomere human genome in
-              </text>
-              <text
-                x='345'
-                y='562'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                under thirty minutes at negligible per-sample operational cost.
-              </text>
-              <text
-                x='345'
-                y='576'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                The advance allows neonatal and intensive-care clinics to
-              </text>
-              <text
-                x='345'
-                y='590'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                diagnose rare genetic mutations within hours of patient intake.
-              </text>
-
-              <text
-                x='360'
-                y='612'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                Clinicians report unprecedented success in tailoring targeted
-              </text>
-              <text
-                x='345'
-                y='626'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                CRISPR gene therapies and personalized oncology vaccines
-              </text>
-              <text
-                x='345'
-                y='640'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                based on real-time genomic profiling, transforming prevention.
-              </text>
-
               <line
-                x1='380'
-                y1='660'
-                x2='615'
-                y2='660'
-                stroke={ruleColor}
-                strokeWidth='0.5'
-              />
-
-              {/* Story 3: Mental Health */}
-              <text
-                x='345'
-                y='684'
-                fill={headlineColor}
-                fontSize='15'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                Global Initiative Prioritizes
-              </text>
-              <text
-                x='345'
-                y='702'
-                fill={headlineColor}
-                fontSize='15'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                Modern Mental Health
-              </text>
-              <text
-                x='345'
-                y='720'
-                fill={subtextColor}
-                fontSize='9'
-                fontFamily="'Lora', Georgia, serif"
-                fontStyle='italic'
-              >
-                Clinical Trials Validate New Therapies in Neuroplasticity &amp;
-                Care
-              </text>
-
-              <text
-                x='360'
-                y='742'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                LONDON &amp; STOCKHOLM — An international medical commission
-              </text>
-              <text
-                x='345'
-                y='756'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                published landmark multi-center clinical findings establishing
-              </text>
-              <text
-                x='345'
-                y='770'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                new therapeutic benchmarks for cognitive well-being. Combining
-              </text>
-              <text
-                x='345'
-                y='784'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                non-invasive neural stimulation, biomarker sleep tracking, and
-              </text>
-              <text
-                x='345'
-                y='798'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                evidence-based cognitive therapy, the protocols achieved
-              </text>
-              <text
-                x='345'
-                y='812'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                sustained remission rates for chronic anxiety and mood
-                disorders.
-              </text>
-
-              <text
-                x='360'
-                y='834'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                The World Health Assembly unanimously adopted resolutions
-              </text>
-              <text
-                x='345'
-                y='848'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                integrating mental healthcare into universal healthcare
-                mandates,
-              </text>
-              <text
-                x='345'
-                y='862'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                recommending workplace wellness standards and accessible
-              </text>
-              <text
-                x='345'
-                y='876'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                community-based psychological support across member states.
-              </text>
-
-              <text
-                x='360'
-                y='898'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                Researchers emphasize that viewing neuroplasticity as a lifelong
-              </text>
-              <text
-                x='345'
-                y='912'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                dynamic capacity removes historical stigmas, elevating mental
-              </text>
-              <text
-                x='345'
-                y='926'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                wellness to a primary pillar of lifelong human health.
-              </text>
-
-              {/* ========================================================= */}
-              {/* COLUMN 3: ARTIFICIAL INTELLIGENCE & REASONING SCIENCE     */}
-              {/* ========================================================= */}
-              <text
-                x='665'
-                y='222'
-                fill={headlineColor}
-                fontSize='16'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                SCIENTISTS UNVEIL
-              </text>
-              <text
-                x='665'
-                y='242'
-                fill={headlineColor}
-                fontSize='16'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                NEURAL COMPUTERS
-              </text>
-              <text
-                x='665'
-                y='262'
-                fill={headlineColor}
-                fontSize='16'
-                fontFamily="'Lora', Georgia, serif"
-                fontWeight='bold'
-              >
-                THAT CAN REASON
-              </text>
-              <text
-                x='665'
-                y='280'
-                fill={subtextColor}
-                fontSize='9'
-                fontFamily="'Lora', Georgia, serif"
-                fontStyle='italic'
-              >
-                Breakthrough in Autonomous Logic and Molecular Discovery
-              </text>
-
-              <text
-                x='680'
-                y='300'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                CAMBRIDGE, MASS. — Computer scientists and applied
-              </text>
-              <text
-                x='665'
-                y='314'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                mathematicians have announced a fundamental breakthrough in
-              </text>
-              <text
-                x='665'
-                y='328'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                artificial reasoning architectures. By allocating dynamic
-              </text>
-              <text
-                x='665'
-                y='342'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                test-time compute to self-correcting neural verification,
-              </text>
-              <text
-                x='665'
-                y='356'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                new machine models have solved previously intractable
-              </text>
-              <text
-                x='665'
-                y='370'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                challenges in symbolic mathematics and protein design.
-              </text>
-
-              <text
-                x='680'
-                y='392'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                Unlike earlier pattern recognition systems that relied on
-              </text>
-              <text
-                x='665'
-                y='406'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                rote statistical correlation, the new models formulate formal
-              </text>
-              <text
-                x='665'
-                y='420'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                hypotheses, test them against rigorous mathematical constraints,
-              </text>
-              <text
-                x='665'
-                y='434'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                and iteratively revise their reasoning chains until proofs are
-              </text>
-              <text
-                x='665'
-                y='448'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                independently certified.
-              </text>
-
-              <text
-                x='680'
-                y='470'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                In physical laboratory tests conducted at Zurich and Berkeley,
-              </text>
-              <text
-                x='665'
-                y='484'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                synthetic enzymes synthesized entirely from machine blueprints
-              </text>
-              <text
-                x='665'
-                y='498'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                demonstrated room-temperature carbon capture properties that
-              </text>
-              <text
-                x='665'
-                y='512'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                had eluded chemists for decades. Researchers described the
-              </text>
-              <text
-                x='665'
-                y='526'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                moment as the arrival of automated scientific discovery.
-              </text>
-
-              <line
-                x1='700'
-                y1='548'
-                x2='935'
-                y2='548'
+                x1='345'
+                y1='408'
+                x2='515'
+                y2='408'
                 stroke={ruleColor}
                 strokeWidth='0.5'
               />
 
               <text
-                x='665'
-                y='572'
+                x='345'
+                y='428'
                 fill={headlineColor}
                 fontSize='15'
                 fontFamily="'Lora', Georgia, serif"
                 fontWeight='bold'
               >
-                Silicon Lithography Reaches
+                Alpine Rail Journeys Lead
               </text>
               <text
-                x='665'
-                y='590'
+                x='345'
+                y='446'
                 fill={headlineColor}
                 fontSize='15'
                 fontFamily="'Lora', Georgia, serif"
                 fontWeight='bold'
               >
-                Sub-Nanometer Precision
+                Sustainable Tourism Surge
               </text>
               <text
-                x='665'
-                y='608'
+                x='345'
+                y='464'
                 fill={subtextColor}
                 fontSize='9'
                 fontFamily="'Lora', Georgia, serif"
                 fontStyle='italic'
               >
-                Extreme Ultraviolet Optics Forge Next Era of Supercomputing
+                Scenic Cross-Continental Sleeper Routes Modernize Overland
+                Travel
               </text>
 
               <text
-                x='680'
-                y='628'
+                x='360'
+                y='486'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                TAIPEI &amp; DRESDEN — Semiconductor foundries have achieved
+                VIENNA &amp; OSLO — A sweeping revival of international sleeper
               </text>
               <text
-                x='665'
+                x='345'
+                y='500'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                rail and slow travel itineraries has drawn record numbers of
+                global
+              </text>
+              <text
+                x='345'
+                y='514'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                voyages away from crowded flight corridors. Restored panoramic
+              </text>
+              <text
+                x='345'
+                y='528'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                expresses winding through Alpine passes and Nordic fjords offer
+              </text>
+              <text
+                x='345'
+                y='542'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                travelers low-emission passage paired with unrivaled vistas.
+              </text>
+
+              <text
+                x='360'
+                y='564'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Municipal tourism boards in historic mountain hamlets note that
+              </text>
+              <text
+                x='345'
+                y='578'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                extended-stay rail visitors patronize independent lodgings and
+                local
+              </text>
+              <text
+                x='345'
+                y='592'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                artisans, dispersing economic vitality beyond congested capital
+                centers.
+              </text>
+              <text
+                x='345'
+                y='606'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Rail operators are investing billions into modernized luxury
+                carriages
+              </text>
+              <text
+                x='345'
+                y='620'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                featuring observation cars and regional farm-to-table dining.
+              </text>
+
+              <text
+                x='360'
                 y='642'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                commercial yields on next-generation high-numerical-aperture
+                Cultural heritage foundations praise the shift, citing reduced
+                carbon
               </text>
               <text
-                x='665'
+                x='345'
                 y='656'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                lithography machines. The technology engraves billions of
+                footprints and deeper cultural immersion for conscious
+                explorers.
+              </text>
+
+              {/* Dividing Hairline */}
+              <line
+                x1='365'
+                y1='680'
+                x2='625'
+                y2='680'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              {/* Story 3: Entrepreneurship */}
+              <text
+                x='345'
+                y='704'
+                fill={subtextColor}
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
+              >
+                COMMERCE &amp; VENTURE
+              </text>
+              <line
+                x1='345'
+                y1='710'
+                x2='470'
+                y2='710'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              <text
+                x='345'
+                y='730'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Independent Founders Forge
               </text>
               <text
-                x='665'
-                y='670'
+                x='345'
+                y='748'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Era of Bootstrapped Enterprise
+              </text>
+              <text
+                x='345'
+                y='766'
+                fill={subtextColor}
+                fontSize='9'
+                fontFamily="'Lora', Georgia, serif"
+                fontStyle='italic'
+              >
+                Capital Efficiency and Craftsmanship Define Next Wave of Growth
+              </text>
+
+              <text
+                x='360'
+                y='788'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                transistors onto silicon wafers with atomic accuracy, enabling
+                AUSTIN &amp; LONDON — In a decisive departure from speculative
+                venture
+              </text>
+              <text
+                x='345'
+                y='802'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                cycles, a growing vanguard of technology and lifestyle founders
+                are
+              </text>
+              <text
+                x='345'
+                y='816'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                building profitable, highly resilient companies financed
+                entirely from
+              </text>
+              <text
+                x='345'
+                y='830'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                customer revenues. Lean software stacks enable teams to scale
+                globally.
+              </text>
+
+              <text
+                x='360'
+                y='852'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Economists tracking business formation report that
+                capital-efficient
+              </text>
+              <text
+                x='345'
+                y='866'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                firms achieve higher decade-long survival rates and retain
+                complete
+              </text>
+              <text
+                x='345'
+                y='880'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                creative autonomy. The movement has inspired a generation of
+                makers
+              </text>
+              <text
+                x='345'
+                y='894'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                focused on durable customer value and long-term sustainable
+                enterprise.
+              </text>
+
+              <text
+                x='360'
+                y='916'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Founders emphasize that healthy profit margins and direct
+                customer
+              </text>
+              <text
+                x='345'
+                y='930'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                relationships foster genuine innovation, reshaping commercial
+                philosophy.
+              </text>
+
+              {/* ========================================================= */}
+              {/* ========================================================= */}
+              {/* COLUMN 3: CULINARY ARTS, TRAVEL & INDEPENDENT ENTERPRISE   */}
+              {/* ========================================================= */}
+              <text
+                x='665'
+                y='136'
+                fill={subtextColor}
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
+              >
+                HERITAGE GASTRONOMY
+              </text>
+              <line
+                x1='665'
+                y1='142'
+                x2='820'
+                y2='142'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              <text
+                x='665'
+                y='162'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Master Pâtissiers Revive
+              </text>
+              <text
+                x='665'
+                y='180'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Traditional Hearth Baking
+              </text>
+              <text
+                x='665'
+                y='198'
+                fill={subtextColor}
+                fontSize='9'
+                fontFamily="'Lora', Georgia, serif"
+                fontStyle='italic'
+              >
+                Centuries-Old Parisian Techniques Meet Sustainable Agriculture
+              </text>
+
+              <text
+                x='680'
+                y='220'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                LYON &amp; KYOTO — Culinary academies in France and Japan are
+              </text>
+              <text
+                x='665'
+                y='234'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                forging historic partnerships to preserve traditional lamination
+              </text>
+              <text
+                x='665'
+                y='248'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                and wood-fired baking methods. Using cultured pasture butter and
+              </text>
+              <text
+                x='665'
+                y='262'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                naturally aged sourdough leavens, artisans produce delicate
+              </text>
+              <text
+                x='665'
+                y='276'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                viennoiserie prized for honeycomb structure and layered
+                flakiness.
+              </text>
+
+              <text
+                x='680'
+                y='298'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Confectionery guilds emphasize that slow temperature retardation
+              </text>
+              <text
+                x='665'
+                y='312'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                unlocks nutty, caramelized aromas that factory methods cannot
+              </text>
+              <text
+                x='665'
+                y='326'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                replicate. Regional cooperatives ensure smallholder grain
+                farmers
+              </text>
+              <text
+                x='665'
+                y='340'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                receive fair premiums for single-origin heritage crops.
+              </text>
+
+              {/* Dividing Hairline */}
+              <line
+                x1='685'
+                y1='364'
+                x2='945'
+                y2='364'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              {/* Story 2: Tourism / Travel */}
+              <text
+                x='665'
+                y='388'
+                fill={subtextColor}
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
+              >
+                MARITIME &amp; HERITAGE TRAVEL
+              </text>
+              <line
+                x1='665'
+                y1='394'
+                x2='840'
+                y2='394'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              <text
+                x='665'
+                y='414'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Coastal Sailing Expeditions
+              </text>
+              <text
+                x='665'
+                y='432'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Chart Era of Slow Voyaging
+              </text>
+              <text
+                x='665'
+                y='450'
+                fill={subtextColor}
+                fontSize='9'
+                fontFamily="'Lora', Georgia, serif"
+                fontStyle='italic'
+              >
+                Wind-Powered Vessels and Ancient Wayfinding Draw Global
+                Travelers
+              </text>
+
+              <text
+                x='680'
+                y='472'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                ATHENS &amp; REYKJAVIK — A quiet revolution in maritime leisure
+              </text>
+              <text
+                x='665'
+                y='486'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                is steering globetrotters toward classic wooden tall ships and
+              </text>
+              <text
+                x='665'
+                y='500'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                electric sailing catamarans. Cruising pristine archipelagos from
+                the
+              </text>
+              <text
+                x='665'
+                y='514'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Cyclades to the Lofoten Islands, travelers embrace celestial
+              </text>
+              <text
+                x='665'
+                y='528'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                navigation, secluded cove anchorages, and quiet stewardship.
+              </text>
+
+              <text
+                x='680'
+                y='550'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                Conservationists note that slow oceanic itineraries eliminate
+                diesel
+              </text>
+              <text
+                x='665'
+                y='564'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                emissions while supporting fragile coastal ecology. Shore
+                excursions
+              </text>
+              <text
+                x='665'
+                y='578'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                are guided by local marine biologists and maritime historians,
+              </text>
+              <text
+                x='665'
+                y='592'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                enriching voyagers with living oral traditions and reef
+                research.
+              </text>
+
+              {/* Dividing Hairline */}
+              <line
+                x1='685'
+                y1='616'
+                x2='945'
+                y2='616'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              {/* Story 3: Entrepreneurship */}
+              <text
+                x='665'
+                y='640'
+                fill={subtextColor}
+                fontSize='8.5'
+                fontFamily="'Poppins', sans-serif"
+                fontWeight='bold'
+                letterSpacing='1px'
+              >
+                INDEPENDENT ENTERPRISE &amp; CRAFT
+              </text>
+              <line
+                x1='665'
+                y1='646'
+                x2='860'
+                y2='646'
+                stroke={ruleColor}
+                strokeWidth='0.5'
+              />
+
+              <text
+                x='665'
+                y='666'
+                fill={headlineColor}
+                fontSize='15'
+                fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
+              >
+                Micro-Manufactories Lead
               </text>
               <text
                 x='665'
                 y='684'
-                fill={bodyTextColor}
-                fontSize='10'
+                fill={headlineColor}
+                fontSize='15'
                 fontFamily="'Lora', Georgia, serif"
+                fontWeight='bold'
               >
-                gigawatt-scale neural clusters to process multi-trillion token
+                Precision Industrial Boom
               </text>
               <text
                 x='665'
-                y='698'
-                fill={bodyTextColor}
-                fontSize='10'
+                y='702'
+                fill={subtextColor}
+                fontSize='9'
                 fontFamily="'Lora', Georgia, serif"
+                fontStyle='italic'
               >
-                training runs with unprecedented electrical efficiency.
+                Local Workshops and Direct Commerce Prove Vitality of Niche
+                Goods
               </text>
 
               <text
                 x='680'
-                y='720'
+                y='724'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                International energy consortia announced long-term contracts
+                SHEFFIELD &amp; PORTLAND — Independent engineering workshops
               </text>
               <text
                 x='665'
-                y='734'
+                y='738'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                to power new compute megacenters using dedicated clean baseload
+                are spearheading a global resurgence in precision hardware and
               </text>
               <text
                 x='665'
-                y='748'
+                y='752'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                sources, including small modular nuclear reactors and advanced
+                specialized tools. Using computerized desktop lathes and
+                zero-waste
               </text>
               <text
                 x='665'
-                y='762'
+                y='766'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                geothermal facilities located directly adjacent to foundries.
+                subtractive machining, small founder-led outfits produce bespoke
+              </text>
+              <text
+                x='665'
+                y='780'
+                fill={bodyTextColor}
+                fontSize='10'
+                fontFamily="'Lora', Georgia, serif"
+              >
+                timepieces, acoustic equipment, and hand-tuned optical
+                instruments.
               </text>
 
               <text
                 x='680'
-                y='784'
+                y='802'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                Industry analysts project that global compute capacity will
+                Industry analysts report these micro-enterprises achieve
+                profitability
               </text>
               <text
                 x='665'
-                y='798'
+                y='816'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                quadruple over the next twenty-four months, driving rapid
+                within months by selling directly to passionate global
+                enthusiast
               </text>
               <text
                 x='665'
-                y='812'
+                y='830'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                advancements in autonomous robotics, climate simulation,
-              </text>
-              <text
-                x='665'
-                y='826'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                and real-time biomedical diagnosis worldwide.
+                communities, proving that artisanal dedication outlasts mass
+                production.
               </text>
 
               <text
                 x='680'
-                y='848'
+                y='852'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                Academic institutions will receive subsidized compute grants
+                Founders credit community patronage and open-source schematics
               </text>
               <text
                 x='665'
-                y='862'
+                y='866'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                under a multilateral initiative aimed at democratizing access
+                for enabling small-scale builders to compete with industrial
+                giants,
               </text>
               <text
                 x='665'
-                y='876'
+                y='880'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                to advanced scientific models for non-commercial research
-              </text>
-              <text
-                x='665'
-                y='890'
-                fill={bodyTextColor}
-                fontSize='10'
-                fontFamily="'Lora', Georgia, serif"
-              >
-                into infectious disease and environmental restoration.
+                revitalizing historic manufacturing districts across the globe.
               </text>
 
               <text
                 x='680'
-                y='912'
+                y='902'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                The convergence of extreme hardware density and self-supervised
+                The movement reflects a fundamental cultural reassessment of
+                value,
               </text>
               <text
                 x='665'
-                y='926'
+                y='916'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                reasoning architectures is widely viewed as the defining
+                where longevity, repairability, and creator integrity take
+                precedence
               </text>
               <text
                 x='665'
-                y='940'
+                y='930'
                 fill={bodyTextColor}
                 fontSize='10'
                 fontFamily="'Lora', Georgia, serif"
               >
-                technological development of the modern century.
+                over planned obsolescence in modern consumer markets.
               </text>
 
               {/* ========================================================= */}

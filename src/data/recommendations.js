@@ -175,4 +175,20 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
+  'The Smartest Guys in the Room': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  'Young Castro': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  'No Visible Bruises': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
+  Flow: {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
 };
