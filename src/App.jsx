@@ -7,6 +7,7 @@ import Controls from './components/Controls';
 import BookGrid from './components/BookGrid';
 import BookDetailDrawer from './components/BookDetailDrawer';
 import BookRouletteModal from './components/BookRouletteModal';
+import AskDrawer from './components/AskDrawer';
 import NewspaperBackground from './components/NewspaperBackground';
 import {
   books as initialBooks,
@@ -25,6 +26,12 @@ function App() {
 
   // Drawer disclosure for full book details
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // Ask AI drawer disclosure
+  const {
+    isOpen: isAskOpen,
+    onOpen: onOpenAsk,
+    onClose: onCloseAsk,
+  } = useDisclosure();
   // Roulette modal disclosure
   const {
     isOpen: isRouletteOpen,
@@ -130,6 +137,7 @@ function App() {
             isSearchSettling={isSearchSettling}
             onShuffle={handleShuffle}
             onRoulette={handleOpenRoulette}
+            onAsk={onOpenAsk}
           />
           <BookGrid
             books={filteredBooks}
@@ -147,6 +155,12 @@ function App() {
         onClose={onCloseRoulette}
         books={filteredBooks}
         onBookSelect={handleBookSelect}
+      />
+      <AskDrawer
+        isOpen={isAskOpen}
+        onClose={onCloseAsk}
+        books={booksList}
+        onSelectBook={handleBookSelect}
       />
     </Box>
   );

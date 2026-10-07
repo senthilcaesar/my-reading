@@ -38,11 +38,12 @@ src/
 ├── components/
 │   ├── Header.jsx               # Sticky glassmorphism header: book count, title, dark-mode toggle, Tech Stack modal trigger
 │   ├── BookOfTheDay.jsx         # Deterministic daily pick banner (seeded RNG from day-of-year)
-│   ├── Controls.jsx             # Search input (debounced), category <Select>, recommender <Select>, Shuffle & Roulette buttons
+│   ├── Controls.jsx             # Search input (debounced), category <Select>, recommender <Select>, Shuffle, Roulette & Ask buttons
 │   ├── BookGrid.jsx             # Framer Motion animated grid; AnimatePresence with mode="popLayout"
 │   ├── BookCard.jsx             # Individual card + HighlightText component
 │   ├── BookDetailDrawer.jsx     # Chakra Drawer showing complete book details, tags, and link
 │   ├── BookRouletteModal.jsx    # Interactive spinning roulette wheel with synthesized audio ticks & win celebration
+│   ├── AskDrawer.jsx            # Sliding sidebar for OpenAI vector semantic search over embeddings.json (all matching results)
 │   ├── NewspaperBackground.jsx  # Subtle editorial broadsheet SVG background with adaptive vignette
 │   └── TechStackModal.jsx       # Chakra Modal listing the tech stack
 │
@@ -73,6 +74,8 @@ All colors are **semantic tokens** that auto-switch between light and dark mode.
 | `accentPrimary`   | `#b08d57` (warm amber) | `#00f2ff` (cyan)         | Highlights, badges, CTA |
 | `accentSecondary` | `#7d6b5d`              | `#7000ff`                | Secondary accents       |
 | `accentMagenta`   | `#a64d4d`              | `#ff00ea`                | Unused currently        |
+| `accentGreen`     | `#1c4c36` (forest green)| `#266144` (emerald green)| Ask CTA button          |
+| `accentGreenHover`| `#143827`              | `#1e4f37`                | Ask CTA hover           |
 
 **Fonts:**
 

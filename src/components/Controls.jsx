@@ -25,10 +25,12 @@ import {
   UsersRound,
   X,
 } from 'lucide-react';
+import RaisingHandIcon from './RaisingHandIcon';
 import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 
 const MotionBox = motion(Box);
+const MotionButton = motion(Button);
 const MotionInputGroup = motion(InputGroup);
 
 function FilterMenu({
@@ -175,9 +177,11 @@ export default function Controls({
   isSearchSettling,
   onShuffle,
   onRoulette,
+  onAsk,
 }) {
   const [isShuffling, setIsShuffling] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isAskHovered, setIsAskHovered] = useState(false);
   const bg = 'searchInputBg';
   const borderColor = 'borderPrimary';
   const focusBorderColor = 'searchInputFocusBorder';
@@ -418,6 +422,48 @@ export default function Controls({
         >
           Roulette
         </Button>
+
+        <MotionButton
+          leftIcon={
+            <MotionBox
+              display="inline-flex"
+              alignItems="center"
+              animate={
+                isAskHovered
+                  ? {
+                      rotate: [0, -14, 14, -10, 8, 0],
+                      y: [0, -2, 0, -1, 0],
+                    }
+                  : { rotate: 0, y: 0 }
+              }
+              transition={{ duration: 0.55, ease: 'easeInOut' }}
+            >
+              <RaisingHandIcon size={18} />
+            </MotionBox>
+          }
+          size={{ base: 'md', md: 'lg' }}
+          borderRadius='xl'
+          shadow='sm'
+          fontWeight='bold'
+          bg='accentGreen'
+          color='white'
+          whileHover={{
+            scale: 1.03,
+            y: -2,
+            boxShadow: '0 6px 18px rgba(28, 76, 54, 0.45)',
+          }}
+          whileTap={{ scale: 0.97, y: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          _hover={{ bg: 'accentGreenHover' }}
+          _active={{ bg: 'accentGreenHover' }}
+          onMouseEnter={() => setIsAskHovered(true)}
+          onMouseLeave={() => setIsAskHovered(false)}
+          onClick={onAsk}
+          w={{ base: 'full', sm: 'auto' }}
+          minW={{ base: 'unset', sm: '130px' }}
+        >
+          Ask
+        </MotionButton>
       </Flex>
     </Flex>
   );

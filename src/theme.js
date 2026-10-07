@@ -69,6 +69,14 @@ const theme = extendTheme({
         default: '#788c5d',
         _dark: '#a6d189',
       },
+      accentGreen: {
+        default: '#1c4c36',
+        _dark: '#266144',
+      },
+      accentGreenHover: {
+        default: '#143827',
+        _dark: '#1e4f37',
+      },
     }
   },
   styles: {
