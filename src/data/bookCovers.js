@@ -729,7 +729,7 @@ export const bookCovers = {
   "The Elements of Investing": "https://images-na.ssl-images-amazon.com/images/P/1119851416.01.LZZZZZZZ.jpg",
   "The Emotion Machine": "https://covers.openlibrary.org/b/isbn/0743276647-M.jpg?default=false",
   "The End of Ignorance: Multiplying Our Human Potential": "https://covers.openlibrary.org/b/isbn/0676979629-M.jpg?default=false",
-  "The End of Mental Illness": "https://covers.openlibrary.org/b/isbn/1496438159-M.jpg?default=false",
+  "The End of Mental Illness": "covers/mental.png",
   "The End of Poverty": "https://covers.openlibrary.org/b/isbn/0143036580-M.jpg?default=false",
   "The End of the World Is Just the Beginning": "https://covers.openlibrary.org/b/isbn/006323047X-M.jpg?default=false",
   "The End of Wall Street": "https://covers.openlibrary.org/b/isbn/0143118722-M.jpg?default=false",
