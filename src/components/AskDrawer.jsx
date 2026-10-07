@@ -20,6 +20,7 @@ import {
   VStack,
   HStack,
   Spinner,
+  IconButton,
   useToast,
 } from '@chakra-ui/react';
 import {
@@ -30,6 +31,7 @@ import {
   HelpCircle,
   AlertCircle,
   Sparkles,
+  KeyRound,
 } from 'lucide-react';
 import RaisingHandIcon from './RaisingHandIcon';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -100,13 +102,49 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
   const [librarianText, setLibrarianText] = useState('');
   const [isLibrarianStreaming, setIsLibrarianStreaming] = useState(false);
   const abortControllerRef = useRef(null);
-  const activeApiKey = useMemo(() => {
+  const [userApiKey, setUserApiKey] = useState(() => {
     if (typeof window === 'undefined') return '';
-    const stored = localStorage.getItem('openai_api_key');
-    const envKey = import.meta.env?.VITE_OPENAI_API_KEY || '';
-    return stored && stored.trim() ? stored.trim() : envKey;
-  }, []);
+    return localStorage.getItem('openai_api_key') || '';
+  });
+  const [keyInput, setKeyInput] = useState('');
+  const [showKeySettings, setShowKeySettings] = useState(false);
+
+  const activeApiKey = useMemo(() => {
+    if (userApiKey && userApiKey.trim()) return userApiKey.trim();
+    const envKey = import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY || '';
+    return envKey ? envKey.trim() : '';
+  }, [userApiKey]);
   const toast = useToast();
+
+  const handleSaveApiKey = useCallback(
+    (customKey) => {
+      const k = (customKey ?? keyInput).trim();
+      if (!k) return;
+      localStorage.setItem('openai_api_key', k);
+      setUserApiKey(k);
+      setKeyInput('');
+      setShowKeySettings(false);
+      toast({
+        title: 'API Key Saved',
+        description: 'Saved to your browser storage. You can now use AI search.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+    [keyInput, toast],
+  );
+
+  const handleClearApiKey = useCallback(() => {
+    localStorage.removeItem('openai_api_key');
+    setUserApiKey('');
+    toast({
+      title: 'Custom API Key Cleared',
+      status: 'info',
+      duration: 2500,
+      isClosable: true,
+    });
+  }, [toast]);
 
   // Abort streaming on unmount
   useEffect(() => {
@@ -182,9 +220,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
       if (!q) return;
 
       if (!activeApiKey) {
+        setShowKeySettings(true);
         toast({
-          title: 'OpenAI API Key Missing',
-          description: 'Please ensure OPENAI_API_KEY is configured in your .env file.',
+          title: 'OpenAI API Key Required',
+          description: 'Please enter your OpenAI API key below to enable AI search.',
           status: 'warning',
           duration: 4000,
           isClosable: true,
@@ -406,8 +445,86 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                 </Heading>
               </Box>
             </HStack>
-
+            <IconButton
+              aria-label="API Key Settings"
+              icon={<KeyRound size={16} />}
+              size="sm"
+              variant="ghost"
+              color={activeApiKey ? 'accentGreen' : 'accentPrimary'}
+              title={
+                activeApiKey
+                  ? userApiKey
+                    ? 'Custom API key active (click to manage)'
+                    : 'Pre-configured API key active (click to override)'
+                  : 'Enter API key'
+              }
+              onClick={() => setShowKeySettings((prev) => !prev)}
+            />
           </Flex>
+
+          {/* Missing API key or Key Settings Panel */}
+          {(!activeApiKey || showKeySettings) && (
+            <Box
+              mt={3}
+              p={3}
+              bg="surface"
+              borderWidth="1px"
+              borderColor={!activeApiKey ? 'accentPrimary' : 'borderPrimary'}
+              borderRadius="xl"
+            >
+              <Flex gap={2} align="center" mb={1.5}>
+                <KeyRound size={15} />
+                <Text fontSize="xs" fontWeight="bold" color="textPrimary">
+                  {!activeApiKey ? 'OpenAI API Key Required' : 'OpenAI API Key Settings'}
+                </Text>
+              </Flex>
+              <Text fontSize="2xs" color="textSecondary" mb={2}>
+                {!activeApiKey
+                  ? 'To use the AI librarian and semantic search, provide your OpenAI API key below (stored safely in local browser storage).'
+                  : userApiKey
+                  ? 'A custom OpenAI API key is currently saved in this browser.'
+                  : 'Using default pre-configured API key. You can override it with your own key below.'}
+              </Text>
+              <HStack spacing={2}>
+                <Input
+                  size="sm"
+                  type="password"
+                  placeholder="sk-..."
+                  value={keyInput}
+                  onChange={(e) => setKeyInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSaveApiKey();
+                  }}
+                  borderRadius="md"
+                  bg="surfaceHover"
+                  borderColor="borderPrimary"
+                  fontSize="xs"
+                />
+                <Button
+                  size="sm"
+                  bg="accentGreen"
+                  color="white"
+                  _hover={{ bg: 'accentGreenHover' }}
+                  onClick={() => handleSaveApiKey()}
+                  isDisabled={!keyInput.trim()}
+                  fontSize="xs"
+                >
+                  Save
+                </Button>
+                {userApiKey && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    colorScheme="red"
+                    onClick={handleClearApiKey}
+                    fontSize="xs"
+                  >
+                    Clear
+                  </Button>
+                )}
+              </HStack>
+            </Box>
+          )}
 
           {/* Missing embeddings warning */}
           {embeddingsError && (
