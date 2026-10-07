@@ -43,7 +43,7 @@ src/
 │   ├── BookCard.jsx             # Individual card + HighlightText component
 │   ├── BookDetailDrawer.jsx     # Chakra Drawer showing complete book details, tags, and link
 │   ├── BookRouletteModal.jsx    # Interactive spinning roulette wheel with synthesized audio ticks & win celebration
-│   ├── AskDrawer.jsx            # Sliding sidebar for OpenAI vector semantic search over embeddings.json (all matching results)
+│   ├── AskDrawer.jsx            # Sliding sidebar with full RAG: vector search + gpt-4o-mini streaming librarian synthesis
 │   ├── NewspaperBackground.jsx  # Subtle editorial broadsheet SVG background with adaptive vignette
 │   └── TechStackModal.jsx       # Chakra Modal listing the tech stack
 │

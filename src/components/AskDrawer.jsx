@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
   Drawer,
   DrawerOverlay,
@@ -29,12 +29,41 @@ import {
   ArrowRight,
   HelpCircle,
   AlertCircle,
+  Sparkles,
 } from 'lucide-react';
 import RaisingHandIcon from './RaisingHandIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getCategoryStyles } from '../utils/categoryStyles';
 
 const MotionBox = motion(Box);
+
+function renderFormattedLibrarianText(text) {
+  if (!text) return null;
+  const paragraphs = text.split('\n\n').filter(Boolean);
+  return paragraphs.map((para, pIdx) => {
+    const parts = para.split(/(\*\*[^*]+\*\*)/g);
+    return (
+      <Text
+        key={pIdx}
+        fontSize="sm"
+        lineHeight="tall"
+        color="textPrimary"
+        mb={pIdx < paragraphs.length - 1 ? 2.5 : 0}
+      >
+        {parts.map((part, idx) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return (
+              <Text as="span" key={idx} fontWeight="bold" color="textPrimary">
+                {part.slice(2, -2)}
+              </Text>
+            );
+          }
+          return part;
+        })}
+      </Text>
+    );
+  });
+}
 
 function cosineSimilarity(vecA, vecB) {
   if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
@@ -46,10 +75,20 @@ function cosineSimilarity(vecA, vecB) {
 }
 
 const SUGGESTIONS = [
-  'Geopolitics of microchips & global power',
-  'Overcoming personal grief and adversity',
-  'Biographies of iconic tech founders',
-  'Psychology of decision-making & cognitive bias',
+  'Can you recommend books about women’s lives and experiences?',
+  'What books are available about human psychology?',
+  'Which books discuss leadership and management?',
+  'I want to learn how the human brain works. What books should I read?',
+  'Which books discuss about World War II?',
+  'I want to read biographies of people who changed the world.',
+  'What books tell the life stories of influential leaders and thinkers?',
+  'I want to understand the basics of economic thinking. Which books would you recommend?',
+  'What books explain how the global economy is interconnected?',
+  'What books explore the lives and thinking of influential technology leaders?',
+  'Which books discuss the rise, leadership, and legacy of major political figures?',
+  'What books explain major political events that changed the course of history?',
+  'Which books examine how wars have changed the political and economic order of the world?',
+  'Which books discuss how traditional companies balance their existing business with innovation and new technologies?',
 ];
 
 export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
@@ -58,6 +97,9 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
   const [results, setResults] = useState([]);
   const [embeddingsData, setEmbeddingsData] = useState(null);
   const [embeddingsError, setEmbeddingsError] = useState(false);
+  const [librarianText, setLibrarianText] = useState('');
+  const [isLibrarianStreaming, setIsLibrarianStreaming] = useState(false);
+  const abortControllerRef = useRef(null);
   const activeApiKey = useMemo(() => {
     if (typeof window === 'undefined') return '';
     const stored = localStorage.getItem('openai_api_key');
@@ -65,6 +107,23 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     return stored && stored.trim() ? stored.trim() : envKey;
   }, []);
   const toast = useToast();
+
+  // Abort streaming on unmount
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
+
+  const handleClose = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    setIsLibrarianStreaming(false);
+    onClose();
+  }, [onClose]);
 
   // Fetch embeddings.json once when drawer opens
   useEffect(() => {
@@ -136,6 +195,13 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
         return;
       }
 
+      // Abort any previous AI stream
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      setLibrarianText('');
+      setIsLibrarianStreaming(false);
+
       setIsLoading(true);
       try {
         // 1. Embed query with OpenAI text-embedding-3-small
@@ -179,6 +245,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
         if (scored.length === 0) {
           setResults([]);
+          setIsLoading(false);
           return;
         }
 
@@ -194,6 +261,94 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
             : scored.filter((item) => item.similarity >= 0.30).slice(0, Math.max(5, matchingResults.length));
 
         setResults(finalResults);
+        setIsLoading(false);
+
+        // 4. Full RAG: Synthesize AI Librarian explanation using gpt-4o-mini
+        if (finalResults.length > 0) {
+          const topBooks = finalResults.slice(0, 8);
+          const bookContext = topBooks
+            .map(
+              (item, i) =>
+                `${i + 1}. "${item.book.title}" by ${item.book.author} (${item.book.category}): ${item.book.summary}`,
+            )
+            .join('\n\n');
+
+          const controller = new AbortController();
+          abortControllerRef.current = controller;
+          setIsLibrarianStreaming(true);
+
+          try {
+            const chatRes = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${activeApiKey}`,
+              },
+              body: JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [
+                  {
+                    role: 'system',
+                    content:
+                      'You are an erudite, warm, and insightful librarian for the library. ' +
+                      'The user has asked a question or shared a reading interest. ' +
+                      'Based on the retrieved books from the library, provide an engaging, well-crafted 1-2 paragraph synthesis explaining how these books address their inquiry. ' +
+                      'Always refer to the books as being from "the library" (never say "your collection", "your library", or "your books"). ' +
+                      'Mention the most relevant book titles in bold (**Book Title**). ' +
+                      'Be articulate, insightful, and welcoming. Do not invent books not present in the provided list.',
+                  },
+                  {
+                    role: 'user',
+                    content: `User Question: "${q}"\n\nRetrieved Books from the Library:\n${bookContext}`,
+                  },
+                ],
+                stream: true,
+                temperature: 0.7,
+              }),
+              signal: controller.signal,
+            });
+
+            if (chatRes.ok && chatRes.body) {
+              const reader = chatRes.body.getReader();
+              const decoder = new TextDecoder('utf-8');
+              let buffer = '';
+              let accumulated = '';
+
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+
+                for (const line of lines) {
+                  const trimmed = line.trim();
+                  if (!trimmed || !trimmed.startsWith('data: ')) continue;
+                  const dataStr = trimmed.slice(6);
+                  if (dataStr === '[DONE]') break;
+
+                  try {
+                    const parsed = JSON.parse(dataStr);
+                    const delta = parsed.choices?.[0]?.delta?.content;
+                    if (delta) {
+                      accumulated += delta;
+                      setLibrarianText(accumulated);
+                    }
+                  } catch {
+                    // Ignore partial json parse errors
+                  }
+                }
+              }
+            }
+          } catch (chatErr) {
+            if (chatErr.name !== 'AbortError') {
+              console.warn('Librarian synthesis stream error:', chatErr);
+            }
+          } finally {
+            setIsLibrarianStreaming(false);
+          }
+        }
       } catch (err) {
         toast({
           title: 'Search Failed',
@@ -202,7 +357,6 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
           duration: 5000,
           isClosable: true,
         });
-      } finally {
         setIsLoading(false);
       }
     },
@@ -210,7 +364,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
   );
 
   return (
-    <Drawer isOpen={isOpen} onClose={onClose} placement="right">
+    <Drawer isOpen={isOpen} onClose={handleClose} placement="right">
       <DrawerOverlay backdropFilter="blur(6px)" />
       <DrawerContent
         bg="bg"
@@ -346,7 +500,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                       handleSearch(item);
                     }}
                   >
-                    <Text fontSize="xs" color="textPrimary" noOfLines={1} flex="1">
+                    <Text fontSize="xs" color="textPrimary" noOfLines={{ base: 2, md: 1 }} flex="1">
                       {item}
                     </Text>
                   </Button>
@@ -366,6 +520,68 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                 Comparing query vector across 1,000+ books
               </Text>
             </VStack>
+          )}
+
+          {/* AI Librarian Synthesis Block (Full RAG) */}
+          {!isLoading && (librarianText || isLibrarianStreaming) && (
+            <Box
+              mb={4}
+              p={4}
+              bg="surface"
+              borderWidth="1px"
+              borderColor="borderPrimary"
+              borderRadius="xl"
+              position="relative"
+              boxShadow="sm"
+            >
+              <Flex align="center" justify="space-between" mb={2.5}>
+                <HStack spacing={2}>
+                  <Box
+                    w={6}
+                    h={6}
+                    borderRadius="md"
+                    bg="accentGreen"
+                    color="white"
+                    display="grid"
+                    placeItems="center"
+                  >
+                    <Sparkles size={13} />
+                  </Box>
+                  <Text
+                    fontSize="xs"
+                    fontWeight="bold"
+                    textTransform="uppercase"
+                    letterSpacing="wider"
+                    color="textPrimary"
+                  >
+                    Librarian&apos;s Perspective
+                  </Text>
+                </HStack>
+                {isLibrarianStreaming && (
+                  <HStack spacing={1.5}>
+                    <Spinner size="xs" color="accentGreen" speed="0.6s" />
+                    <Text fontSize="2xs" color="textSecondary" fontStyle="italic">
+                      Synthesizing...
+                    </Text>
+                  </HStack>
+                )}
+              </Flex>
+
+              <Box>
+                {renderFormattedLibrarianText(librarianText)}
+                {isLibrarianStreaming && (
+                  <Box
+                    as="span"
+                    display="inline-block"
+                    w="2px"
+                    h="14px"
+                    bg="accentGreen"
+                    ml={1}
+                    verticalAlign="text-bottom"
+                  />
+                )}
+              </Box>
+            </Box>
           )}
 
           {/* Results list */}
@@ -484,15 +700,18 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px" borderColor="borderPrimary" py={3}>
-          <Button variant="ghost" size="sm" mr="auto" color="textSecondary" onClick={onClose}>
+          <Button variant="ghost" size="sm" mr="auto" color="textSecondary" onClick={handleClose}>
             Close
           </Button>
-          {results.length > 0 && (
+          {(results.length > 0 || librarianText) && (
             <Button
               size="sm"
               variant="outline"
               borderColor="borderPrimary"
               onClick={() => {
+                if (abortControllerRef.current) abortControllerRef.current.abort();
+                setLibrarianText('');
+                setIsLibrarianStreaming(false);
                 setResults([]);
                 setQuery('');
               }}

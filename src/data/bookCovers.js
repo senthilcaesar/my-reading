@@ -43,7 +43,7 @@ export const bookCovers = {
   "A Serious Proposal to the Ladies": "https://images-na.ssl-images-amazon.com/images/P/0615954030.01.LZZZZZZZ.jpg",
   "A Short History of Nearly Everything": "https://covers.openlibrary.org/b/isbn/0767908171-M.jpg?default=false",
   "A Single Tear": "https://covers.openlibrary.org/b/isbn/0316956392-M.jpg?default=false",
-  "A Taste of Power": "https://covers.openlibrary.org/b/isbn/1523098562-M.jpg?default=false",
+  "A Taste of Power": "covers/taste-power.png",
   "A Train Near Magdeburg": "https://images-na.ssl-images-amazon.com/images/P/0996480021.01.LZZZZZZZ.jpg",
   "A Troublesome Inheritance": "https://covers.openlibrary.org/b/isbn/0143127160-M.jpg?default=false",
   "A Vietnamese Woman's Journey from War to Peace": "https://covers.openlibrary.org/b/isbn/0525431845-M.jpg?default=false",
