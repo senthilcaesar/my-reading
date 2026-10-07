@@ -132,9 +132,17 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     let isCancelled = false;
     async function loadEmbeddings() {
       try {
-        let res = await fetch('/embeddings.json');
+        const base = import.meta.env.BASE_URL || '/';
+        const cleanBase = base.endsWith('/') ? base : `${base}/`;
+        let res = await fetch(`${cleanBase}embeddings.json`);
         if (!res.ok) {
-          res = await fetch('/embedding.json');
+          res = await fetch(`${cleanBase}embedding.json`);
+        }
+        if (!res.ok) {
+          res = await fetch('embeddings.json');
+        }
+        if (!res.ok) {
+          res = await fetch('/embeddings.json');
         }
         if (!res.ok) {
           throw new Error('Embeddings file not found');
