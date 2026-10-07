@@ -8,10 +8,11 @@ A modern, high-performance book collection and "Book of the Day" showcase built 
   - **Debounced Search**: Optimized keyword searching across titles, authors, categories, and summaries.
   - **Memoized Components**: Smooth rendering and theme transitions using `React.memo`.
 - **📖 Book of the Day**: A premium, deterministic hero banner featuring a novelistic "Marcellus SC" typography and dynamic animations.
+- **🤖 Ask the Library (Full RAG)**: Semantic vector retrieval powered by OpenAI embeddings with real-time streaming AI librarian synthesis (`gpt-4o-mini`).
 - **🎨 Modern UI**: 
   - Glassmorphic header with real-time book counter.
   - Fully responsive layout with seamless Dark/Light mode support.
-  - Dynamic categorization badges and "Shuffle" functionality.
+  - Dynamic categorization badges, interactive Roulette, and "Shuffle" functionality.
 - **🚀 Automated Deployment**: CI/CD pipeline set up via GitHub Actions for publishing to GitHub Pages.
 
 ## 🛠️ Tech Stack
@@ -42,7 +43,13 @@ A modern, high-performance book collection and "Book of the Day" showcase built 
    npm install
    ```
 
-3. Start the development server:
+3. (Optional) Generate or refresh book embeddings:
+   ```bash
+   OPENAI_API_KEY=your-api-key npm run generate:embeddings
+   ```
+   *(Or add `OPENAI_API_KEY=your-key` to `.env` and run `npm run generate:embeddings`)*
+
+4. Start the development server:
    ```bash
    npm run dev
    ```

@@ -439,9 +439,13 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
         <DrawerBody pt={1} pb={6}>
           {/* Query Input */}
-          <Box mb={4}>
-            <InputGroup size="md">
+          <Box mb={5}>
+            <InputGroup size="lg">
               <Input
+                h={{ base: '50px', md: '54px' }}
+                fontSize={{ base: 'sm', md: 'md' }}
+                pl={4}
+                pr="56px"
                 placeholder="Ask about themes, plots, topics, or feelings..."
                 borderRadius="xl"
                 bg="surface"
@@ -455,10 +459,11 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                   if (e.key === 'Enter') handleSearch();
                 }}
               />
-              <InputRightElement w="auto" pr={1.5}>
+              <InputRightElement h="full" w="auto" pr={2}>
                 <Button
-                  size="sm"
-                  h="32px"
+                  size="md"
+                  h={{ base: '38px', md: '42px' }}
+                  px={3.5}
                   borderRadius="lg"
                   bg="accentGreen"
                   color="white"
@@ -466,7 +471,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                   isLoading={isLoading}
                   onClick={() => handleSearch()}
                 >
-                  <Search size={15} />
+                  <Search size={18} />
                 </Button>
               </InputRightElement>
             </InputGroup>
