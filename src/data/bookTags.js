@@ -98,4 +98,9 @@ export const bookTags = {
   "Where Tomorrows Aren't Promised": ["Memoir", "Sports", "Biography"],
   "The Daughter of Auschwitz": ["History", "Holocaust", "Memoir"],
   "A Train Near Magdeburg": ["History", "Holocaust", "World War II"],
+  "In Line Behind a Billion People": ["Economics", "China", "Scarcity"],
+  "Imbeciles": ["History", "Law", "Eugenics"],
+  "The Bell Curve": ["Sociology", "Psychology", "Intelligence"],
+  "Neurosis and Human Growth": ["Psychology", "Mental Health", "Self-Help"],
+  "A People's History of the United States": ["History", "Civil Rights", "Politics"],
 };

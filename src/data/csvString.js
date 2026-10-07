@@ -1457,4 +1457,9 @@ Enshittification,Cory Doctorow,Non-fiction,https://www.amazon.com/gp/product/125
 Where Tomorrows Aren't Promised,Carmelo Anthony,Non-fiction,https://www.amazon.com/Where-Tomorrows-Arent-Promised-Survival/dp/1982160608,"A Memoir of Survival and Hope"
 The Daughter of Auschwitz,Tova Friedman,Non-fiction,https://www.amazon.com/dp/1335449302,"My Story of Resilience, Survival and Hope, A NYT Bestseller Biography of the Holocaust and World War 2"
 A Train Near Magdeburg,Matthew A. Rozell,Non-fiction,https://www.amazon.com/Train-Near-Magdeburg-Holocaust-liberators/dp/0996480021,"A Teacher's Journey into the Holocaust, and the reuniting of the survivors and liberators"
+In Line Behind a Billion People,Damien Ma,Non-fiction,https://www.amazon.com/gp/product/0133133893,"How Scarcity Will Define China's Ascent in the Next Decade"
+Imbeciles,Adam Cohen,Non-fiction,https://www.amazon.com/gp/product/0143109995,"The Supreme Court, American Eugenics, and the Sterilization of Carrie Buck"
+The Bell Curve,Richard J. Herrnstein,Non-fiction,https://www.amazon.com/gp/product/0684824299,"Intelligence and Class Structure in American Life"
+Neurosis and Human Growth,Karen Horney,Non-fiction,https://www.amazon.com/gp/product/0393307751,"The Struggle Towards Self-Realization"
+"A People's History of the United States",Howard Zinn,Non-fiction,https://www.amazon.com/Peoples-History-United-States/dp/0062397346,"U.S. History and the Fight for Racial Equality"
 `;
