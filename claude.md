@@ -144,6 +144,16 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 ---
 
+## Ask the Library (RAG) — `AskDrawer.jsx` + `src/utils/askSearch.js`
+
+- **Index**: `public/embeddings.bin` (int8 vectors, ~530 KB) + `public/embeddings.meta.json` (titles, content hashes, scales, precomputed vectors for `src/data/askSuggestions.js`). Rows are keyed by **title**, not row id.
+- **Rebuild**: `npm run generate:embeddings` re-embeds only books whose embedding text changed (and new suggestions); `--full` re-embeds everything. Run it after any CSV/summary/tag change.
+- **Retrieval**: `hybridSearch` = semantic (text-embedding-3-small, 512d) + BM25 keyword index, merged with reciprocal rank fusion, capped at 15 results. Returns `weak: true` when nothing really matches; the UI and librarian prompt say so.
+- **Quality check**: `npm run eval:ask` compares the old semantic-only ranking with hybrid on a labelled query set. Run it before and after tuning any constant in `askSearch.js`.
+- **API key**: never put an OpenAI key in the build (`vite.config.js` injects `.env`'s key only for `npm run dev`). The deployed site uses the visitor's own key from localStorage.
+
+---
+
 ## Key Components — Quick Reference
 
 ### `Header.jsx`

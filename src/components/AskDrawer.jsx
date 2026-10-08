@@ -36,6 +36,15 @@ import {
 import RaisingHandIcon from './RaisingHandIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getCategoryStyles } from '../utils/categoryStyles';
+import { bookTags } from '../data/bookTags';
+import { ASK_SUGGESTIONS } from '../data/askSuggestions';
+import {
+  EMBEDDING_DIMENSIONS,
+  EMBEDDING_MODEL,
+  buildKeywordIndex,
+  decodeEmbeddingIndex,
+  hybridSearch,
+} from '../utils/askSearch';
 
 const MotionBox = motion(Box);
 
@@ -67,37 +76,24 @@ function renderFormattedLibrarianText(text) {
   });
 }
 
-function cosineSimilarity(vecA, vecB) {
-  if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
-  let dot = 0;
-  for (let i = 0; i < vecA.length; i++) {
-    dot += vecA[i] * vecB[i];
-  }
-  return dot;
-}
+// Query embeddings already fetched this session (repeat questions skip the API call).
+const queryVectorCache = new Map();
 
-const SUGGESTIONS = [
-  'Can you recommend books about women’s lives and experiences?',
-  'What books are available about human psychology?',
-  'Which books discuss leadership and management?',
-  'I want to learn how the human brain works. What books should I read?',
-  'Which books discuss about World War II?',
-  'I want to read biographies of people who changed the world.',
-  'What books tell the life stories of influential leaders and thinkers?',
-  'I want to understand the basics of economic thinking. Which books would you recommend?',
-  'What books explain how the global economy is interconnected?',
-  'What books explore the lives and thinking of influential technology leaders?',
-  'Which books discuss the rise, leadership, and legacy of major political figures?',
-  'What books explain major political events that changed the course of history?',
-  'Which books examine how wars have changed the political and economic order of the world?',
-  'Which books discuss how traditional companies balance their existing business with innovation and new technologies?',
-];
+function normalizeVector(vector) {
+  const out = Float32Array.from(vector);
+  let norm = 0;
+  for (const v of out) norm += v * v;
+  norm = Math.sqrt(norm) || 1;
+  for (let i = 0; i < out.length; i++) out[i] /= norm;
+  return out;
+}
 
 export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
-  const [embeddingsData, setEmbeddingsData] = useState(null);
+  const [embeddingIndex, setEmbeddingIndex] = useState(null);
+  const [weakMatch, setWeakMatch] = useState(false);
   const [embeddingsError, setEmbeddingsError] = useState(false);
   const [librarianText, setLibrarianText] = useState('');
   const [isLibrarianStreaming, setIsLibrarianStreaming] = useState(false);
@@ -111,8 +107,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
   const activeApiKey = useMemo(() => {
     if (userApiKey && userApiKey.trim()) return userApiKey.trim();
-    const envKey = import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY || '';
-    return envKey ? envKey.trim() : '';
+    // A key from .env is only honoured in `npm run dev`; production builds must never
+    // contain one, so the deployed site always uses the visitor's own key.
+    const envKey = import.meta.env.DEV ? import.meta.env.VITE_OPENAI_API_KEY || '' : '';
+    return envKey.trim();
   }, [userApiKey]);
   const toast = useToast();
 
@@ -163,31 +161,29 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     onClose();
   }, [onClose]);
 
-  // Fetch embeddings.json once when drawer opens
+  // Fetch the int8 embedding index once when the drawer opens
   useEffect(() => {
-    if (!isOpen || embeddingsData) return;
+    if (!isOpen || embeddingIndex) return;
 
     let isCancelled = false;
     async function loadEmbeddings() {
       try {
         const base = import.meta.env.BASE_URL || '/';
         const cleanBase = base.endsWith('/') ? base : `${base}/`;
-        let res = await fetch(`${cleanBase}embeddings.json`);
-        if (!res.ok) {
-          res = await fetch(`${cleanBase}embedding.json`);
+        const [metaRes, binRes] = await Promise.all([
+          fetch(`${cleanBase}embeddings.meta.json`),
+          fetch(`${cleanBase}embeddings.bin`),
+        ]);
+        if (!metaRes.ok || !binRes.ok) {
+          throw new Error('Embeddings index not found');
         }
-        if (!res.ok) {
-          res = await fetch('embeddings.json');
+        const [meta, buffer] = await Promise.all([metaRes.json(), binRes.arrayBuffer()]);
+        if (meta.model !== EMBEDDING_MODEL || meta.dimensions !== EMBEDDING_DIMENSIONS) {
+          throw new Error('Embeddings index was built with a different model');
         }
-        if (!res.ok) {
-          res = await fetch('/embeddings.json');
-        }
-        if (!res.ok) {
-          throw new Error('Embeddings file not found');
-        }
-        const data = await res.json();
+        const index = decodeEmbeddingIndex(meta, buffer);
         if (!isCancelled) {
-          setEmbeddingsData(data);
+          setEmbeddingIndex({ ...index, rowByTitle: new Map(index.titles.map((t, r) => [t, r])) });
           setEmbeddingsError(false);
         }
       } catch {
@@ -201,18 +197,42 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     return () => {
       isCancelled = true;
     };
-  }, [isOpen, embeddingsData]);
+  }, [isOpen, embeddingIndex]);
 
-  // Fast map from book ID/title to book object
-  const booksMap = useMemo(() => {
-    const mapById = new Map();
-    const mapByTitle = new Map();
-    for (const b of books) {
-      mapById.set(b.id, b);
-      mapByTitle.set(b.title.toLowerCase().trim(), b);
-    }
-    return { mapById, mapByTitle };
-  }, [books]);
+  const keywordIndex = useMemo(() => buildKeywordIndex(books, bookTags), [books]);
+
+  const getQueryVector = useCallback(
+    async (q) => {
+      const cached = embeddingIndex.suggestionVectors.get(q) || queryVectorCache.get(q);
+      if (cached) return cached;
+
+      const response = await fetch('https://api.openai.com/v1/embeddings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${activeApiKey}`,
+        },
+        body: JSON.stringify({
+          model: EMBEDDING_MODEL,
+          dimensions: EMBEDDING_DIMENSIONS,
+          input: q,
+        }),
+      });
+
+      if (!response.ok) {
+        const errData = await response.text();
+        throw new Error(`OpenAI error (${response.status}): ${errData}`);
+      }
+
+      const data = await response.json();
+      const embedding = data.data?.[0]?.embedding;
+      if (!embedding) throw new Error('No embedding returned from OpenAI');
+      const vector = normalizeVector(embedding);
+      queryVectorCache.set(q, vector);
+      return vector;
+    },
+    [embeddingIndex, activeApiKey],
+  );
 
   const handleSearch = useCallback(
     async (searchPrompt) => {
@@ -231,10 +251,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
         return;
       }
 
-      if (!embeddingsData || embeddingsData.length === 0) {
+      if (!embeddingIndex) {
         toast({
           title: 'Embeddings Index Missing',
-          description: 'Run "OPENAI_API_KEY=... node scripts/generateEmbeddings.mjs" to generate embeddings.json.',
+          description: 'Run "OPENAI_API_KEY=... node scripts/generateEmbeddings.mjs" to build the embeddings index.',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -251,63 +271,21 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
       setIsLoading(true);
       try {
-        // 1. Embed query with OpenAI text-embedding-3-small
-        const response = await fetch('https://api.openai.com/v1/embeddings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${activeApiKey}`,
-          },
-          body: JSON.stringify({
-            model: 'text-embedding-3-small',
-            dimensions: 512,
-            input: q,
-          }),
+        // 1. Embed the query (cached for suggestions and repeat questions)
+        const queryVector = await getQueryVector(q);
+
+        // 2. Hybrid retrieval: semantic + BM25 keyword ranking, fused
+        const { results: finalResults, weak } = hybridSearch({
+          books,
+          keywordIndex,
+          embeddingIndex,
+          rowByTitle: embeddingIndex.rowByTitle,
+          query: q,
+          queryVector,
         });
 
-        if (!response.ok) {
-          const errData = await response.text();
-          throw new Error(`OpenAI error (${response.status}): ${errData}`);
-        }
-
-        const data = await response.json();
-        const queryVector = data.data?.[0]?.embedding;
-        if (!queryVector) throw new Error('No embedding returned from OpenAI');
-
-        // 2. Score against all cached embeddings
-        const scored = [];
-        for (const item of embeddingsData) {
-          const book =
-            booksMap.mapById.get(item.id) ||
-            booksMap.mapByTitle.get(item.title?.toLowerCase()?.trim());
-
-          if (book && item.embedding) {
-            const similarity = cosineSimilarity(queryVector, item.embedding);
-            scored.push({ book, similarity });
-          }
-        }
-
-        // 3. Sort descending and return all matching results
-        scored.sort((a, b) => b.similarity - a.similarity);
-
-        if (scored.length === 0) {
-          setResults([]);
-          setIsLoading(false);
-          return;
-        }
-
-        const topScore = scored[0].similarity;
-        // Dynamic relevance threshold: minimum 0.36 or within 72% of top match
-        const cutoff = Math.max(0.36, topScore * 0.72);
-        const matchingResults = scored.filter((item) => item.similarity >= cutoff);
-
-        // Fallback for narrow queries to include best matches above baseline
-        const finalResults =
-          matchingResults.length >= 5
-            ? matchingResults
-            : scored.filter((item) => item.similarity >= 0.30).slice(0, Math.max(5, matchingResults.length));
-
         setResults(finalResults);
+        setWeakMatch(weak);
         setIsLoading(false);
 
         // 4. Full RAG: Synthesize AI Librarian explanation using gpt-4o-mini
@@ -342,7 +320,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                       'Based on the retrieved books from the library, provide an engaging, well-crafted 1-2 paragraph synthesis explaining how these books address their inquiry. ' +
                       'Always refer to the books as being from "the library" (never say "your collection", "your library", or "your books"). ' +
                       'Mention the most relevant book titles in bold (**Book Title**). ' +
-                      'Be articulate, insightful, and welcoming. Do not invent books not present in the provided list.',
+                      'Be articulate, insightful, and welcoming. Do not invent books not present in the provided list.' +
+                      (weak
+                        ? ' These books are only loosely related to the question: say plainly that the library has little directly on this topic, then mention any that are still worth a look.'
+                        : ''),
                   },
                   {
                     role: 'user',
@@ -350,7 +331,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                   },
                 ],
                 stream: true,
-                temperature: 0.7,
+                temperature: 0.3,
               }),
               signal: controller.signal,
             });
@@ -407,7 +388,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
         setIsLoading(false);
       }
     },
-    [query, activeApiKey, embeddingsData, booksMap, toast],
+    [query, activeApiKey, embeddingIndex, getQueryVector, books, keywordIndex, toast],
   );
 
   return (
@@ -543,7 +524,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                     Embeddings index not found
                   </Text>
                   <Text fontSize="2xs" color="textSecondary" mt={0.5}>
-                    Run this command in your terminal to generate <code>embeddings.json</code>:
+                    Run this command in your terminal to build the embeddings index:
                   </Text>
                   <Box
                     as="pre"
@@ -609,7 +590,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                 Try Asking
               </Text>
               <Flex direction="column" gap={1.5}>
-                {SUGGESTIONS.map((item) => (
+                {ASK_SUGGESTIONS.map((item) => (
                   <Button
                     key={item}
                     variant="ghost"
@@ -719,9 +700,14 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
             <VStack spacing={3} align="stretch">
               <Flex justify="space-between" align="center" px={1}>
                 <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="wider" color="textSecondary">
-                  All Matching Results ({results.length})
+                  {weakMatch ? 'Closest Results' : 'All Matching Results'} ({results.length})
                 </Text>
               </Flex>
+              {weakMatch && (
+                <Text fontSize="xs" color="textSecondary" px={1}>
+                  Nothing in the library closely matches this question. These are the nearest books.
+                </Text>
+              )}
 
               <AnimatePresence>
                 {results.map(({ book }, index) => {
@@ -843,6 +829,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
                 setLibrarianText('');
                 setIsLibrarianStreaming(false);
                 setResults([]);
+                setWeakMatch(false);
                 setQuery('');
               }}
             >
