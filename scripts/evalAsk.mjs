@@ -6,7 +6,6 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { books } from '../src/data/parsedBooks.js';
-import { bookTags } from '../src/data/bookTags.js';
 import {
   EMBEDDING_DIMENSIONS,
   EMBEDDING_MODEL,
@@ -27,12 +26,14 @@ const WW2 = [
   'The Girls Who Stepped Out of Line: Unsung WWII Heroines Who Risked Everything for Freedom',
   'A Woman of No Importance: The Untold Story of the American Spy Who Helped Win World War II',
   'Rogue Heroes', 'Lost in Shangri-La', 'Against All Odds', 'The Liberator', 'Ghost Soldiers',
-  'A World War II Story of Survival, Resilience, and Redemption', 'Stalingrad', 'A History of Nazi Germany',
+  'Unbroken', 'Stalingrad', 'The Rise and Fall of the Third Reich',
   'Agent Garbo', 'Survival In Auschwitz', 'The Rape Of Nanking', 'War As I Knew It', 'Eichmann in Jerusalem',
   'The Daughter of Auschwitz', 'A Train Near Magdeburg', 'My Private War', 'Eisenhower in War and Peace',
   "Man's Search for Meaning", 'The Happiest Man on Earth', 'Postwar',
   'American Prometheus: The Triumph and Tragedy of J. Robert Oppenheimer',
-  'Stilwell and the American Experience in China', 'Citizens of London', 'Franklin D. Roosevelt: A Political Life',
+  'Stilwell and the American Experience in China', 'Citizens of London',
+  // surfaced once thin summaries were filled in (scripts/enrichBooks.mjs)
+  'Eagle Against the Sun', 'Countdown 1945', 'Last Call at the Hotel Imperial', 'Hotel Exile', 'Franklin D. Roosevelt: A Political Life',
 ];
 const WW1_ERA = ['Peace to End All Peace', 'The German Revolution'];
 
@@ -42,16 +43,16 @@ const WW1_ERA = ['Peace to End All Peace', 'The German Revolution'];
 const CASES = [
   { q: 'Which books discuss about World War II?', relevant: WW2, offTopic: WW1_ERA },
   { q: 'WWII', relevant: WW2, offTopic: WW1_ERA },
-  { q: 'Holocaust survivors', relevant: ['Survival In Auschwitz', "Man's Search for Meaning", 'The Daughter of Auschwitz', 'The Happiest Man on Earth', 'A Train Near Magdeburg', 'Eichmann in Jerusalem'] },
+  { q: 'Holocaust survivors', relevant: ['Survival In Auschwitz', "Man's Search for Meaning", 'The Daughter of Auschwitz', 'The Happiest Man on Earth', 'A Train Near Magdeburg', 'Eichmann in Jerusalem', 'The Choice: Embrace the Possible'] },
   { q: 'Steve Jobs', relevant: ['Steve Jobs', "Creative Selection: Inside Apple's Design Process During the Golden Age of Steve Jobs"] },
   { q: 'books by Walter Isaacson', relevant: ['Steve Jobs', 'The Code Breaker', 'The Innovators', 'The Wise Men: Six Friends and the World They Made', 'Benjamin Franklin: An American Life'] },
   { q: 'Michael Lewis', relevant: ['Going Infinite: The Rise and Fall of a New Tycoon', 'Moneyball', 'Flash Boys', "Liar's Poker", 'The Premonition', 'The Big Short'] },
   { q: 'Sapiens', relevant: ['Sapiens'] },
   { q: 'index funds', relevant: ['All About Index Funds', 'The Bogle Effect', "The Bogleheads' Guide to Investing", 'The Clash of the Cultures', 'The Little Book of Common Sense Investing'] },
   { q: 'books on investing for beginners', relevant: ['Learn to Earn', 'The Elements of Investing', 'The Little Book of Common Sense Investing', 'How I Invest My Money', "The Bogleheads' Guide to Investing", 'The Four Pillars of Investing', 'All About Index Funds'] },
-  { q: 'novels', relevant: ['When Sleeping Women Wake', 'Balzac and the Little Chinese Seamstress', 'Charlie and the Great Glass Elevator', 'Half of a Yellow Sun', 'Hunger Trilogy', 'Love in a Fallen City', 'Snow Flower and the Secret Fan', 'The Claws of the Dragon', 'The Feast of the Goat', 'The Street Lawyer', 'The Unbearable Lightness of Being', 'To Live: A Novel', 'Waiting'], offTopic: ['The Phoenix Project'] },
-  { q: 'artificial intelligence and its impact on society', relevant: ['The Scaling Era: An Oral History of AI', 'Why Machines Learn', 'Co-Intelligence', 'Artificial Intelligence', 'Genius Makers', 'Artificial Intelligence: A Guide for Thinking Humans', 'The Age of AI: And Our Human Future', 'Competing in the Age of AI', "What Should My Children Do?: A Human's Guide to the Age of AI", 'How To Think About AI', 'Hello World: Being Human in the Age of Algorithms', 'The Worlds I See'] },
-  { q: 'I want to learn how the human brain works. What books should I read?', relevant: ['The Tell-Tale Brain', 'The Living Brain', 'The Tale of the Dueling Neurosurgeons', 'The Disordered Mind', 'Rhythms of the Brain', 'The Neuroscience of Intelligence', 'A Brief History of Intelligence', "Who's in Charge?"] },
+  { q: 'novels', relevant: ['When Sleeping Women Wake', 'Balzac and the Little Chinese Seamstress', 'Charlie and the Great Glass Elevator', 'Half of a Yellow Sun', 'Hunger Trilogy', 'Love in a Fallen City', 'Snow Flower and the Secret Fan', 'The Claws of the Dragon', 'The Feast of the Goat', 'The Street Lawyer', 'The Unbearable Lightness of Being', 'To Live: A Novel', 'Waiting', 'Rickshaw Boy: A Novel', 'Piecing Me Together', 'Between The Stitching', 'The Fountainhead'], offTopic: ['The Phoenix Project'] },
+  { q: 'artificial intelligence and its impact on society', relevant: ['The Scaling Era: An Oral History of AI', 'Why Machines Learn', 'Co-Intelligence', 'Artificial Intelligence', 'Genius Makers', 'Artificial Intelligence: A Guide for Thinking Humans', 'The Age of AI: And Our Human Future', 'Competing in the Age of AI', "What Should My Children Do?: A Human's Guide to the Age of AI", 'How To Think About AI', 'Hello World: Being Human in the Age of Algorithms', 'The Worlds I See', 'Prediction Machines', 'Creative Machines: AI, Art & Us'] },
+  { q: 'I want to learn how the human brain works. What books should I read?', relevant: ['The Tell-Tale Brain', 'The Living Brain', 'The Tale of the Dueling Neurosurgeons', 'The Disordered Mind', 'Rhythms of the Brain', 'The Neuroscience of Intelligence', 'A Brief History of Intelligence', "Who's in Charge?", 'Social', 'The Deep History of Ourselves', 'Proust and the Squid', 'Behave: The Biology of Humans at Our Best and Worst', 'Synaptic Self: How Our Brains Become Who We Are'] },
   { q: 'Cold War espionage', relevant: ['The Spy and the Traitor: The Greatest Espionage Story of the Cold War'] },
   { q: 'Kahneman', relevant: [], expectWeak: true },
   { q: 'books about knitting and crochet patterns', relevant: [], expectWeak: true },
@@ -114,7 +115,7 @@ const rowByTitle = new Map(embeddingIndex.titles.map((t, r) => [t, r]));
 if (embeddingIndex.titles.some((t, r) => books[r]?.title !== t)) {
   throw new Error('Embedding index is out of date — run npm run generate:embeddings');
 }
-const keywordIndex = buildKeywordIndex(books, bookTags);
+const keywordIndex = buildKeywordIndex(books);
 const vectors = await embedQueries(CASES.map((c) => c.q));
 
 const pct = (v) => (v === null ? '   –' : `${Math.round(v * 100)}%`.padStart(4));

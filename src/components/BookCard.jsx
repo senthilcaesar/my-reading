@@ -8,7 +8,6 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { bookTags } from "../data/bookTags";
 import { getCategoryStyles } from "../utils/categoryStyles";
 
 // ── Highlight matching text ────────────────────────────────────────────────────
@@ -144,9 +143,9 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
         </Text>
 
         {/* Tags */}
-        {bookTags[book.title] && bookTags[book.title].length > 0 && (
+        {book.tags.length > 0 && (
           <Wrap gap={1.5} mb={3}>
-            {bookTags[book.title].map((tag) => (
+            {book.tags.map((tag) => (
               <WrapItem key={tag}>
                 <Badge
                   size="sm"

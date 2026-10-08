@@ -2,7 +2,6 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { books } from '../src/data/parsedBooks.js';
-import { bookTags } from '../src/data/bookTags.js';
 import { ASK_SUGGESTIONS } from '../src/data/askSuggestions.js';
 import {
   EMBEDDING_DIMENSIONS as DIMENSIONS,
@@ -30,7 +29,7 @@ const META_PATH = new URL('../public/embeddings.meta.json', import.meta.url);
 const BIN_PATH = new URL('../public/embeddings.bin', import.meta.url);
 
 export function formatBookForEmbedding(book) {
-  const tags = bookTags[book.title] || [];
+  const tags = [...book.tags, ...book.keywords];
   const parts = [`Title: ${book.title}`, `Author: ${book.author}`, `Category: ${book.category}`];
   if (tags.length > 0) {
     parts.push(`Tags: ${tags.join(', ')}`);

@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLink, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { bookTags } from "../data/bookTags";
 import { getCategoryStyles } from "../utils/categoryStyles";
 
 const MotionBox = motion(Box);
@@ -26,7 +25,7 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
   if (!book) return null;
 
   const categoryStyles = getCategoryStyles(book.category);
-  const tags = bookTags[book.title] || [];
+  const tags = book.tags;
   const noteText = book.recommendationNote || (book.recommender ? `Recommended by ${book.recommender}` : null);
 
   return (

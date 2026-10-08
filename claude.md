@@ -137,8 +137,17 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 **`parsedBooks.js`** runs a custom CSV parser (handles quoted fields with commas) at module load time. It exports:
 
-- `books`: Array of `{ title, author, category, link, summary }` objects
+- `books`: Array of `{ id, title, author, category, link, summary, tags, keywords, coverUrl, recommender, ... }` objects
 - `categories`: `Set<string>` of unique category strings
+
+**Cleanup & enrichment applied at parse time** (precedence: curated > generated > CSV):
+
+- `repairText` fixes mis-decoded UTF-8 ("RaÃºl" → "Raúl"); `cleanAuthor` strips Dr./MD/PhD.
+- `categoryOverrides.js` also holds `titleOverrides` (CSV rows whose title is really a subtitle), `authorOverrides`, `excludedTitles` (duplicate rows) and `summaryOverrides`. Lookups accept the old CSV title too, so `bookCovers.js` etc. need no renames.
+- `generatedBookMeta.js` (from `scripts/enrichBooks.mjs`, gpt-4.1) supplies summaries for books whose CSV summary was only a subtitle, 2 displayed `tags`, search-only `keywords`, and category fixes only where the old category was clearly wrong. `bookTags.js` still wins for tags. Review output in `reports/enrichment-review.md`.
+- Every book object therefore has `tags` and `keywords` arrays — components read `book.tags`, not `bookTags`.
+
+**After adding books**: `node scripts/enrichBooks.mjs` (only new titles) → `npm run generate:embeddings` → `npm run eval:ask`.
 
 **Warning**: `csvString.js` is ~486 KB. Vite will warn about chunk size during build. Do NOT restructure data or add dynamic imports without testing build output.
 

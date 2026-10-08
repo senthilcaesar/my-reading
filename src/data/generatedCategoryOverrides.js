@@ -37,7 +37,7 @@ export const generatedCategoryOverrides = {
   "Half of a Yellow Sun": "Historical Fiction",
   "Healing": "Health",
   "Hot Seat": "Memoir",
-  "How the Federal Reserve Broke the American EconomyÂ": "Finance",
+  "How the Federal Reserve Broke the American Economy": "Finance",
   "How to Not Die Alone": "Science",
   "How to Think About Money": "Finance",
   "How to Think Like a Woman": "Biography",

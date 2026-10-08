@@ -14,7 +14,6 @@ import {
   categories,
   recommenders,
 } from './data/parsedBooks';
-import { bookTags } from './data/bookTags';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -106,7 +105,7 @@ function App() {
           (book.recommendationNote &&
             wordBoundaryRegex.test(book.recommendationNote));
 
-        const tags = bookTags[book.title] || [];
+        const tags = book.tags;
         const matchesTags = tags.some((tag) => wordBoundaryRegex.test(tag));
 
         return matchesBasicFields || matchesRecommender || matchesTags;

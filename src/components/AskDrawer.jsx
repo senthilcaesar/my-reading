@@ -36,7 +36,6 @@ import {
 import RaisingHandIcon from './RaisingHandIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getCategoryStyles } from '../utils/categoryStyles';
-import { bookTags } from '../data/bookTags';
 import { ASK_SUGGESTIONS } from '../data/askSuggestions';
 import {
   EMBEDDING_DIMENSIONS,
@@ -199,7 +198,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     };
   }, [isOpen, embeddingIndex]);
 
-  const keywordIndex = useMemo(() => buildKeywordIndex(books, bookTags), [books]);
+  const keywordIndex = useMemo(() => buildKeywordIndex(books), [books]);
 
   const getQueryVector = useCallback(
     async (q) => {

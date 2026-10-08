@@ -96,16 +96,17 @@ export function tokenize(text) {
     .map(stem);
 }
 
-const FIELD_WEIGHTS = { title: 3, author: 3, tags: 2, category: 1.5, summary: 1 };
+const FIELD_WEIGHTS = { title: 3, author: 3, tags: 2, keywords: 2, category: 1.5, summary: 1 };
 const K1 = 1.2;
 const B = 0.75;
 
-export function buildKeywordIndex(books, bookTags = {}) {
+export function buildKeywordIndex(books) {
   const docs = books.map((book) => {
     const fields = {
       title: book.title,
       author: book.author,
-      tags: (bookTags[book.title] || []).join(' '),
+      tags: (book.tags || []).join(' '),
+      keywords: (book.keywords || []).join(' '),
       category: book.category,
       summary: book.summary,
     };
