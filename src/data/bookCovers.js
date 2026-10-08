@@ -1040,4 +1040,9 @@ export const bookCovers = {
   "Red Scarf Girl": "covers/red.png",
   "The Tale of the Dueling Neurosurgeons": "covers/neuro.png",
   "When the Air Hits Your Brain": "covers/air.png",
+  "Who Gets In and Why: A Year Inside College Admissions": "https://images-na.ssl-images-amazon.com/images/P/1982116293.01.LZZZZZZZ.jpg",
+  "Battle Hymn of the Tiger Mother": "https://images-na.ssl-images-amazon.com/images/P/0143120581.01.LZZZZZZZ.jpg",
+  "The Sisterhood: The Secret History of Women at the CIA": "https://images-na.ssl-images-amazon.com/images/P/0593238192.01.LZZZZZZZ.jpg",
+  "Listen, World!: How the Intrepid Elsie Robinson Became America’s Most-Read Woman": "https://images-na.ssl-images-amazon.com/images/P/1541674359.01.LZZZZZZZ.jpg",
+  "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": "https://images-na.ssl-images-amazon.com/images/P/0316391352.01.LZZZZZZZ.jpg",
 };

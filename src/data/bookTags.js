@@ -103,4 +103,9 @@ export const bookTags = {
   "The Bell Curve": ["Sociology", "Psychology", "Intelligence"],
   "Neurosis and Human Growth": ["Psychology", "Mental Health", "Self-Help"],
   "A People's History of the United States": ["History", "Civil Rights", "Politics"],
+  "Who Gets In and Why: A Year Inside College Admissions": ["Education", "College", "Higher Education"],
+  "Battle Hymn of the Tiger Mother": ["Parenting", "Culture", "Memoir"],
+  "The Sisterhood: The Secret History of Women at the CIA": ["History", "Women", "Espionage", "CIA"],
+  "Listen, World!: How the Intrepid Elsie Robinson Became America’s Most-Read Woman": ["Biography", "Journalism", "Women's History"],
+  "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": ["Politics", "Urban Policy", "History", "Society"],
 };
