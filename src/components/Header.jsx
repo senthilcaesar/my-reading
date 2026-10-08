@@ -1,16 +1,33 @@
-import { Box, Flex, Heading, Text, useColorMode, Button, useDisclosure, Icon, IconButton } from '@chakra-ui/react';
-import { Moon, Sun, Code } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  useColorMode,
+  Button,
+  useDisclosure,
+  Icon,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from '@chakra-ui/react';
+import { Moon, Sun, Code, Search, X } from 'lucide-react';
+import { memo, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import TechStackModal from './TechStackModal';
 import OpenLibraryBadge from './OpenLibraryBadge';
 
 const MotionBox = motion(Box);
 
-export default function Header({ bookCount }) {
+function Header({ bookCount, showSearch, searchQuery, onSearchChange }) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrolled, setScrolled] = useState(false);
+  // The compact search replaces the title once the page's own search box has
+  // scrolled away (App hands the cursor back to that box when it returns).
+  const searchVisible = showSearch;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -60,32 +77,85 @@ export default function Header({ bookCount }) {
       >
         <Flex align="center" justify="space-between" maxW="1400px" mx="auto" gap={2}>
 
-          {/* Left — Open Library Badge & Book Count */}
-          <OpenLibraryBadge bookCount={bookCount} />
+          {/* Left — Open Library Badge & Book Count (makes room for search on phones) */}
+          <Box display={{ base: searchVisible ? 'none' : 'block', sm: 'block' }} flexShrink={0}>
+            <OpenLibraryBadge bookCount={bookCount} />
+          </Box>
 
-          {/* Center — Title */}
-          <Heading
-            as="h1"
-            fontFamily="'Rye', serif"
-            fontSize={scrolled
-              ? { base: 'sm', sm: 'md', md: 'xl' }
-              : { base: 'md', sm: 'lg', md: '2xl' }
-            }
-            lineHeight="shorter"
-            fontWeight="400"
-            color="textPrimary"
-            letterSpacing={{ base: '0.02em', md: '0.04em' }}
-            transition="font-size 0.35s ease, color 0.2s ease"
-            userSelect="none"
-            cursor="pointer"
-            textAlign="center"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            _hover={{ color: 'accentPrimary' }}
-            noOfLines={1}
-            flex={1}
-          >
-            Book Collection
-          </Heading>
+          {/* Center — Title, or search once the page's search box is out of view */}
+          {searchVisible ? (
+            <MotionBox
+              key="search"
+              flex={1}
+              display="flex"
+              justifyContent="center"
+              minW={0}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+            >
+              <InputGroup maxW="520px" size="sm">
+                <InputLeftElement pointerEvents="none" h="full" color="searchInputPlaceholder">
+                  <Search size={16} />
+                </InputLeftElement>
+                <Input
+                  aria-label="Search books"
+                  placeholder="Search books…"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  h="36px"
+                  pl={9}
+                  pr={searchQuery ? 9 : 3}
+                  borderRadius="full"
+                  bg="searchInputBg"
+                  color="searchInputText"
+                  borderColor="borderPrimary"
+                  fontSize="sm"
+                  _placeholder={{ color: 'searchInputPlaceholder' }}
+                  _focusVisible={{ borderColor: 'accentPrimary', boxShadow: '0 0 0 1px var(--chakra-colors-accentPrimary)' }}
+                />
+                {searchQuery && (
+                  <InputRightElement h="full">
+                    <IconButton
+                      aria-label="Clear search"
+                      icon={<X size={14} />}
+                      size="xs"
+                      variant="ghost"
+                      borderRadius="full"
+                      color="searchInputPlaceholder"
+                      _hover={{ bg: 'blackAlpha.100', color: 'searchInputText' }}
+                      // Keep focus in the box so the reader can type a new search.
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => onSearchChange('')}
+                    />
+                  </InputRightElement>
+                )}
+              </InputGroup>
+            </MotionBox>
+          ) : (
+            <Heading
+              as="h1"
+              fontFamily="'Rye', serif"
+              fontSize={scrolled
+                ? { base: 'sm', sm: 'md', md: 'xl' }
+                : { base: 'md', sm: 'lg', md: '2xl' }
+              }
+              lineHeight="shorter"
+              fontWeight="400"
+              color="textPrimary"
+              letterSpacing={{ base: '0.02em', md: '0.04em' }}
+              transition="font-size 0.35s ease, color 0.2s ease"
+              userSelect="none"
+              cursor="pointer"
+              textAlign="center"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              _hover={{ color: 'accentPrimary' }}
+              noOfLines={1}
+              flex={1}
+            >
+              Book Collection
+            </Heading>
+          )}
 
           {/* Right — Controls */}
           <Flex align="center" gap={{ base: 1.5, sm: 2 }} flexShrink={0}>
@@ -164,3 +234,6 @@ export default function Header({ bookCount }) {
     </>
   );
 }
+
+// Memoised so opening a drawer or modal (state in App) doesn't re-render it.
+export default memo(Header);

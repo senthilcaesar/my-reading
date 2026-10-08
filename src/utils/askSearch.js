@@ -1,5 +1,5 @@
 // Retrieval for "Ask the Library": a compact int8 embedding index plus a BM25
-// keyword index, merged with reciprocal rank fusion (RRF).
+// keyword index: ordered by meaning, boosted by matching rare query terms.
 // Pure JS with no Vite/browser APIs so scripts/ can import it for evaluation.
 
 export const EMBEDDING_MODEL = 'text-embedding-3-small';
@@ -71,11 +71,29 @@ const STOPWORDS = new Set(
     // question / request fluff that carries no topic signal
     'about any available book books discuss discusses discussing explain explains explore explores ' +
     'find give good great help interested learn like list look looking please read reading recommend ' +
-    'recommendation recommendations should show something suggest tell titles understand want wish'
+    'recommendation recommendations should show something suggest tell titles understand want wish ' +
+    // generic words common in questions ("women's lives and experiences", "how the
+    // brain works") that would otherwise outweigh the actual topic
+    'life lives experience experiences story stories works way ways thing things kind kinds basics'
   ).split(' '),
 );
 
+// Plurals that suffix-stripping gets wrong ("lives" is not the verb "live").
+const IRREGULAR = {
+  women: 'woman',
+  men: 'man',
+  children: 'child',
+  people: 'person',
+  lives: 'life',
+  wives: 'wife',
+  leaves: 'leaf',
+  feet: 'foot',
+  teeth: 'tooth',
+  mice: 'mouse',
+};
+
 function stem(token) {
+  if (IRREGULAR[token]) return IRREGULAR[token];
   if (token.length > 4 && token.endsWith('ies')) return `${token.slice(0, -3)}y`;
   if (token.length > 3 && token.endsWith('s') && !token.endsWith('ss') && !token.endsWith('us')) {
     return token.slice(0, -1);
@@ -88,6 +106,7 @@ export function tokenize(text) {
     .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    .replace(/[’']s\b/g, '') // possessive: "women’s" -> "women"
     .replace(/[’']/g, '');
   for (const [re, rep] of PHRASES) t = t.replace(re, rep);
   return t
@@ -127,23 +146,29 @@ export function buildKeywordIndex(books) {
   return { docs, df, avgLen, n: docs.length };
 }
 
-// Returns BM25 scores plus, per book, how many distinct query terms it contains.
+// Returns BM25 scores plus, per book, how many distinct query terms it contains and
+// what share of the query's total IDF (term rarity) those terms carry.
 export function keywordScores(index, queryTokens) {
   const scores = new Float32Array(index.n);
   const matched = new Uint8Array(index.n);
+  const coverage = new Float32Array(index.n);
   const unique = [...new Set(queryTokens)];
+  let totalIdf = 0;
   for (const tok of unique) {
     const df = index.df.get(tok);
     if (!df) continue;
     const idf = Math.log(1 + (index.n - df + 0.5) / (df + 0.5));
+    totalIdf += idf;
     index.docs.forEach((d, i) => {
       const tf = d.tf.get(tok);
       if (!tf) return;
       matched[i] += 1;
+      coverage[i] += idf;
       scores[i] += (idf * tf * (K1 + 1)) / (tf + K1 * (1 - B + (B * d.len) / index.avgLen));
     });
   }
-  return { scores, matched, termCount: unique.length };
+  if (totalIdf > 0) for (let i = 0; i < coverage.length; i++) coverage[i] /= totalIdf;
+  return { scores, matched, coverage, termCount: unique.length };
 }
 
 // ---------------------------------------------------------------------------
@@ -168,17 +193,17 @@ function hintedCategories(queryTokens) {
 // Hybrid search
 // ---------------------------------------------------------------------------
 
-const RRF_K = 60;
-const MAX_RESULTS = 15;
+const COVERAGE_WEIGHT = 0.08;
+const MAX_RESULTS = 40;
 const MIN_RESULTS = 5;
-const SEMANTIC_WINDOW = 0.1; // keep semantic matches within this of the best one
+const SCORE_WINDOW = 0.14; // keep books scoring within this of the best one
 const SEMANTIC_FLOOR = 0.3;
 // A query is a weak match when no book contains even two of its terms (one, for
 // single-term queries) and the best semantic score is only moderate — e.g. an
 // author or topic the library doesn't have.
 const WEAK_SEMANTIC = 0.55;
 const MIN_MATCHED_TERMS = 2;
-const CATEGORY_HINT_BONUS = 1 / RRF_K;
+const CATEGORY_HINT_BONUS = 0.04;
 
 function dot(vectors, row, dims, query) {
   let s = 0;
@@ -200,7 +225,7 @@ function dot(vectors, row, dims, query) {
 export function hybridSearch({ books, keywordIndex, embeddingIndex, rowByTitle, query, queryVector }) {
   const { vectors, dims } = embeddingIndex;
   const queryTokens = tokenize(query);
-  const { scores: lex, matched, termCount } = keywordScores(keywordIndex, queryTokens);
+  const { scores: lex, matched, coverage, termCount } = keywordScores(keywordIndex, queryTokens);
   const hinted = hintedCategories(queryTokens);
 
   const items = books.map((book, i) => {
@@ -209,31 +234,43 @@ export function hybridSearch({ books, keywordIndex, embeddingIndex, rowByTitle, 
       book,
       similarity: row === undefined ? 0 : dot(vectors, row, dims, queryVector),
       keywordScore: lex[i],
+      coverage: coverage[i],
     };
   });
 
-  // Rank each signal independently, then fuse.
-  const bySemantic = [...items].sort((a, b) => b.similarity - a.similarity);
-  bySemantic.forEach((it, r) => (it.semanticRank = r));
-  const byKeyword = items.filter((it) => it.keywordScore > 0).sort((a, b) => b.keywordScore - a.keywordScore);
-  byKeyword.forEach((it, r) => (it.keywordRank = r));
-
-  const topSim = bySemantic[0]?.similarity ?? 0;
-  const topLex = byKeyword[0]?.keywordScore ?? 0;
-
+  let topSim = 0;
+  let topLex = 0;
   for (const it of items) {
-    it.score = 1 / (RRF_K + it.semanticRank);
-    if (it.keywordRank !== undefined) it.score += 1 / (RRF_K + it.keywordRank);
+    topSim = Math.max(topSim, it.similarity);
+    topLex = Math.max(topLex, it.keywordScore);
+  }
+
+  // Order by meaning, plus a bonus for containing the query's terms weighted by how
+  // rare they are. A rare, telling term ("WWII", an author's name) separates books
+  // that are semantically close; a common one ("women" in a question about women)
+  // is shared by most candidates and leaves the semantic order alone. Raw BM25 was
+  // tried first, but it rewards books that merely repeat a word often.
+  for (const it of items) {
+    it.score = it.similarity + COVERAGE_WEIGHT * it.coverage;
     if (hinted.has(it.book.category)) it.score += CATEGORY_HINT_BONUS;
   }
 
-  const semanticCut = Math.max(SEMANTIC_FLOOR, topSim - SEMANTIC_WINDOW);
+  const fused = items.sort((a, b) => b.score - a.score);
+  const topScore = fused[0]?.score ?? 0;
+  // When every leading result contains the query's terms (e.g. "WWII"), the terms
+  // are what the question is about: a book lacking them (a WWI history that is
+  // semantically close) doesn't belong further down the list either.
+  const head = fused.slice(0, 10);
+  const termsRequired = head.length > 0 && head.every((it) => it.coverage > 0);
+  // The list ends where the combined score falls well below the best match, so a
+  // broad topic returns many books and a narrow one only a few.
   const relevant = (it) =>
-    it.similarity >= semanticCut ||
+    (it.similarity >= SEMANTIC_FLOOR &&
+      it.score >= topScore - SCORE_WINDOW &&
+      (!termsRequired || it.coverage > 0)) ||
     // strong keyword match that is still at least loosely on-topic semantically
     (topLex > 0 && it.keywordScore >= 0.5 * topLex && it.similarity >= SEMANTIC_FLOOR - 0.05);
 
-  const fused = items.sort((a, b) => b.score - a.score);
   let results = fused.filter(relevant).slice(0, MAX_RESULTS);
 
   let bestMatched = 0;

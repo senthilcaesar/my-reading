@@ -1,0 +1,16 @@
+# Deployed by .github/workflows/proxy.yml. The OpenAI key is set as a Worker
+# secret from the OPENAI_API_KEY GitHub secret — never put it in this file.
+name = "my-reading-ask"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://senthilcaesar.github.io,http://localhost:5173"
+
+# 20 requests per minute per visitor IP, per endpoint.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 20
+  period = 60

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 
-export default function NewspaperBackground() {
+function NewspaperBackground() {
   // Authentic newspaper ink colors — subtle and deeply integrated into the page
   const headlineColor = useColorModeValue(
     'rgba(20, 16, 12, 0.22)',
@@ -2238,3 +2238,6 @@ export default function NewspaperBackground() {
     </Box>
   );
 }
+
+// Memoised so opening a drawer or modal (state in App) doesn't re-render it.
+export default memo(NewspaperBackground);

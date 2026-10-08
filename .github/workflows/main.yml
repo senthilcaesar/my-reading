@@ -33,6 +33,11 @@ jobs:
 
       - name: Build 🏗️
         run: npm run build
+        env:
+          # Public URL of the Ask proxy Worker (a repository variable, not a secret).
+          VITE_ASK_PROXY_URL: ${{ vars.ASK_PROXY_URL }}
+          # TEMPORARY: bakes the key into the public bundle. Remove once the proxy is live.
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Setup Pages ⚙️
         uses: actions/configure-pages@v5

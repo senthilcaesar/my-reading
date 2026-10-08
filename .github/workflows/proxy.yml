@@ -1,0 +1,45 @@
+name: Deploy Ask proxy (Cloudflare Worker)
+
+# Deploys proxy/ and sets its OPENAI_API_KEY secret from the GitHub secret of the
+# same name. Re-run manually (Actions → Run workflow) after rotating the key.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'proxy/**'
+      - 'src/utils/askApi.js'
+      - 'src/utils/askSearch.js'
+      - '.github/workflows/proxy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      # Skips (instead of failing) until the Cloudflare secrets have been added.
+      - name: Check Cloudflare credentials 🔑
+        id: creds
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "$CF_TOKEN" ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; echo "::notice::CLOUDFLARE_API_TOKEN not set — skipping proxy deploy."; fi
+
+      - name: Deploy Worker 🚀
+        if: steps.creds.outputs.ready == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: proxy
+          wranglerVersion: '4.148.0'
+          secrets: |
+            OPENAI_API_KEY
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

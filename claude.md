@@ -42,6 +42,7 @@ src/
 │   ├── BookGrid.jsx             # Framer Motion animated grid; AnimatePresence with mode="popLayout"
 │   ├── BookCard.jsx             # Individual card + HighlightText component; exports getCategoryStyles
 │   ├── BookDetailDrawer.jsx     # Right-side Chakra Drawer with full book details + "Visit Link" button
+│   ├── NoResults.jsx            # Empty state: says what didn't match; Show all matches / Ask the Library about "…" / Clear
 │   └── TechStackModal.jsx       # Chakra Modal listing the tech stack
 │
 ├── data/
@@ -49,7 +50,7 @@ src/
 │   └── parsedBooks.js           # CSV parser → exports `books` (array) and `categories` (Set)
 │
 └── hooks/
-    └── useDebounce.js           # Generic debounce hook (300 ms used for search)
+    └── useDebounce.js           # Generic debounce hook (150 ms used for search)
 ```
 
 ---
@@ -90,7 +91,7 @@ const [searchQuery, setSearchQuery]; // raw input value (not debounced)
 const [selectedCategory, setSelectedCategory]; // active category filter
 const [booksList, setBooksList]; // ordered book array (mutated by Shuffle)
 
-const debouncedSearchQuery = useDebounce(searchQuery, 300); // passed to BookGrid
+const debouncedSearchQuery = useDebounce(searchQuery, 150); // passed to BookGrid
 ```
 
 **`filteredBooks`** (memoized): Applies category filter first, then search filter across `title`, `author`, `category`, and `summary`. Passed to `<BookGrid>` and used to update the header count.
@@ -111,6 +112,8 @@ This is the most nuanced part — read carefully before changing.
   - `exit`: `{ opacity: 0, scale: 0.95, duration: 0.15 }`
 
 **Why `mode="popLayout"`?** Earlier attempts with `mode="sync"` caused exiting cards to stay in-flow and push remaining cards down, creating a jarring layout jump. `popLayout` removes exiting cards from flow immediately.
+
+**Batched rendering**: `CardList` renders the first 60 matching books and adds 60 more when an invisible sentinel comes within 1500px of the viewport (IntersectionObserver); a new search/filter/shuffle resets to 60. Each card also has `content-visibility: auto` (with transparent padding/negative margins so the hover lift isn't clipped). `CardList` is memoised separately from the fade driven by `isFiltering`, so keystrokes don't re-render cards. Rendering all 1,000+ cards made load, filtering, shuffle and theme toggles stall for ~1 s (4× CPU throttle). Heavy page sections (`BookGrid`, `Header`, `Controls`, `NewspaperBackground`) are `memo`ised so opening a drawer/modal doesn't re-render them.
 
 **Card key**: `book.title` — assumed unique. If duplicates exist, keys would need to include index.
 
@@ -157,15 +160,18 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 - **Index**: `public/embeddings.bin` (int8 vectors, ~530 KB) + `public/embeddings.meta.json` (titles, content hashes, scales, precomputed vectors for `src/data/askSuggestions.js`). Rows are keyed by **title**, not row id.
 - **Rebuild**: `npm run generate:embeddings` re-embeds only books whose embedding text changed (and new suggestions); `--full` re-embeds everything. Run it after any CSV/summary/tag change.
-- **Retrieval**: `hybridSearch` = semantic (text-embedding-3-small, 512d) + BM25 keyword index, merged with reciprocal rank fusion, capped at 15 results. Returns `weak: true` when nothing really matches; the UI and librarian prompt say so.
+- **Retrieval**: `hybridSearch` orders books by semantic similarity (text-embedding-3-small, 512d) plus a bonus for containing the question's terms weighted by rarity (IDF), so a telling term ("WWII", an author) separates close books while a common one ("women") doesn't reshuffle them. The list ends where the score drops 0.14 below the best (max 40; the drawer shows 15, then "Show more"). Plain BM25/rank fusion was tried and rejected: it rewards books that merely repeat a word. Returns `weak: true` when nothing really matches; the UI and librarian prompt say so.
 - **Quality check**: `npm run eval:ask` compares the old semantic-only ranking with hybrid on a labelled query set. Run it before and after tuning any constant in `askSearch.js`.
-- **API key**: never put an OpenAI key in the build (`vite.config.js` injects `.env`'s key only for `npm run dev`). The deployed site uses the visitor's own key from localStorage.
+- **API key (TEMPORARY)**: the OpenAI key is currently baked into the build (`vite.config.js` + `main.yml`), so it is public. Once the Cloudflare proxy below is live, remove it from both. Target setup: the deployed site calls the Cloudflare Worker in `proxy/` (URL from the `ASK_PROXY_URL` repo variable → `VITE_ASK_PROXY_URL`), which adds the key server-side. The Worker builds the OpenAI request bodies itself (`src/utils/askApi.js`), allows only `ALLOWED_ORIGINS`, and rate-limits 20 req/min per IP. Precedence in `AskDrawer`: visitor's own key → proxy → baked-in key.
+- **Proxy deploy**: `.github/workflows/proxy.yml` (needs `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `OPENAI_API_KEY` secrets). Local: put `OPENAI_API_KEY=...` in `proxy/.dev.vars`, run `npx wrangler dev` in `proxy/`, and start Vite with `VITE_ASK_PROXY_URL=http://localhost:8787`.
 
 ---
 
 ## Key Components — Quick Reference
 
 ### `Header.jsx`
+
+- Once the page's search box scrolls out of view (IntersectionObserver in `App.jsx`), the title is replaced by a compact search box sharing the same `searchQuery`; when that box scrolls back into view while the header box has focus, the cursor is handed to it, so only one search box shows. Changing the search/filters while deep in the list scrolls the results' start up under the header.
 
 - Sticky with glassmorphism (`backdropFilter: blur(16px)`)
 - Shrinks padding on scroll (`scrolled` state via `window.scrollY`)
@@ -216,7 +222,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 ### Change the search debounce delay
 
-- Edit the `300` in `App.jsx`: `useDebounce(searchQuery, 300)`
+- Edit the `150` in `App.jsx`: `useDebounce(searchQuery, 150)`
 
 ### Add a new animation
 

@@ -4,7 +4,6 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
   DrawerCloseButton,
   Badge,
   Box,
@@ -20,6 +19,17 @@ import { motion } from "framer-motion";
 import { getCategoryStyles } from "../utils/categoryStyles";
 
 const MotionBox = motion(Box);
+
+// Name the destination so readers know where the button goes.
+function linkLabel(link) {
+  try {
+    const host = new URL(link).hostname.replace(/^www\./, "");
+    if (host.startsWith("amazon.")) return "View on Amazon";
+  } catch {
+    // not a valid URL; fall through
+  }
+  return "Open book page";
+}
 
 export default function BookDetailDrawer({ book, isOpen, onClose }) {
   if (!book) return null;
@@ -43,7 +53,8 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
           as={DrawerHeader}
           key={book.id}
           pt={8}
-          pb={2}
+          pb={5}
+          pr={12}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
@@ -69,16 +80,36 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
             size="lg"
             color="textPrimary"
             lineHeight="short"
-            mt={3}
+            mt={2.5}
           >
             {book.title}
           </Heading>
           <Text color="textSecondary" fontSize="md" fontStyle="italic" mt={1}>
             by {book.author}
           </Text>
+
+          {book.link && (
+            <Button
+              as="a"
+              href={book.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              rightIcon={<ExternalLink size={16} />}
+              mt={4}
+              bg="accentPrimary"
+              color="bg"
+              borderRadius="xl"
+              fontFamily="heading"
+              fontWeight="bold"
+              _hover={{ bg: "accentPrimary", filter: "brightness(0.92)", transform: "translateY(-1px)" }}
+              _active={{ bg: "accentPrimary", filter: "brightness(0.85)" }}
+            >
+              {linkLabel(book.link)}
+            </Button>
+          )}
         </MotionBox>
 
-        <DrawerBody>
+        <DrawerBody pt={5} pb={8} borderTopWidth="1px" borderColor="borderPrimary">
           {noteText && (
             <Box
               bg="rgba(176,141,87,0.12)"
@@ -164,33 +195,9 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
               fetchPriority="high"
             />
           )}
+
         </DrawerBody>
 
-        <DrawerFooter borderTopWidth="1px" borderColor="borderPrimary" gap={3}>
-          <Button
-            variant="ghost"
-            color="textSecondary"
-            borderRadius="xl"
-            onClick={onClose}
-          >
-            Close
-          </Button>
-          <Button
-            as="a"
-            href={book.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            rightIcon={<ExternalLink size={16} />}
-            bg="accentPrimary"
-            color="bg"
-            borderRadius="xl"
-            fontWeight="bold"
-            _hover={{ bg: "accentSecondary", transform: "translateY(-1px)" }}
-            isDisabled={!book.link}
-          >
-            Visit Link
-          </Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

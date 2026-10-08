@@ -27,7 +27,7 @@ import {
 } from 'lucide-react';
 import RaisingHandIcon from './RaisingHandIcon';
 import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
@@ -163,7 +163,7 @@ function FilterMenu({
   );
 }
 
-export default function Controls({
+function Controls({
   searchQuery,
   setSearchQuery,
   selectedCategory,
@@ -291,12 +291,13 @@ export default function Controls({
                   h='1.9rem'
                   w='1.9rem'
                   minW='1.9rem'
+                  px={0}
                   size='sm'
                   onClick={() => setSearchQuery('')}
                   variant='ghost'
                   borderRadius='full'
-                  color='textSecondary'
-                  _hover={{ bg: 'surface', color: 'accentPrimary' }}
+                  color='searchInputPlaceholder'
+                  _hover={{ bg: 'blackAlpha.100', color: 'searchInputText' }}
                   aria-label='Clear search'
                 >
                   <X size={16} />
@@ -394,7 +395,9 @@ export default function Controls({
           fontWeight='bold'
           bg='accentPrimary'
           color='bg'
-          _hover={{ bg: 'accentSecondary', transform: 'translateY(-1px)' }}
+          // Stay orange on hover (just a touch darker) rather than switching colour.
+          _hover={{ bg: 'accentPrimary', filter: 'brightness(0.92)', transform: 'translateY(-1px)' }}
+          _active={{ bg: 'accentPrimary', filter: 'brightness(0.85)' }}
           onClick={() => {
             setIsShuffling(true);
             onShuffle();
@@ -468,3 +471,6 @@ export default function Controls({
     </Flex>
   );
 }
+
+// Memoised so opening a drawer or modal (state in App) doesn't re-render it.
+export default memo(Controls);

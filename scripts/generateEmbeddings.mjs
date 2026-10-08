@@ -97,7 +97,7 @@ async function main() {
       const text = formatBookForEmbedding(book);
       return { key: `book:${book.title}`, title: book.title, text, hash: hashText(text) };
     }),
-    ...ASK_SUGGESTIONS.map((text) => ({ key: `suggestion:${text}`, suggestion: text, text, hash: null })),
+    ...ASK_SUGGESTIONS.map(({ question: text }) => ({ key: `suggestion:${text}`, suggestion: text, text, hash: null })),
   ];
 
   const todo = items.filter((it) => {

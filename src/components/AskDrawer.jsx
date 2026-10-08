@@ -1,40 +1,26 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef } from 'react';
 import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerHeader,
   DrawerBody,
-  DrawerFooter,
   DrawerCloseButton,
   Box,
   Flex,
   Heading,
   Text,
   Input,
-  InputGroup,
-  InputRightElement,
-  Button,
-  Badge,
-  Image,
-  VStack,
-  HStack,
-  Spinner,
   IconButton,
+  Button,
+  Image,
+  HStack,
+  SimpleGrid,
+  Skeleton,
   useToast,
 } from '@chakra-ui/react';
-import {
-  Search,
-  ExternalLink,
-  BookOpen,
-  ArrowRight,
-  HelpCircle,
-  AlertCircle,
-  Sparkles,
-  KeyRound,
-} from 'lucide-react';
+import { BookOpen, AlertCircle, Sparkles, X } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import RaisingHandIcon from './RaisingHandIcon';
-import { motion, AnimatePresence } from 'framer-motion';
 import { getCategoryStyles } from '../utils/categoryStyles';
 import { ASK_SUGGESTIONS } from '../data/askSuggestions';
 import {
@@ -44,35 +30,166 @@ import {
   decodeEmbeddingIndex,
   hybridSearch,
 } from '../utils/askSearch';
+import { createAskClient } from '../utils/askApi';
+
+// Public URL of the Cloudflare Worker (proxy/) that holds the site's OpenAI key.
+const ASK_PROXY_URL = import.meta.env.VITE_ASK_PROXY_URL || '';
 
 const MotionBox = motion(Box);
+// Broad topics can match dozens of books; show this many before "Show more".
+const INITIAL_VISIBLE = 15;
 
-function renderFormattedLibrarianText(text) {
-  if (!text) return null;
+// Chakra's default drawer entrance is a soft spring that keeps easing for most of a
+// second; a short ease-out feels immediate. Reduced motion: no slide at all.
+// Focus moves into the input once the slide ends: focusing forces a layout of the
+// whole (1,000+ card) page, which would otherwise stall the first frame of the slide.
+const QUESTION_INPUT_ID = 'ask-library-question';
+
+function slideMotion(reduceMotion) {
+  return {
+    onAnimationComplete: (definition) => {
+      if (definition === 'enter') document.getElementById(QUESTION_INPUT_ID)?.focus({ preventScroll: true });
+    },
+    variants: {
+      enter: { x: 0, y: 0, transition: { duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] } },
+      exit: { x: '100%', y: 0, transition: { duration: reduceMotion ? 0 : 0.18, ease: [0.4, 0, 1, 1] } },
+    },
+  };
+}
+
+// Find the book a **bold** title in the librarian's answer refers to, preferring
+// the current results ("Sapiens" also matches "Sapiens: A Brief History...").
+function findBookByTitle(name, results, books) {
+  const n = name.toLowerCase().replace(/[“”"]/g, '').trim();
+  const pools = [results.map((r) => r.book), books];
+  for (const pool of pools) {
+    const exact = pool.find((b) => b.title.toLowerCase() === n);
+    if (exact) return exact;
+    const prefix = pool.find((b) => b.title.toLowerCase().startsWith(`${n}:`));
+    if (prefix) return prefix;
+  }
+  return null;
+}
+
+function LibrarianText({ text, resolveBook, onSelectBook }) {
   const paragraphs = text.split('\n\n').filter(Boolean);
-  return paragraphs.map((para, pIdx) => {
-    const parts = para.split(/(\*\*[^*]+\*\*)/g);
-    return (
-      <Text
-        key={pIdx}
-        fontSize="sm"
-        lineHeight="tall"
-        color="textPrimary"
-        mb={pIdx < paragraphs.length - 1 ? 2.5 : 0}
+  return paragraphs.map((para, pIdx) => (
+    <Text key={pIdx} mb={pIdx < paragraphs.length - 1 ? 4 : 0}>
+      {para.split(/(\*\*[^*]+\*\*)/g).map((part, idx) => {
+        if (!(part.startsWith('**') && part.endsWith('**'))) return part;
+        const title = part.slice(2, -2);
+        const book = resolveBook(title);
+        if (!book) {
+          return (
+            <Text as="span" key={idx} fontWeight="600">
+              {title}
+            </Text>
+          );
+        }
+        return (
+          <Box
+            as="button"
+            type="button"
+            key={idx}
+            display="inline"
+            fontWeight="600"
+            textAlign="left"
+            textDecoration="underline"
+            textDecorationColor="accentMagenta"
+            textDecorationThickness="1.5px"
+            textUnderlineOffset="3px"
+            _hover={{ color: 'accentMagenta' }}
+            _focusVisible={{ outline: '2px solid', outlineColor: 'accentMagenta', outlineOffset: '2px' }}
+            onClick={() => onSelectBook(book)}
+          >
+            {title}
+          </Box>
+        );
+      })}
+    </Text>
+  ));
+}
+
+function BookCover({ book }) {
+  return (
+    <Box
+      w="52px"
+      h="78px"
+      flexShrink={0}
+      borderRadius="sm"
+      overflow="hidden"
+      bg="surfaceHover"
+      boxShadow="0 1px 2px rgba(0,0,0,0.25)"
+    >
+      {book.coverUrl ? (
+        <Image src={book.coverUrl} alt="" loading="lazy" w="full" h="full" objectFit="cover" />
+      ) : (
+        <Flex w="full" h="full" align="center" justify="center" color="textSecondary">
+          <BookOpen size={18} />
+        </Flex>
+      )}
+    </Box>
+  );
+}
+
+function ResultRow({ book, onSelect }) {
+  const catStyle = getCategoryStyles(book.category);
+  return (
+    <Box as="li" borderTopWidth="1px" borderColor="borderPrimary">
+      <Flex
+        as="button"
+        type="button"
+        w="full"
+        gap={4}
+        py={4}
+        px={3}
+        mx={-3}
+        textAlign="left"
+        borderRadius="md"
+        transition="background-color 0.15s"
+        _hover={{ bg: 'surface' }}
+        _focusVisible={{ outline: '2px solid', outlineColor: 'accentMagenta', outlineOffset: '-2px' }}
+        onClick={() => onSelect(book)}
       >
-        {parts.map((part, idx) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
-            return (
-              <Text as="span" key={idx} fontWeight="bold" color="textPrimary">
-                {part.slice(2, -2)}
-              </Text>
-            );
-          }
-          return part;
-        })}
+        <BookCover book={book} />
+        <Box flex="1" minW={0}>
+          <Heading as="h3" fontSize="md" fontWeight="600" lineHeight="1.3" color="textPrimary" noOfLines={2}>
+            {book.title}
+          </Heading>
+          <Text fontSize="sm" fontStyle="italic" color="textSecondary" noOfLines={1} mt={0.5}>
+            {book.author}
+            <Text as="span" fontStyle="normal" fontFamily="heading" fontSize="xs" ml={2}>
+              {catStyle.icon} {book.category}
+            </Text>
+          </Text>
+          <Text fontSize="sm" color="textSecondary" lineHeight="1.6" noOfLines={2} mt={1.5}>
+            {book.summary}
+          </Text>
+        </Box>
+      </Flex>
+    </Box>
+  );
+}
+
+function SearchingSkeleton() {
+  return (
+    <Box aria-busy="true">
+      <Text fontSize="sm" fontStyle="italic" color="textSecondary" mb={4}>
+        Searching the shelves…
       </Text>
-    );
-  });
+      {[0, 1, 2].map((i) => (
+        <Flex key={i} gap={4} py={4} borderTopWidth="1px" borderColor="borderPrimary">
+          <Skeleton w="52px" h="78px" borderRadius="sm" startColor="surface" endColor="surfaceHover" />
+          <Box flex="1" pt={1}>
+            <Skeleton h="14px" w="65%" mb={2.5} startColor="surface" endColor="surfaceHover" />
+            <Skeleton h="12px" w="40%" mb={3} startColor="surface" endColor="surfaceHover" />
+            <Skeleton h="12px" w="95%" mb={2} startColor="surface" endColor="surfaceHover" />
+            <Skeleton h="12px" w="80%" startColor="surface" endColor="surfaceHover" />
+          </Box>
+        </Flex>
+      ))}
+    </Box>
+  );
 }
 
 // Query embeddings already fetched this session (repeat questions skip the API call).
@@ -87,7 +204,7 @@ function normalizeVector(vector) {
   return out;
 }
 
-export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
+export default function AskDrawer({ isOpen, onClose, books, onSelectBook, request }) {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -96,52 +213,34 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
   const [embeddingsError, setEmbeddingsError] = useState(false);
   const [librarianText, setLibrarianText] = useState('');
   const [isLibrarianStreaming, setIsLibrarianStreaming] = useState(false);
+  const [askedQuestion, setAskedQuestion] = useState('');
+  const [showAllResults, setShowAllResults] = useState(false);
+  // A question handed over from the main page ("Ask the Library about …"): shown in
+  // the box at once, searched as soon as the index has loaded.
+  const [prevRequest, setPrevRequest] = useState(request);
+  if (request !== prevRequest) {
+    setPrevRequest(request);
+    if (request) setQuery(request.question);
+  }
+  const handledRequestRef = useRef(null);
+  const resultListRef = useRef(null);
   const abortControllerRef = useRef(null);
-  const [userApiKey, setUserApiKey] = useState(() => {
-    if (typeof window === 'undefined') return '';
-    return localStorage.getItem('openai_api_key') || '';
-  });
-  const [keyInput, setKeyInput] = useState('');
-  const [showKeySettings, setShowKeySettings] = useState(false);
-
-  const activeApiKey = useMemo(() => {
-    if (userApiKey && userApiKey.trim()) return userApiKey.trim();
-    // A key from .env is only honoured in `npm run dev`; production builds must never
-    // contain one, so the deployed site always uses the visitor's own key.
-    const envKey = import.meta.env.DEV ? import.meta.env.VITE_OPENAI_API_KEY || '' : '';
-    return envKey.trim();
-  }, [userApiKey]);
-  const toast = useToast();
-
-  const handleSaveApiKey = useCallback(
-    (customKey) => {
-      const k = (customKey ?? keyInput).trim();
-      if (!k) return;
-      localStorage.setItem('openai_api_key', k);
-      setUserApiKey(k);
-      setKeyInput('');
-      setShowKeySettings(false);
-      toast({
-        title: 'API Key Saved',
-        description: 'Saved to your browser storage. You can now use AI search.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
-    },
-    [keyInput, toast],
+  // Bumped by every new search and by Clear, so a search still in flight can't
+  // bring back results the reader already cleared.
+  const searchIdRef = useRef(0);
+  const inputRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  // The proxy is used once configured; until then the key baked in at build time
+  // (see vite.config.js) — which is public — calls OpenAI directly.
+  const askClient = useMemo(
+    () =>
+      createAskClient({
+        apiKey: ASK_PROXY_URL ? '' : (import.meta.env.VITE_OPENAI_API_KEY || '').trim(),
+        proxyUrl: ASK_PROXY_URL,
+      }),
+    [],
   );
-
-  const handleClearApiKey = useCallback(() => {
-    localStorage.removeItem('openai_api_key');
-    setUserApiKey('');
-    toast({
-      title: 'Custom API Key Cleared',
-      status: 'info',
-      duration: 2500,
-      isClosable: true,
-    });
-  }, [toast]);
+  const toast = useToast();
 
   // Abort streaming on unmount
   useEffect(() => {
@@ -198,39 +297,20 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
     };
   }, [isOpen, embeddingIndex]);
 
-  const keywordIndex = useMemo(() => buildKeywordIndex(books), [books]);
+  // Built once the drawer has been opened (the embedding index loads on open), so
+  // visitors who never use Ask don't pay for it during page load.
+  const keywordIndex = useMemo(() => (embeddingIndex ? buildKeywordIndex(books) : null), [books, embeddingIndex]);
 
   const getQueryVector = useCallback(
     async (q) => {
       const cached = embeddingIndex.suggestionVectors.get(q) || queryVectorCache.get(q);
       if (cached) return cached;
 
-      const response = await fetch('https://api.openai.com/v1/embeddings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${activeApiKey}`,
-        },
-        body: JSON.stringify({
-          model: EMBEDDING_MODEL,
-          dimensions: EMBEDDING_DIMENSIONS,
-          input: q,
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.text();
-        throw new Error(`OpenAI error (${response.status}): ${errData}`);
-      }
-
-      const data = await response.json();
-      const embedding = data.data?.[0]?.embedding;
-      if (!embedding) throw new Error('No embedding returned from OpenAI');
-      const vector = normalizeVector(embedding);
+      const vector = normalizeVector(await askClient.embed(q));
       queryVectorCache.set(q, vector);
       return vector;
     },
-    [embeddingIndex, activeApiKey],
+    [embeddingIndex, askClient],
   );
 
   const handleSearch = useCallback(
@@ -238,11 +318,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
       const q = (searchPrompt ?? query).trim();
       if (!q) return;
 
-      if (!activeApiKey) {
-        setShowKeySettings(true);
+      if (!askClient.available) {
         toast({
-          title: 'OpenAI API Key Required',
-          description: 'Please enter your OpenAI API key below to enable AI search.',
+          title: 'Ask the Library isn’t available',
+          description: 'AI search is not configured for this site.',
           status: 'warning',
           duration: 4000,
           isClosable: true,
@@ -252,8 +331,8 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
       if (!embeddingIndex) {
         toast({
-          title: 'Embeddings Index Missing',
-          description: 'Run "OPENAI_API_KEY=... node scripts/generateEmbeddings.mjs" to build the embeddings index.',
+          title: 'The search index isn’t loaded yet',
+          description: 'Wait a moment and try again. If it keeps happening, rebuild it with npm run generate:embeddings.',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -267,11 +346,15 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
       }
       setLibrarianText('');
       setIsLibrarianStreaming(false);
+      const searchId = ++searchIdRef.current;
+      setAskedQuestion(q);
+      setShowAllResults(false);
 
       setIsLoading(true);
       try {
         // 1. Embed the query (cached for suggestions and repeat questions)
         const queryVector = await getQueryVector(q);
+        if (searchId !== searchIdRef.current) return;
 
         // 2. Hybrid retrieval: semantic + BM25 keyword ranking, fused
         const { results: finalResults, weak } = hybridSearch({
@@ -289,53 +372,21 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
 
         // 4. Full RAG: Synthesize AI Librarian explanation using gpt-4o-mini
         if (finalResults.length > 0) {
-          const topBooks = finalResults.slice(0, 8);
-          const bookContext = topBooks
-            .map(
-              (item, i) =>
-                `${i + 1}. "${item.book.title}" by ${item.book.author} (${item.book.category}): ${item.book.summary}`,
-            )
-            .join('\n\n');
-
           const controller = new AbortController();
           abortControllerRef.current = controller;
           setIsLibrarianStreaming(true);
 
           try {
-            const chatRes = await fetch('https://api.openai.com/v1/chat/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${activeApiKey}`,
-              },
-              body: JSON.stringify({
-                model: 'gpt-4o-mini',
-                messages: [
-                  {
-                    role: 'system',
-                    content:
-                      'You are an erudite, warm, and insightful librarian for the library. ' +
-                      'The user has asked a question or shared a reading interest. ' +
-                      'Based on the retrieved books from the library, provide an engaging, well-crafted 1-2 paragraph synthesis explaining how these books address their inquiry. ' +
-                      'Always refer to the books as being from "the library" (never say "your collection", "your library", or "your books"). ' +
-                      'Mention the most relevant book titles in bold (**Book Title**). ' +
-                      'Be articulate, insightful, and welcoming. Do not invent books not present in the provided list.' +
-                      (weak
-                        ? ' These books are only loosely related to the question: say plainly that the library has little directly on this topic, then mention any that are still worth a look.'
-                        : ''),
-                  },
-                  {
-                    role: 'user',
-                    content: `User Question: "${q}"\n\nRetrieved Books from the Library:\n${bookContext}`,
-                  },
-                ],
-                stream: true,
-                temperature: 0.3,
-              }),
+            const chatRes = await askClient.librarian({
+              question: q,
+              books: finalResults
+                .slice(0, 8)
+                .map(({ book }) => ({ title: book.title, author: book.author, category: book.category, summary: book.summary })),
+              weak,
               signal: controller.signal,
             });
 
-            if (chatRes.ok && chatRes.body) {
+            if (chatRes.body) {
               const reader = chatRes.body.getReader();
               const decoder = new TextDecoder('utf-8');
               let buffer = '';
@@ -377,9 +428,10 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
           }
         }
       } catch (err) {
+        if (searchId !== searchIdRef.current) return;
         toast({
-          title: 'Search Failed',
-          description: err.message || 'Could not compute embeddings.',
+          title: 'The search didn’t go through',
+          description: err.message || 'Check your connection and try again.',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -387,455 +439,269 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook }) {
         setIsLoading(false);
       }
     },
-    [query, activeApiKey, embeddingIndex, getQueryVector, books, keywordIndex, toast],
+    [query, askClient, embeddingIndex, getQueryVector, books, keywordIndex, toast],
   );
 
+  useEffect(() => {
+    if (!request || handledRequestRef.current === request.id || !isOpen || !embeddingIndex) return;
+    handledRequestRef.current = request.id;
+    handleSearch(request.question);
+  }, [request, isOpen, embeddingIndex, handleSearch]);
+
+  const resetSearch = useCallback(() => {
+    searchIdRef.current += 1;
+    if (abortControllerRef.current) abortControllerRef.current.abort();
+    setIsLoading(false);
+    setLibrarianText('');
+    setIsLibrarianStreaming(false);
+    setResults([]);
+    setWeakMatch(false);
+    setAskedQuestion('');
+    setQuery('');
+    inputRef.current?.focus();
+  }, []);
+
+  // "Show more" disappears once clicked; if focus were left to the drawer's focus
+  // trap it would jump to the first book and scroll back to the top. Hand focus to
+  // the first newly revealed book instead, without scrolling.
+  useLayoutEffect(() => {
+    if (!showAllResults) return;
+    const rows = resultListRef.current?.querySelectorAll(':scope > li > button');
+    rows?.[INITIAL_VISIBLE]?.focus({ preventScroll: true });
+  }, [showAllResults]);
+
+  const resolveBook = useCallback((title) => findBookByTitle(title, results, books), [results, books]);
+
+  const hasAsked = Boolean(askedQuestion);
+  const showAnswer = !isLoading && (librarianText || isLibrarianStreaming);
+  const motionDuration = reduceMotion ? 0 : 0.2;
+
   return (
-    <Drawer isOpen={isOpen} onClose={handleClose} placement="right">
-      <DrawerOverlay backdropFilter="blur(6px)" />
+    <Drawer isOpen={isOpen} onClose={handleClose} placement="right" autoFocus={false}>
+      <DrawerOverlay bg="blackAlpha.500" />
       <DrawerContent
         bg="bg"
-        borderLeftWidth="1px"
+        borderLeftWidth={{ base: 0, md: '1px' }}
         borderColor="borderPrimary"
-        w={{ base: '100vw', md: '640px', lg: '680px' }}
-        maxW={{ base: '100vw', md: '640px', lg: '680px' }}
+        w={{ base: '100vw', md: '560px' }}
+        maxW={{ base: '100vw', md: '560px' }}
+        motionProps={slideMotion(reduceMotion)}
       >
-        {/* Top gradient accent */}
-        <Box h="4px" bgGradient="linear(to-r, accentPrimary, accentSecondary)" flexShrink={0} />
+        <DrawerCloseButton top={5} right={4} color="textSecondary" borderRadius="full" />
 
-        <DrawerCloseButton color="textSecondary" borderRadius="full" mt={3} />
+        <Box as="header" px={{ base: 4, md: 7 }} pt={6} pb={5} borderBottomWidth="1px" borderColor="borderPrimary">
+          <HStack spacing={2.5} mb={1} pr={10}>
+            <Box color="accentMagenta">
+              <RaisingHandIcon size={22} />
+            </Box>
+            <Heading as="h2" fontSize="xl" fontWeight="600" color="textPrimary">
+              Ask the Library
+            </Heading>
+          </HStack>
+          <Text fontSize="sm" fontStyle="italic" color="textSecondary" mb={4}>
+            Describe a topic, a question or an idea, and the library will find books for it.
+          </Text>
 
-        <DrawerHeader pt={6} pb={3}>
-          <Flex align="center" justify="space-between" pr={8}>
-            <HStack spacing={2.5}>
-              <Box
-                w={8}
-                h={8}
-                borderRadius="lg"
-                bg="accentGreen"
-                color="white"
-                display="grid"
-                placeItems="center"
-              >
-                <RaisingHandIcon size={18} />
+          <Flex
+            as="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
+            align="center"
+            gap={2}
+            bg="surface"
+            borderWidth="1px"
+            borderColor="borderPrimary"
+            borderRadius="xl"
+            pl={4}
+            pr={1.5}
+            py={1.5}
+            transition="border-color 0.15s, box-shadow 0.15s"
+            _focusWithin={{ borderColor: 'accentMagenta', boxShadow: '0 0 0 1px var(--chakra-colors-accentMagenta)' }}
+          >
+            <Input
+              ref={inputRef}
+              id={QUESTION_INPUT_ID}
+              variant="unstyled"
+              aria-label="Your question"
+              placeholder="What would you like to read about?"
+              fontSize={{ base: 'md', md: 'lg' }}
+              color="textPrimary"
+              _placeholder={{ color: 'textSecondary' }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            {(query || hasAsked) && (
+              <IconButton
+                type="button"
+                aria-label="Clear question and results"
+                title="Clear question and results"
+                icon={<X size={18} />}
+                size="sm"
+                variant="ghost"
+                borderRadius="full"
+                color="textSecondary"
+                flexShrink={0}
+                _hover={{ bg: 'surfaceHover', color: 'textPrimary' }}
+                onClick={resetSearch}
+              />
+            )}
+            <Button
+              type="submit"
+              flexShrink={0}
+              h="40px"
+              px={5}
+              borderRadius="lg"
+              bg="accentGreen"
+              color="white"
+              fontFamily="heading"
+              fontSize="sm"
+              fontWeight="600"
+              _hover={{ bg: 'accentGreenHover' }}
+              _active={{ bg: 'accentGreenHover' }}
+              isLoading={isLoading}
+              isDisabled={!query.trim()}
+            >
+              Ask
+            </Button>
+          </Flex>
+        </Box>
+
+        <DrawerBody px={{ base: 4, md: 7 }} pt={6} pb={10}>
+          {embeddingsError && (
+            <Flex gap={3} p={4} mb={6} bg="surface" borderRadius="lg" color="textPrimary">
+              <Box color="accentPrimary" pt={0.5}>
+                <AlertCircle size={18} />
               </Box>
               <Box>
-                <Heading size="md" color="textPrimary" fontFamily="heading">
-                  Ask the Library
-                </Heading>
-              </Box>
-            </HStack>
-            <IconButton
-              aria-label="API Key Settings"
-              icon={<KeyRound size={16} />}
-              size="sm"
-              variant="ghost"
-              color={activeApiKey ? 'accentGreen' : 'accentPrimary'}
-              title={
-                activeApiKey
-                  ? userApiKey
-                    ? 'Custom API key active (click to manage)'
-                    : 'Pre-configured API key active (click to override)'
-                  : 'Enter API key'
-              }
-              onClick={() => setShowKeySettings((prev) => !prev)}
-            />
-          </Flex>
-
-          {/* Missing API key or Key Settings Panel */}
-          {(!activeApiKey || showKeySettings) && (
-            <Box
-              mt={3}
-              p={3}
-              bg="surface"
-              borderWidth="1px"
-              borderColor={!activeApiKey ? 'accentPrimary' : 'borderPrimary'}
-              borderRadius="xl"
-            >
-              <Flex gap={2} align="center" mb={1.5}>
-                <KeyRound size={15} />
-                <Text fontSize="xs" fontWeight="bold" color="textPrimary">
-                  {!activeApiKey ? 'OpenAI API Key Required' : 'OpenAI API Key Settings'}
+                <Text fontFamily="heading" fontSize="sm" fontWeight="600">
+                  The search index didn’t load
                 </Text>
-              </Flex>
-              <Text fontSize="2xs" color="textSecondary" mb={2}>
-                {!activeApiKey
-                  ? 'To use the AI librarian and semantic search, provide your OpenAI API key below (stored safely in local browser storage).'
-                  : userApiKey
-                  ? 'A custom OpenAI API key is currently saved in this browser.'
-                  : 'Using default pre-configured API key. You can override it with your own key below.'}
-              </Text>
-              <HStack spacing={2}>
-                <Input
-                  size="sm"
-                  type="password"
-                  placeholder="sk-..."
-                  value={keyInput}
-                  onChange={(e) => setKeyInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSaveApiKey();
-                  }}
-                  borderRadius="md"
-                  bg="surfaceHover"
-                  borderColor="borderPrimary"
-                  fontSize="xs"
-                />
-                <Button
-                  size="sm"
-                  bg="accentGreen"
-                  color="white"
-                  _hover={{ bg: 'accentGreenHover' }}
-                  onClick={() => handleSaveApiKey()}
-                  isDisabled={!keyInput.trim()}
-                  fontSize="xs"
-                >
-                  Save
-                </Button>
-                {userApiKey && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    colorScheme="red"
-                    onClick={handleClearApiKey}
-                    fontSize="xs"
-                  >
-                    Clear
-                  </Button>
-                )}
-              </HStack>
-            </Box>
+                <Text fontSize="sm" color="textSecondary" mt={1}>
+                  Rebuild it with <code>npm run generate:embeddings</code>, then reload the page.
+                </Text>
+              </Box>
+            </Flex>
           )}
 
-          {/* Missing embeddings warning */}
-          {embeddingsError && (
-            <Box
-              mt={3}
-              p={3}
-              bg="rgba(217, 119, 87, 0.12)"
-              borderWidth="1px"
-              borderColor="accentPrimary"
-              borderRadius="xl"
-            >
-              <Flex gap={2} align="flex-start">
-                <AlertCircle size={16} color="currentColor" />
-                <Box>
-                  <Text fontSize="xs" fontWeight="bold" color="textPrimary">
-                    Embeddings index not found
-                  </Text>
-                  <Text fontSize="2xs" color="textSecondary" mt={0.5}>
-                    Run this command in your terminal to build the embeddings index:
-                  </Text>
+          {!hasAsked && !isLoading && (
+            <Box>
+              <Heading as="h3" fontSize="sm" fontWeight="600" color="textPrimary" mb={3}>
+                Not sure where to start?
+              </Heading>
+              <SimpleGrid columns={{ base: 1, sm: 2 }} spacingX={2} spacingY={0.5} mx={-3}>
+                {ASK_SUGGESTIONS.map(({ label, question }) => (
                   <Box
-                    as="pre"
-                    fontSize="2xs"
-                    p={1.5}
-                    mt={1}
-                    bg="surfaceHover"
-                    borderRadius="md"
-                    overflowX="auto"
-                  >
-                    OPENAI_API_KEY=your_key node scripts/generateEmbeddings.mjs
-                  </Box>
-                </Box>
-              </Flex>
-            </Box>
-          )}
-        </DrawerHeader>
-
-        <DrawerBody pt={1} pb={6}>
-          {/* Query Input */}
-          <Box mb={5}>
-            <InputGroup size="lg">
-              <Input
-                h={{ base: '50px', md: '54px' }}
-                fontSize={{ base: 'sm', md: 'md' }}
-                pl={4}
-                pr="56px"
-                placeholder="Ask about themes, plots, topics, or feelings..."
-                borderRadius="xl"
-                bg="surface"
-                color="textPrimary"
-                borderColor="borderPrimary"
-                _hover={{ borderColor: 'accentPrimary' }}
-                _focus={{ borderColor: 'accentPrimary', boxShadow: '0 0 0 1px var(--chakra-colors-accentPrimary)' }}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSearch();
-                }}
-              />
-              <InputRightElement h="full" w="auto" pr={2}>
-                <Button
-                  size="md"
-                  h={{ base: '38px', md: '42px' }}
-                  px={3.5}
-                  borderRadius="lg"
-                  bg="accentGreen"
-                  color="white"
-                  _hover={{ bg: 'accentGreenHover' }}
-                  isLoading={isLoading}
-                  onClick={() => handleSearch()}
-                >
-                  <Search size={18} />
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </Box>
-
-          {/* Prompt Suggestions */}
-          {results.length === 0 && !isLoading && (
-            <Box mb={6}>
-              <Text fontSize="xs" fontWeight="bold" color="textSecondary" textTransform="uppercase" letterSpacing="wider" mb={2}>
-                Try Asking
-              </Text>
-              <Flex direction="column" gap={1.5}>
-                {ASK_SUGGESTIONS.map((item) => (
-                  <Button
-                    key={item}
-                    variant="ghost"
-                    size="sm"
-                    justifyContent="flex-start"
+                    as="button"
+                    type="button"
+                    key={label}
                     textAlign="left"
-                    whiteSpace="normal"
-                    h="auto"
-                    py={2}
+                    fontSize="md"
+                    color="textPrimary"
                     px={3}
-                    borderRadius="lg"
-                    bg="surfaceHover"
-                    _hover={{ bg: 'surface', transform: 'translateX(2px)' }}
-                    transition="all 0.2s"
-                    rightIcon={<ArrowRight size={14} />}
+                    py={2.5}
+                    borderRadius="md"
+                    transition="background-color 0.15s, color 0.15s"
+                    _hover={{ bg: 'surface', color: 'accentMagenta' }}
+                    _focusVisible={{ outline: '2px solid', outlineColor: 'accentMagenta', outlineOffset: '-2px' }}
                     onClick={() => {
-                      setQuery(item);
-                      handleSearch(item);
+                      setQuery(question);
+                      handleSearch(question);
                     }}
                   >
-                    <Text fontSize="xs" color="textPrimary" noOfLines={{ base: 2, md: 1 }} flex="1">
-                      {item}
-                    </Text>
-                  </Button>
-                ))}
-              </Flex>
-            </Box>
-          )}
-
-          {/* Loading state */}
-          {isLoading && (
-            <VStack py={10} spacing={3}>
-              <Spinner size="lg" color="#2d6a4f" thickness="3px" speed="0.75s" />
-              <Text fontSize="sm" fontWeight="medium" color="textPrimary">
-                Finding closest semantic matches...
-              </Text>
-              <Text fontSize="xs" color="textSecondary">
-                Comparing query vector across 1,000+ books
-              </Text>
-            </VStack>
-          )}
-
-          {/* AI Librarian Synthesis Block (Full RAG) */}
-          {!isLoading && (librarianText || isLibrarianStreaming) && (
-            <Box
-              mb={4}
-              p={4}
-              bg="surface"
-              borderWidth="1px"
-              borderColor="borderPrimary"
-              borderRadius="xl"
-              position="relative"
-              boxShadow="sm"
-            >
-              <Flex align="center" justify="space-between" mb={2.5}>
-                <HStack spacing={2}>
-                  <Box
-                    w={6}
-                    h={6}
-                    borderRadius="md"
-                    bg="accentGreen"
-                    color="white"
-                    display="grid"
-                    placeItems="center"
-                  >
-                    <Sparkles size={13} />
+                    {label}
                   </Box>
-                  <Text
-                    fontSize="xs"
-                    fontWeight="bold"
-                    textTransform="uppercase"
-                    letterSpacing="wider"
-                    color="textPrimary"
-                  >
-                    Librarian&apos;s Perspective
-                  </Text>
-                </HStack>
-                {isLibrarianStreaming && (
-                  <HStack spacing={1.5}>
-                    <Spinner size="xs" color="accentGreen" speed="0.6s" />
-                    <Text fontSize="2xs" color="textSecondary" fontStyle="italic">
-                      Synthesizing...
-                    </Text>
-                  </HStack>
-                )}
-              </Flex>
-
-              <Box>
-                {renderFormattedLibrarianText(librarianText)}
-                {isLibrarianStreaming && (
-                  <Box
-                    as="span"
-                    display="inline-block"
-                    w="2px"
-                    h="14px"
-                    bg="accentGreen"
-                    ml={1}
-                    verticalAlign="text-bottom"
-                  />
-                )}
-              </Box>
+                ))}
+              </SimpleGrid>
             </Box>
           )}
 
-          {/* Results list */}
-          {!isLoading && results.length > 0 && (
-            <VStack spacing={3} align="stretch">
-              <Flex justify="space-between" align="center" px={1}>
-                <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="wider" color="textSecondary">
-                  {weakMatch ? 'Closest Results' : 'All Matching Results'} ({results.length})
+          {isLoading && <SearchingSkeleton />}
+
+          {showAnswer && (
+            <MotionBox
+              as="section"
+              aria-live="polite"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: motionDuration }}
+              mb={8}
+              px={5}
+              py={4}
+              bg="surface"
+              borderRadius="lg"
+            >
+              <HStack spacing={1.5} mb={2.5} color="textSecondary">
+                <Sparkles size={14} />
+                <Text fontFamily="heading" fontSize="xs" fontWeight="600">
+                  From the librarian
                 </Text>
-              </Flex>
+                {isLibrarianStreaming && (
+                  <Text fontSize="xs" fontStyle="italic">
+                    writing…
+                  </Text>
+                )}
+              </HStack>
+              <Box fontSize="md" lineHeight="1.75" color="textPrimary">
+                <LibrarianText text={librarianText} resolveBook={resolveBook} onSelectBook={onSelectBook} />
+              </Box>
+            </MotionBox>
+          )}
+
+          {!isLoading && hasAsked && results.length > 0 && (
+            <MotionBox
+              key={askedQuestion}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: motionDuration }}
+            >
+              <Heading as="h3" fontSize="sm" fontWeight="600" color="textPrimary" mb={weakMatch ? 1 : 3}>
+                {weakMatch ? 'Nearest books' : `${results.length} ${results.length === 1 ? 'book' : 'books'}`}
+              </Heading>
               {weakMatch && (
-                <Text fontSize="xs" color="textSecondary" px={1}>
-                  Nothing in the library closely matches this question. These are the nearest books.
+                <Text fontSize="sm" fontStyle="italic" color="textSecondary" mb={3}>
+                  Nothing in the library closely matches this question.
                 </Text>
               )}
-
-              <AnimatePresence>
-                {results.map(({ book }, index) => {
-                  const catStyle = getCategoryStyles(book.category);
-
-                  return (
-                    <MotionBox
-                      key={book.id || book.title}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.2, delay: Math.min(index * 0.02, 0.25) }}
-                      p={3}
-                      bg="surface"
-                      borderWidth="1px"
-                      borderColor="borderPrimary"
-                      borderRadius="xl"
-                      cursor="pointer"
-                      _hover={{
-                        borderColor: 'accentPrimary',
-                        transform: 'translateY(-2px)',
-                        shadow: 'md',
-                      }}
-                      onClick={() => onSelectBook(book)}
-                    >
-                      <Flex gap={3} align="flex-start">
-                        {/* Book thumbnail */}
-                        <Box
-                          w={{ base: '54px', sm: '64px' }}
-                          h={{ base: '76px', sm: '90px' }}
-                          flexShrink={0}
-                          borderRadius="md"
-                          overflow="hidden"
-                          bg="surfaceHover"
-                          borderWidth="1px"
-                          borderColor="borderPrimary"
-                        >
-                          {book.coverUrl ? (
-                            <Image
-                              src={book.coverUrl}
-                              alt={book.title}
-                              w="full"
-                              h="full"
-                              objectFit="cover"
-                            />
-                          ) : (
-                            <Box w="full" h="full" display="grid" placeItems="center" color="textSecondary">
-                              <BookOpen size={20} />
-                            </Box>
-                          )}
-                        </Box>
-
-                        {/* Metadata */}
-                        <Box flex="1" minW={0}>
-                          <Heading
-                            size="xs"
-                            color="textPrimary"
-                            fontFamily="heading"
-                            noOfLines={1}
-                            title={book.title}
-                            mb={0.5}
-                          >
-                            {book.title}
-                          </Heading>
-
-                          <Text fontSize="2xs" fontStyle="italic" color="textSecondary" noOfLines={1} mb={1}>
-                            by {book.author}
-                          </Text>
-
-                          <Badge
-                            colorScheme={catStyle.colorScheme}
-                            variant="subtle"
-                            fontSize="2xs"
-                            px={1.5}
-                            py={0}
-                            borderRadius="full"
-                            mb={1.5}
-                          >
-                            {catStyle.icon} {book.category}
-                          </Badge>
-
-                          <Text fontSize="xs" color="textSecondary" noOfLines={3} lineHeight="tall">
-                            {book.summary}
-                          </Text>
-                        </Box>
-                      </Flex>
-                    </MotionBox>
-                  );
-                })}
-              </AnimatePresence>
-            </VStack>
+              <Box as="ul" ref={resultListRef} listStyleType="none" borderBottomWidth="1px" borderColor="borderPrimary">
+                {(showAllResults ? results : results.slice(0, INITIAL_VISIBLE)).map(({ book }) => (
+                  <ResultRow key={book.id} book={book} onSelect={onSelectBook} />
+                ))}
+              </Box>
+              {!showAllResults && results.length > INITIAL_VISIBLE && (
+                <Button
+                  mt={4}
+                  w="full"
+                  variant="outline"
+                  borderColor="borderPrimary"
+                  color="textPrimary"
+                  fontFamily="heading"
+                  fontSize="sm"
+                  fontWeight="600"
+                  _hover={{ bg: 'surface' }}
+                  onClick={() => setShowAllResults(true)}
+                >
+                  Show {results.length - INITIAL_VISIBLE} more {results.length - INITIAL_VISIBLE === 1 ? 'book' : 'books'}
+                </Button>
+              )}
+            </MotionBox>
           )}
 
-          {/* Empty state after search */}
-          {!isLoading && results.length === 0 && query && (
-            <VStack py={8} spacing={2} textAlign="center">
-              <HelpCircle size={28} color="var(--chakra-colors-textSecondary)" />
-              <Text fontSize="sm" fontWeight="medium" color="textPrimary">
-                No matches found
+          {!isLoading && hasAsked && results.length === 0 && (
+            <Box py={6}>
+              <Text fontFamily="heading" fontSize="sm" fontWeight="600" color="textPrimary">
+                No books matched
               </Text>
-              <Text fontSize="xs" color="textSecondary">
-                Try asking with different keywords or describing a topic.
+              <Text fontSize="sm" color="textSecondary" mt={1}>
+                Try describing the topic in other words, or pick a starting point.
               </Text>
-            </VStack>
+              <Button variant="link" size="sm" fontFamily="heading" color="accentMagenta" mt={3} onClick={resetSearch}>
+                Show starting points
+              </Button>
+            </Box>
           )}
         </DrawerBody>
-
-        <DrawerFooter borderTopWidth="1px" borderColor="borderPrimary" py={3}>
-          <Button variant="ghost" size="sm" mr="auto" color="textSecondary" onClick={handleClose}>
-            Close
-          </Button>
-          {(results.length > 0 || librarianText) && (
-            <Button
-              size="sm"
-              variant="outline"
-              borderColor="borderPrimary"
-              onClick={() => {
-                if (abortControllerRef.current) abortControllerRef.current.abort();
-                setLibrarianText('');
-                setIsLibrarianStreaming(false);
-                setResults([]);
-                setWeakMatch(false);
-                setQuery('');
-              }}
-            >
-              Clear Results
-            </Button>
-          )}
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
