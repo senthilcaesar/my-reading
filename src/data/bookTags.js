@@ -108,4 +108,5 @@ export const bookTags = {
   "The Sisterhood: The Secret History of Women at the CIA": ["History", "Women", "Espionage", "CIA"],
   "Listen, World!: How the Intrepid Elsie Robinson Became America’s Most-Read Woman": ["Biography", "Journalism", "Women's History"],
   "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": ["Politics", "Urban Policy", "History", "Society"],
+  "The Science of Motivating Young People": ["Psychology", "Parenting", "Education", "Leadership"],
 };

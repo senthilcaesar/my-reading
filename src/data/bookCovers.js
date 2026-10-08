@@ -1045,4 +1045,5 @@ export const bookCovers = {
   "The Sisterhood: The Secret History of Women at the CIA": "https://images-na.ssl-images-amazon.com/images/P/0593238192.01.LZZZZZZZ.jpg",
   "Listen, World!: How the Intrepid Elsie Robinson Became America’s Most-Read Woman": "https://images-na.ssl-images-amazon.com/images/P/1541674359.01.LZZZZZZZ.jpg",
   "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": "https://images-na.ssl-images-amazon.com/images/P/0316391352.01.LZZZZZZZ.jpg",
+  "The Science of Motivating Young People": "https://images-na.ssl-images-amazon.com/images/P/1668023881.01.LZZZZZZZ.jpg",
 };
