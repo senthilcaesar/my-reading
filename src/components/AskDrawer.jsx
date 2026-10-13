@@ -231,16 +231,7 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook, reques
   const searchIdRef = useRef(0);
   const inputRef = useRef(null);
   const reduceMotion = useReducedMotion();
-  // The proxy is used once configured; until then the key baked in at build time
-  // (see vite.config.js) — which is public — calls OpenAI directly.
-  const askClient = useMemo(
-    () =>
-      createAskClient({
-        apiKey: ASK_PROXY_URL ? '' : (import.meta.env.VITE_OPENAI_API_KEY || '').trim(),
-        proxyUrl: ASK_PROXY_URL,
-      }),
-    [],
-  );
+  const askClient = useMemo(() => createAskClient({ proxyUrl: ASK_PROXY_URL }), []);
   const toast = useToast();
 
   // Abort streaming on unmount

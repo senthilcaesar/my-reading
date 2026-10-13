@@ -74,29 +74,24 @@ async function ensureOk(res) {
 }
 
 /**
- * The visitor's own key (or the dev-server key) calls OpenAI directly; otherwise
- * requests go through the proxy, which adds the site's key server-side.
+ * Requests always go through the proxy, which adds the OpenAI key server-side —
+ * the key must never be shipped to the browser.
  */
-export function createAskClient({ apiKey, proxyUrl }) {
-  const direct = Boolean(apiKey);
+export function createAskClient({ proxyUrl }) {
   const base = (proxyUrl || '').replace(/\/+$/, '');
-  const post = (url, body, signal, headers = {}) =>
+  const post = (url, body, signal) =>
     fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...headers },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
       signal,
     }).then(ensureOk);
-  const auth = { Authorization: `Bearer ${apiKey}` };
 
   return {
-    available: direct || Boolean(base),
-    usesProxy: !direct && Boolean(base),
+    available: Boolean(base),
 
     async embed(question) {
-      const res = direct
-        ? await post('https://api.openai.com/v1/embeddings', buildEmbeddingRequest(question), undefined, auth)
-        : await post(`${base}/embeddings`, { question });
+      const res = await post(`${base}/embeddings`, { question });
       const data = await res.json();
       const embedding = data.data?.[0]?.embedding;
       if (!embedding) throw new Error('No embedding returned');
@@ -105,9 +100,7 @@ export function createAskClient({ apiKey, proxyUrl }) {
 
     /** Resolves to a streaming (SSE) Response in OpenAI's chat-completions format. */
     librarian({ question, books, weak, signal }) {
-      return direct
-        ? post('https://api.openai.com/v1/chat/completions', buildLibrarianRequest({ question, books, weak }), signal, auth)
-        : post(`${base}/librarian`, { question, books, weak }, signal);
+      return post(`${base}/librarian`, { question, books, weak }, signal);
     },
   };
 }
