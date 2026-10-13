@@ -1053,4 +1053,13 @@ export const bookCovers = {
   "The DevOps Handbook": "https://images-na.ssl-images-amazon.com/images/P/1950508404.01.LZZZZZZZ.jpg",
   "Inspired": "https://images-na.ssl-images-amazon.com/images/P/1119387507.01.LZZZZZZZ.jpg",
   "A Philosophy of Software Design": "https://images-na.ssl-images-amazon.com/images/P/173210221X.01.LZZZZZZZ.jpg",
+  "Bad Blood": "https://images-na.ssl-images-amazon.com/images/P/0525431993.01.LZZZZZZZ.jpg",
+  "The Fish That Ate the Whale": "https://images-na.ssl-images-amazon.com/images/P/0374299277.01.LZZZZZZZ.jpg",
+  "Business Adventures": "https://images-na.ssl-images-amazon.com/images/P/1497644895.01.LZZZZZZZ.jpg",
+  "The Information": "https://images-na.ssl-images-amazon.com/images/P/1400096235.01.LZZZZZZZ.jpg",
+  "The Emperor of All Maladies": "https://images-na.ssl-images-amazon.com/images/P/1439170916.01.LZZZZZZZ.jpg",
+  "The Making of the Atomic Bomb": "https://images-na.ssl-images-amazon.com/images/P/1451677618.01.LZZZZZZZ.jpg",
+  "Team of Rivals": "https://images-na.ssl-images-amazon.com/images/P/0743270754.01.LZZZZZZZ.jpg",
+  "The Wright Brothers": "https://images-na.ssl-images-amazon.com/images/P/1476728755.01.LZZZZZZZ.jpg",
+  "The Box": "https://images-na.ssl-images-amazon.com/images/P/0691170819.01.LZZZZZZZ.jpg",
 };

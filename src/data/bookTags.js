@@ -116,4 +116,13 @@ export const bookTags = {
   "The DevOps Handbook": ["DevOps", "Software Delivery", "Reliability", "Engineering Culture"],
   "Inspired": ["Product Management", "Technology", "Business", "Startups"],
   "A Philosophy of Software Design": ["Software Design", "Programming", "Software Engineering", "Complexity"],
+  "Bad Blood": ["Investigative Journalism", "Corporate Fraud", "Startups", "Silicon Valley"],
+  "The Fish That Ate the Whale": ["Entrepreneurship", "Business History", "Biography", "Latin America"],
+  "Business Adventures": ["Business History", "Management", "Finance", "Wall Street"],
+  "The Information": ["Information Theory", "History of Technology", "Computing", "Science"],
+  "The Emperor of All Maladies": ["Medicine", "Cancer", "History of Science", "Health"],
+  "The Making of the Atomic Bomb": ["Nuclear Physics", "Military History", "World War II", "History of Science"],
+  "Team of Rivals": ["Political History", "Leadership", "American History", "Civil War"],
+  "The Wright Brothers": ["Aviation", "Innovation", "American History", "Engineering"],
+  "The Box": ["Economic History", "Globalization", "Supply Chains", "Trade"],
 };
