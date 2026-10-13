@@ -17,6 +17,7 @@ import {
   recommenders,
 } from './data/parsedBooks';
 import { downloadBooksCsv, slugify } from './utils/exportCsv';
+import { ASK_ENABLED } from './utils/askConfig';
 
 // Same matching rules as the search box: word-start match on the main fields.
 function matchesSearch(book, wordBoundaryRegex) {
@@ -152,7 +153,7 @@ function App() {
         onClearSearch={() => setSearchQuery('')}
         onClearFilters={clearFilters}
         onClearAll={clearAll}
-        onAsk={handleAskAbout}
+        onAsk={ASK_ENABLED ? handleAskAbout : undefined}
       />
     ),
     [debouncedSearchQuery, selectedCategory, selectedRecommender, searchMatchesAnywhere, clearFilters, clearAll, handleAskAbout],
@@ -230,7 +231,7 @@ function App() {
             isSearchSettling={isSearchSettling}
             onShuffle={handleShuffle}
             onRoulette={handleOpenRoulette}
-            onAsk={onOpenAsk}
+            onAsk={ASK_ENABLED ? onOpenAsk : undefined}
             isFiltered={Boolean(selectedCategory || selectedRecommender || debouncedSearchQuery)}
             onExportView={handleExportView}
             onExportAll={handleExportAll}
@@ -257,13 +258,15 @@ function App() {
         books={filteredBooks}
         onBookSelect={handleBookSelect}
       />
-      <AskDrawer
-        isOpen={isAskOpen}
-        onClose={onCloseAsk}
-        books={booksList}
-        onSelectBook={handleBookSelect}
-        request={askRequest}
-      />
+      {ASK_ENABLED && (
+        <AskDrawer
+          isOpen={isAskOpen}
+          onClose={onCloseAsk}
+          books={booksList}
+          onSelectBook={handleBookSelect}
+          request={askRequest}
+        />
+      )}
     </Box>
   );
 }

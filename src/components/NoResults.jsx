@@ -87,7 +87,7 @@ export default function NoResults({
             Show all {matchesAnywhere} {matchesAnywhere === 1 ? 'match' : 'matches'}
           </Button>
         )}
-        {query && (
+        {query && onAsk && (
           <Button
             leftIcon={<RaisingHandIcon size={18} />}
             bg="accentGreen"
@@ -120,7 +120,7 @@ export default function NoResults({
         </Button>
       </Flex>
 
-      {query && (
+      {query && onAsk && (
         <Text fontSize="sm" fontStyle="italic" color="textSecondary" mt={4}>
           Ask finds books by topic and idea, not just exact words.
         </Text>

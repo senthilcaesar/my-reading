@@ -32,9 +32,7 @@ import {
 } from '../utils/askSearch';
 import { createAskClient } from '../utils/askApi';
 import { downloadBooksCsv, slugify } from '../utils/exportCsv';
-
-// Public URL of the Cloudflare Worker (proxy/) that holds the site's OpenAI key.
-const ASK_PROXY_URL = import.meta.env.VITE_ASK_PROXY_URL || '';
+import { ASK_PROXY_URL } from '../utils/askConfig';
 
 const MotionBox = motion(Box);
 // Broad topics can match dozens of books; show this many before "Show more".
