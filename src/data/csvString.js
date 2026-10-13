@@ -1467,4 +1467,10 @@ Neurosis and Human Growth,Karen Horney,Non-fiction,https://www.amazon.com/gp/pro
 "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption",Lisa Belkin,Non-fiction,https://www.amazon.com/gp/product/0316391352,"Public housing projects are being torn down throughout the United States. What will take their place? Show Me a Hero explores the answer."
 "The Science of Motivating Young People",David Yeager,Non-fiction,https://www.amazon.com/10-25-Motivating-Groundbreaking-Generation_And/dp/1668023881,"A Groundbreaking Approach to Leading the Next Generation And Making Your Own Life Easier"
 "Software Engineering at Google",Titus Winters,Software Engineering,https://www.amazon.com/gp/product/1492082791,"Lessons Learned from Programming Over Time"
+"The Staff Engineer's Path",Tanya Reilly,Software Engineering,https://www.amazon.com/gp/product/1098118731,"A Guide for Individual Contributors Navigating Growth and Change"
+"An Elegant Puzzle",Will Larson,Software Engineering,https://www.amazon.com/gp/product/1732265186,"Systems of Engineering Management"
+"Accelerate",Nicole Forsgren,Software Engineering,https://www.amazon.com/gp/product/1942788339,"The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations"
+"The DevOps Handbook",Gene Kim,Software Engineering,https://www.amazon.com/gp/product/1950508404,"How to Create World-Class Agility, Reliability, & Security in Technology Organizations"
+"Inspired",Marty Cagan,Non-fiction,https://www.amazon.com/gp/product/1119387507,"How to Create Tech Products Customers Love"
+"A Philosophy of Software Design",John Ousterhout,Software Engineering,https://www.amazon.com/gp/product/173210221X,"The book first introduces the fundamental problem in software design, which is managing complexity. It then discusses philosophical issues about how to approach the software design process and it presents a collection of design principles to apply during software design."
 `;

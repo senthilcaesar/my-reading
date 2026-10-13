@@ -1047,4 +1047,10 @@ export const bookCovers = {
   "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": "https://images-na.ssl-images-amazon.com/images/P/0316391352.01.LZZZZZZZ.jpg",
   "The Science of Motivating Young People": "https://images-na.ssl-images-amazon.com/images/P/1668023881.01.LZZZZZZZ.jpg",
   "Software Engineering at Google": "https://images-na.ssl-images-amazon.com/images/P/1492082791.01.LZZZZZZZ.jpg",
+  "The Staff Engineer's Path": "https://images-na.ssl-images-amazon.com/images/P/1098118731.01.LZZZZZZZ.jpg",
+  "An Elegant Puzzle": "https://images-na.ssl-images-amazon.com/images/P/1732265186.01.LZZZZZZZ.jpg",
+  "Accelerate": "https://images-na.ssl-images-amazon.com/images/P/1942788339.01.LZZZZZZZ.jpg",
+  "The DevOps Handbook": "https://images-na.ssl-images-amazon.com/images/P/1950508404.01.LZZZZZZZ.jpg",
+  "Inspired": "https://images-na.ssl-images-amazon.com/images/P/1119387507.01.LZZZZZZZ.jpg",
+  "A Philosophy of Software Design": "https://images-na.ssl-images-amazon.com/images/P/173210221X.01.LZZZZZZZ.jpg",
 };

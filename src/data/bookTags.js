@@ -110,4 +110,10 @@ export const bookTags = {
   "Show Me A Hero: A Tale of Murder, Suicide, Race, and Redemption": ["Politics", "Urban Policy", "History", "Society"],
   "The Science of Motivating Young People": ["Psychology", "Parenting", "Education", "Leadership"],
   "Software Engineering at Google": ["Software Engineering", "Programming", "Technology", "Engineering Culture"],
+  "The Staff Engineer's Path": ["Software Engineering", "Career Growth", "Leadership", "Engineering Culture"],
+  "An Elegant Puzzle": ["Engineering Management", "Leadership", "Software Engineering", "Organizations"],
+  "Accelerate": ["DevOps", "Software Delivery", "Research", "Engineering Culture"],
+  "The DevOps Handbook": ["DevOps", "Software Delivery", "Reliability", "Engineering Culture"],
+  "Inspired": ["Product Management", "Technology", "Business", "Startups"],
+  "A Philosophy of Software Design": ["Software Design", "Programming", "Software Engineering", "Complexity"],
 };
