@@ -41,17 +41,30 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="md">
       <DrawerOverlay backdropFilter="blur(6px)" />
-      <DrawerContent bg="bg" borderLeftWidth="1px" borderColor="borderPrimary">
+      {/* The whole drawer scrolls as one panel. When only the body scrolled,
+          a tall header (long title) left little room, and the wheel did nothing
+          over the header, so the cover at the bottom was unreachable. dvh keeps
+          the bottom above mobile browser bars. */}
+      <DrawerContent
+        bg="bg"
+        borderLeftWidth="1px"
+        borderColor="borderPrimary"
+        h="100dvh"
+        maxH="100dvh"
+        overflowY="auto"
+        overscrollBehavior="contain"
+      >
         <Box
           h="4px"
           bgGradient="linear(to-r, blue.400, orange.400)"
           flexShrink={0}
         />
-        <DrawerCloseButton color="textSecondary" borderRadius="full" mt={3} />
+        <DrawerCloseButton position="fixed" zIndex={1} bg="bg" color="textSecondary" borderRadius="full" mt={3} />
 
         <MotionBox
           as={DrawerHeader}
           key={book.id}
+          flexShrink={0}
           pt={8}
           pb={5}
           pr={12}
@@ -109,7 +122,15 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
           )}
         </MotionBox>
 
-        <DrawerBody pt={5} pb={8} borderTopWidth="1px" borderColor="borderPrimary">
+        <DrawerBody
+          pt={5}
+          // Room below the 320px cover so it can be scrolled to the middle of the screen.
+          pb={book.coverUrl ? "max(2rem, calc(50dvh - 160px))" : 8}
+          flex="none"
+          overflow="visible"
+          borderTopWidth="1px"
+          borderColor="borderPrimary"
+        >
           {noteText && (
             <Box
               bg="rgba(176,141,87,0.12)"
