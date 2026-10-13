@@ -19,6 +19,7 @@ import {
   Check,
   ChevronDown,
   Dices,
+  Download,
   LibraryBig,
   Search,
   Shuffle,
@@ -178,6 +179,9 @@ function Controls({
   onShuffle,
   onRoulette,
   onAsk,
+  isFiltered,
+  onExportView,
+  onExportAll,
 }) {
   const [isShuffling, setIsShuffling] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -467,6 +471,75 @@ function Controls({
         >
           Ask
         </MotionButton>
+
+        <Menu placement='bottom-end' isLazy>
+          <MenuButton
+            as={Button}
+            leftIcon={<Download size={18} />}
+            size={{ base: 'md', md: 'lg' }}
+            borderRadius='xl'
+            shadow='sm'
+            fontWeight='bold'
+            variant='outline'
+            borderColor='borderPrimary'
+            color='textPrimary'
+            _hover={{ bg: 'surfaceHover', transform: 'translateY(-1px)' }}
+            _expanded={{ bg: 'surfaceHover' }}
+            w={{ base: 'full', sm: 'auto' }}
+          >
+            Export
+          </MenuButton>
+          <Portal>
+            <MenuList
+              zIndex='popover'
+              p={2}
+              bg='bg'
+              border='1px solid'
+              borderColor='borderPrimary'
+              borderRadius='xl'
+              boxShadow='2xl'
+            >
+              {isFiltered && (
+                <MenuItem
+                  borderRadius='lg'
+                  bg='transparent'
+                  _focus={{ bg: 'surfaceHover' }}
+                  _hover={{ bg: 'surfaceHover' }}
+                  isDisabled={resultCount === 0}
+                  onClick={onExportView}
+                >
+                  <Box>
+                    <Text fontWeight='semibold' color='textPrimary'>
+                      Shown books ({resultCount})
+                    </Text>
+                    <Text fontSize='xs' color='textSecondary'>
+                      Matching your current search and filters
+                    </Text>
+                  </Box>
+                </MenuItem>
+              )}
+              <MenuItem
+                borderRadius='lg'
+                bg='transparent'
+                _focus={{ bg: 'surfaceHover' }}
+                _hover={{ bg: 'surfaceHover' }}
+                onClick={onExportAll}
+              >
+                <Box>
+                  <Text fontWeight='semibold' color='textPrimary'>
+                    All books ({totalCount})
+                  </Text>
+                  <Text fontSize='xs' color='textSecondary'>
+                    The whole collection
+                  </Text>
+                </Box>
+              </MenuItem>
+              <Text px={3} pt={2} pb={1} fontSize='xs' color='textSecondary'>
+                CSV: title, author, category, recommender, link, description
+              </Text>
+            </MenuList>
+          </Portal>
+        </Menu>
       </Flex>
     </Flex>
   );

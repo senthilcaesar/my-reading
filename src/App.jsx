@@ -16,6 +16,7 @@ import {
   categories,
   recommenders,
 } from './data/parsedBooks';
+import { downloadBooksCsv, slugify } from './utils/exportCsv';
 
 // Same matching rules as the search box: word-start match on the main fields.
 function matchesSearch(book, wordBoundaryRegex) {
@@ -110,6 +111,17 @@ function App() {
 
     return { filteredBooks: result, searchMatchesAnywhere: anywhere };
   }, [booksList, debouncedSearchQuery, selectedCategory, selectedRecommender]);
+
+  // CSV export: the books currently shown (category, People's Picks and search
+  // combined), or the whole collection in its original order.
+  const handleExportView = useCallback(() => {
+    const parts = [selectedCategory, selectedRecommender, debouncedSearchQuery]
+      .filter(Boolean)
+      .map(slugify)
+      .filter(Boolean);
+    downloadBooksCsv(filteredBooks, ['books', ...parts].join('-'));
+  }, [filteredBooks, selectedCategory, selectedRecommender, debouncedSearchQuery]);
+  const handleExportAll = useCallback(() => downloadBooksCsv(initialBooks, 'books-all'), []);
 
   // "Ask the Library about …" from the no-results screen: open Ask and run the query.
   const [askRequest, setAskRequest] = useState(null);
@@ -219,6 +231,9 @@ function App() {
             onShuffle={handleShuffle}
             onRoulette={handleOpenRoulette}
             onAsk={onOpenAsk}
+            isFiltered={Boolean(selectedCategory || selectedRecommender || debouncedSearchQuery)}
+            onExportView={handleExportView}
+            onExportAll={handleExportAll}
           />
           </Box>
           <Box ref={gridRef}>

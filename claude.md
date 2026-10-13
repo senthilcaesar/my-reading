@@ -189,6 +189,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 - Search: debounced input with clear (`X`) button
 - Category: `<Select>` with sorted `Array.from(categories)`
 - Shuffle: amber CTA button calls `onShuffle` in App
+- Export menu: CSV of the shown books (category + People's Picks + search combined) or of all books. The Ask drawer has a matching "Download CSV" for all its results. Both use `src/utils/exportCsv.js` (columns: Title, Author, Category, Recommended by, Link, Description; UTF-8 BOM for Excel)
 
 ### `BookCard.jsx`
 

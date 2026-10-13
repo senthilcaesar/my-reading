@@ -18,7 +18,7 @@ import {
   Skeleton,
   useToast,
 } from '@chakra-ui/react';
-import { BookOpen, AlertCircle, Sparkles, X } from 'lucide-react';
+import { BookOpen, AlertCircle, Download, Sparkles, X } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import RaisingHandIcon from './RaisingHandIcon';
 import { getCategoryStyles } from '../utils/categoryStyles';
@@ -31,6 +31,7 @@ import {
   hybridSearch,
 } from '../utils/askSearch';
 import { createAskClient } from '../utils/askApi';
+import { downloadBooksCsv, slugify } from '../utils/exportCsv';
 
 // Public URL of the Cloudflare Worker (proxy/) that holds the site's OpenAI key.
 const ASK_PROXY_URL = import.meta.env.VITE_ASK_PROXY_URL || '';
@@ -656,9 +657,28 @@ export default function AskDrawer({ isOpen, onClose, books, onSelectBook, reques
               animate={{ opacity: 1 }}
               transition={{ duration: motionDuration }}
             >
-              <Heading as="h3" fontSize="sm" fontWeight="600" color="textPrimary" mb={weakMatch ? 1 : 3}>
-                {weakMatch ? 'Nearest books' : `${results.length} ${results.length === 1 ? 'book' : 'books'}`}
-              </Heading>
+              <HStack justify="space-between" mb={weakMatch ? 1 : 3}>
+                <Heading as="h3" fontSize="sm" fontWeight="600" color="textPrimary">
+                  {weakMatch ? 'Nearest books' : `${results.length} ${results.length === 1 ? 'book' : 'books'}`}
+                </Heading>
+                <Button
+                  size="xs"
+                  variant="ghost"
+                  leftIcon={<Download size={14} />}
+                  color="textSecondary"
+                  fontFamily="heading"
+                  _hover={{ bg: 'surface', color: 'textPrimary' }}
+                  title={`Download all ${results.length} books as CSV`}
+                  onClick={() =>
+                    downloadBooksCsv(
+                      results.map((r) => r.book),
+                      ['ask', slugify(askedQuestion)].filter(Boolean).join('-'),
+                    )
+                  }
+                >
+                  Download CSV
+                </Button>
+              </HStack>
               {weakMatch && (
                 <Text fontSize="sm" fontStyle="italic" color="textSecondary" mb={3}>
                   Nothing in the library closely matches this question.
