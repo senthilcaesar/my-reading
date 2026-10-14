@@ -1486,4 +1486,10 @@ Neurosis and Human Growth,Karen Horney,Non-fiction,https://www.amazon.com/gp/pro
 "The Joy Of X",Steven Strogatz,Education,https://www.amazon.com/gp/product/0544105850,"A Guided Tour of Math, from One to Infinity"
 "Infinite Powers",Steven Strogatz,Education,https://www.amazon.com/gp/product/0358299284,"How Calculus Reveals the Secrets of the Universe. A Down-to-Earth History of Math and Real-World Solutions"
 "The Master Algorithm",Pedro Domingos,Non-fiction,https://www.amazon.com/gp/product/0465094279,"How the Quest for the Ultimate Learning Machine Will Remake Our World"
+"Remembering Shanghai",Isabel Sun Chao,Non-fiction,https://www.amazon.com/dp/1954854056,"True stories of glamour, drama, and tragedy told through five generations of a Shanghai family, from the last days of imperial rule to the Cultural Revolution."
+"The Last Rose of Shanghai",Weina Dai Randel,Fiction,https://www.amazon.com/Last-Rose-Shanghai-Novel/dp/1542032873,"In Japanese-occupied Shanghai, two people from different cultures are drawn together by fate and the freedom of music."
+"The Story of China: A portrait of a civilisation and its people",Michael Wood,Non-fiction,https://www.amazon.com/dp/1471175987,"A single volume history of China, offering a look into the past of the global superpower and its significance today."
+"First They Killed My Father",Loung Ung,Non-fiction,https://www.amazon.com/dp/0060856262,"A Harrowing Story of Survival, Family, and Courage Under the Khmer Rouge"
+"A Daughter of Han",Ning Lao Tai Tai,Non-fiction,https://www.amazon.com/dp/1614270945,"The Autobiography of a Chinese Working Woman"
+"Spider Eaters",Rae Yang,Non-fiction,https://www.amazon.com/dp/0520276027,"Spider Eaters is at once a moving personal story, a fascinating family history, and a unique chronicle of political upheaval told by a Chinese woman who came of age during the turbulent years of the Cultural Revolution."
 `;

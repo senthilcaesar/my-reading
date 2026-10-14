@@ -129,4 +129,10 @@ export const bookTags = {
   "The Joy Of X": ["Mathematics", "Education", "Popular Science"],
   "Infinite Powers": ["Calculus", "Mathematics", "Science", "Education", "History of Science"],
   "The Master Algorithm": ["Machine Learning", "Artificial Intelligence", "Algorithms", "Technology", "Computer Science"],
+  "Remembering Shanghai": ["China", "Family History", "Memoir", "Cultural Revolution"],
+  "The Last Rose of Shanghai": ["Historical Fiction", "China", "World War II", "Romance"],
+  "The Story of China: A portrait of a civilisation and its people": ["China", "World History", "Civilization", "Culture"],
+  "First They Killed My Father": ["Memoir", "Cambodia", "Genocide", "Survival"],
+  "A Daughter of Han": ["Autobiography", "China", "Women", "Social History"],
+  "Spider Eaters": ["Memoir", "China", "Cultural Revolution", "Coming of Age"],
 };

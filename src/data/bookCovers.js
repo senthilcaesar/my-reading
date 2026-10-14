@@ -1066,4 +1066,10 @@ export const bookCovers = {
   "The Joy Of X": "https://images-na.ssl-images-amazon.com/images/P/0544105850.01.LZZZZZZZ.jpg",
   "Infinite Powers": "https://images-na.ssl-images-amazon.com/images/P/0358299284.01.LZZZZZZZ.jpg",
   "The Master Algorithm": "https://images-na.ssl-images-amazon.com/images/P/0465094279.01.LZZZZZZZ.jpg",
+  "Remembering Shanghai": "https://images-na.ssl-images-amazon.com/images/P/1954854056.01.LZZZZZZZ.jpg",
+  "The Last Rose of Shanghai": "https://images-na.ssl-images-amazon.com/images/P/1542032873.01.LZZZZZZZ.jpg",
+  "The Story of China: A portrait of a civilisation and its people": "https://images-na.ssl-images-amazon.com/images/P/1471175987.01.LZZZZZZZ.jpg",
+  "First They Killed My Father": "https://images-na.ssl-images-amazon.com/images/P/0060856262.01.LZZZZZZZ.jpg",
+  "A Daughter of Han": "https://images-na.ssl-images-amazon.com/images/P/1614270945.01.LZZZZZZZ.jpg",
+  "Spider Eaters": "https://images-na.ssl-images-amazon.com/images/P/0520276027.01.LZZZZZZZ.jpg",
 };
