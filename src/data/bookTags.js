@@ -125,4 +125,8 @@ export const bookTags = {
   "Team of Rivals": ["Political History", "Leadership", "American History", "Civil War"],
   "The Wright Brothers": ["Aviation", "Innovation", "American History", "Engineering"],
   "The Box": ["Economic History", "Globalization", "Supply Chains", "Trade"],
+  "Big Math: The Hidden Codes That Run Our World": ["Mathematics", "Algorithms", "Artificial Intelligence", "Technology", "Education"],
+  "The Joy Of X": ["Mathematics", "Education", "Popular Science"],
+  "Infinite Powers": ["Calculus", "Mathematics", "Science", "Education", "History of Science"],
+  "The Master Algorithm": ["Machine Learning", "Artificial Intelligence", "Algorithms", "Technology", "Computer Science"],
 };

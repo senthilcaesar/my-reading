@@ -1482,4 +1482,8 @@ Neurosis and Human Growth,Karen Horney,Non-fiction,https://www.amazon.com/gp/pro
 "Team of Rivals",Doris Kearns Goodwin,History,https://www.amazon.com/gp/product/0743270754,"Examines Abraham Lincoln's ability to unite political rivals, manage competing personalities, and lead the United States through the Civil War."
 "The Wright Brothers",David McCullough,Biography,https://www.amazon.com/gp/product/1476728755,"Follows Wilbur and Orville Wright's journey from bicycle mechanics to aviation pioneers through experimentation, persistence, and engineering ingenuity."
 "The Box",Marc Levinson,Economics,https://www.amazon.com/gp/product/0691170819,"Shows how the shipping container revolutionized global trade, transformed supply chains, and reshaped manufacturing and transportation."
+"Big Math: The Hidden Codes That Run Our World",Steven Strogatz,Education,https://www.amazon.com/Big-Math-Hidden-Codes-World/dp/0316581585,"The epic story of how a handful of surprisingly simple mathematical ideas have sparked today’s technological breakthroughs from Netflix’s recommendation algorithm to medical imaging to artificial intelligence and beyond while also slipping further and further from our understanding, with potentially earth-shaking consequences."
+"The Joy Of X",Steven Strogatz,Education,https://www.amazon.com/gp/product/0544105850,"A Guided Tour of Math, from One to Infinity"
+"Infinite Powers",Steven Strogatz,Education,https://www.amazon.com/gp/product/0358299284,"How Calculus Reveals the Secrets of the Universe. A Down-to-Earth History of Math and Real-World Solutions"
+"The Master Algorithm",Pedro Domingos,Non-fiction,https://www.amazon.com/gp/product/0465094279,"How the Quest for the Ultimate Learning Machine Will Remake Our World"
 `;

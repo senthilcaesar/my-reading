@@ -1062,4 +1062,8 @@ export const bookCovers = {
   "Team of Rivals": "https://images-na.ssl-images-amazon.com/images/P/0743270754.01.LZZZZZZZ.jpg",
   "The Wright Brothers": "https://images-na.ssl-images-amazon.com/images/P/1476728755.01.LZZZZZZZ.jpg",
   "The Box": "https://images-na.ssl-images-amazon.com/images/P/0691170819.01.LZZZZZZZ.jpg",
+  "Big Math: The Hidden Codes That Run Our World": "https://images-na.ssl-images-amazon.com/images/P/0316581585.01.LZZZZZZZ.jpg",
+  "The Joy Of X": "https://images-na.ssl-images-amazon.com/images/P/0544105850.01.LZZZZZZZ.jpg",
+  "Infinite Powers": "https://images-na.ssl-images-amazon.com/images/P/0358299284.01.LZZZZZZZ.jpg",
+  "The Master Algorithm": "https://images-na.ssl-images-amazon.com/images/P/0465094279.01.LZZZZZZZ.jpg",
 };
