@@ -191,4 +191,12 @@ export const bookRecommendations = {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
   },
+  'The Proof in the Code': {
+    recommender: 'Natalie Wolchover',
+    note: 'Recommended by Natalie Wolchover',
+  },
+  'The Impossible Man': {
+    recommender: 'Natalie Wolchover',
+    note: 'Recommended by Natalie Wolchover',
+  },
 };
