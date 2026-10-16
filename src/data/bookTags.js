@@ -150,4 +150,6 @@ export const bookTags = {
   "In Order to Live: A North Korean Girl's Journey to Freedom": ["North Korea", "Memoir", "Human Trafficking", "Survival"],
   "The Girl with Seven Names: Escape from North Korea": ["North Korea", "Memoir", "Escape", "Defectors"],
   "The Impossible Man": ["Biography", "Physics", "Mathematics", "Roger Penrose"],
+  "Language at the Speed of Sight": ["Reading", "Literacy", "Cognitive Science", "Education Policy"],
+  "Reading in the Brain": ["Reading", "Neuroscience", "Literacy", "Cognitive Science"],
 };

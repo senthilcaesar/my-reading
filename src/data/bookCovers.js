@@ -1087,4 +1087,6 @@ export const bookCovers = {
   "In Order to Live: A North Korean Girl's Journey to Freedom": "https://images-na.ssl-images-amazon.com/images/P/014310974X.01.LZZZZZZZ.jpg",
   "The Girl with Seven Names: Escape from North Korea": "https://images-na.ssl-images-amazon.com/images/P/0007554850.01.LZZZZZZZ.jpg",
   "The Impossible Man": "https://images-na.ssl-images-amazon.com/images/P/1838959343.01.LZZZZZZZ.jpg",
+  "Language at the Speed of Sight": "https://images-na.ssl-images-amazon.com/images/P/1541617150.01.LZZZZZZZ.jpg",
+  "Reading in the Brain": "https://images-na.ssl-images-amazon.com/images/P/0143118056.01.LZZZZZZZ.jpg",
 };
