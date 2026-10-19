@@ -202,6 +202,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 - Chakra `<Drawer placement="right">` rendered once in `App.jsx`; `selectedBook` state + `useDisclosure` control it
 - Shows category badge, title, author, tags, full summary; footer has Close + "Visit Link" (external)
+- An optional `readingNote` (set in `recommendations.js`, e.g. who suggested the book) shows under the cover in a yellow callout (`noteBg`/`noteBorder`/`noteIcon` tokens) with a notebook icon
 - The "Surprise Me" button in `Controls.jsx` picks a random book from `filteredBooks` (respects active search/category filters) and opens it here
 
 ---

@@ -14,7 +14,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { ExternalLink, Sparkles } from "lucide-react";
+import { ExternalLink, NotebookPen, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { getCategoryStyles } from "../utils/categoryStyles";
 
@@ -215,6 +215,27 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
               decoding="async"
               fetchPriority="high"
             />
+          )}
+
+          {book.readingNote && (
+            <Box
+              bg="noteBg"
+              borderWidth="1px"
+              borderColor="noteBorder"
+              borderRadius="xl"
+              p={3.5}
+              mt={6}
+              display="flex"
+              alignItems="flex-start"
+              gap={3}
+            >
+              <Box color="noteIcon" flexShrink={0} mt={0.5}>
+                <NotebookPen size={18} />
+              </Box>
+              <Text fontSize="sm" color="textPrimary" lineHeight="tall">
+                {book.readingNote}
+              </Text>
+            </Box>
           )}
 
         </DrawerBody>

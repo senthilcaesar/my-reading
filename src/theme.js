@@ -45,6 +45,18 @@ const theme = extendTheme({
         default: '#ffffff',
         _dark: '#ffffff',
       },
+      noteBg: {
+        default: '#fdf6d8',
+        _dark: 'rgba(240,210,100,0.14)',
+      },
+      noteBorder: {
+        default: '#ecdca0',
+        _dark: 'rgba(240,210,100,0.35)',
+      },
+      noteIcon: {
+        default: '#a1862a',
+        _dark: '#e5c890',
+      },
       borderPrimary: {
         default: '#b0aea5',
         _dark: '#626880',

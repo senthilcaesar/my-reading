@@ -160,6 +160,8 @@ if (parsed.length > 0) {
         repairText((row[headerMap['summary']] || '').replace(/^"|"$/g, '').trim()),
       recommender: recommender,
       recommendationNote: recommendationNote,
+      // Shown under the cover in the detail drawer (e.g. who suggested the book).
+      readingNote: lookupRec?.readingNote || null,
       coverUrl: lookup(bookCovers) || null,
       tags: lookup(bookTags) || meta?.tags || [],
       // Search-only topic terms (not displayed).
