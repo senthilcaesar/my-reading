@@ -179,6 +179,8 @@ export const summaryOverrides = {
     "The Science of Second Chances by economist Jennifer Doleac reviews the evidence on what works in criminal justice. Drawing on rigorous research, she shows which policies on policing, sentencing, incarceration and re-entry actually reduce crime and help people rebuild their lives, and which do not.",
   'Private Revolutions':
     'Private Revolutions: Four Women Face China\'s New Social Order is a nonfiction portrait of four women coming of age in modern China, tracing social mobility, work, education, activism, family pressure, and the human cost of rapid economic change.',
+  "The Golden Passport":
+    "The Golden Passport by Duff McDonald is an investigative account of Harvard Business School, examining its influence on capitalism and the ethical implications of its MBA program. The book critiques the school's role in shaping business leaders and questions the moral framework imparted to its graduates.\n\nNote: Suggested reading by Christopher Marquis, Professor at Cambridge. Author of “THE PROFITEERS: How Business Privatizes Profit and Socializes Cost”.",
 };
 
 // Rows whose CSV "title" is really the book's subtitle. Keyed by the CSV title;

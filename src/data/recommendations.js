@@ -199,4 +199,8 @@ export const bookRecommendations = {
     recommender: 'Natalie Wolchover',
     note: 'Recommended by Natalie Wolchover',
   },
+  'The Golden Passport': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
 };
