@@ -14,7 +14,6 @@ export const generatedBookMeta = {
   "A Colossal Failure of Common Sense": {"tags":["Finance","Banking"],"keywords":["lehman brothers","financial crisis","2008","risk management","corporate governance","bankruptcy","regulatory oversight"]},
   "A Comprehensive Guide to ETFs": {"tags":["Finance","Investing"],"keywords":["etfs","exchange-traded funds","portfolio management","investment strategies","financial markets"],"suggestedCategory":"Finance"},
   "A Demon of Our Own Design": {"tags":["Finance","Risk Management"],"keywords":["financial crisis","risk management","wall street","financial engineering","derivatives"],"category":"Finance","categoryWas":"Biography"},
-  "A Happiness Hypothesis": {"tags":["Psychology","Personal Growth"],"keywords":["happiness","well-being","ancient wisdom","modern science","relationships","self-improvement"],"suggestedCategory":"Psychology"},
   "A higher kind of loyalty": {"tags":["Memoir","China"],"keywords":["journalism","china","political corruption","media censorship","communism"],"suggestedCategory":"Memoir"},
   "A Hymn to Life: Shame Has to Change Sides": {"tags":["Memoir","Human Rights"],"keywords":["sexual assault","shame","survivor story","women's rights","justice"],"suggestedCategory":"Memoir"},
   "A Little Life": {"tags":["Fiction","Friendship"],"keywords":["contemporary fiction","trauma","new york city","relationships","college friends"],"suggestedCategory":"Fiction"},

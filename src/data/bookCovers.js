@@ -22,7 +22,6 @@ export const bookCovers = {
   "A Colossal Failure of Common Sense": "https://covers.openlibrary.org/b/isbn/0307588335-M.jpg?default=false",
   "A Comprehensive Guide to ETFs": "https://covers.openlibrary.org/b/isbn/1934667854-M.jpg?default=false",
   "A Demon of Our Own Design": "https://covers.openlibrary.org/b/isbn/0471227277-M.jpg?default=false",
-  "A Happiness Hypothesis": "https://covers.openlibrary.org/b/isbn/0465028020-M.jpg?default=false",
   "A higher kind of loyalty": "https://covers.openlibrary.org/b/isbn/0394574710-M.jpg?default=false",
   "A History of Nazi Germany": "https://covers.openlibrary.org/b/isbn/1451642598-M.jpg?default=false",
   "A Hymn to Life: Shame Has to Change Sides": "https://images-na.ssl-images-amazon.com/images/P/B0FCLM9TNG.01.LZZZZZZZ.jpg",
@@ -1102,4 +1101,5 @@ export const bookCovers = {
   "Stakeholder Capitalism: A Global Economy that Works for Progress, People and Planet": "https://images-na.ssl-images-amazon.com/images/P/1119756138.01.LZZZZZZZ.jpg",
   "Incorruptible": "https://images-na.ssl-images-amazon.com/images/P/0241692024.01.LZZZZZZZ.jpg",
   "The Insider Advantage: Moving up, Finding Success, and Building a Career That Lasts": "https://images-na.ssl-images-amazon.com/images/P/1668079178.01.LZZZZZZZ.jpg",
+  "Build the Life You Want: The Art and Science of Getting Happier": "https://images-na.ssl-images-amazon.com/images/P/0593545400.01.LZZZZZZZ.jpg",
 };

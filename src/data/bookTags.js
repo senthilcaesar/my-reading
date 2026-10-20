@@ -165,4 +165,5 @@ export const bookTags = {
   "Stakeholder Capitalism: A Global Economy that Works for Progress, People and Planet": ["Capitalism", "Global Economy", "Sustainability", "Economics"],
   "Incorruptible": ["Startups", "Corporate Governance", "Values", "Leadership"],
   "The Insider Advantage: Moving up, Finding Success, and Building a Career That Lasts": ["Career", "Work", "Promotion", "Management"],
+  "Build the Life You Want: The Art and Science of Getting Happier": ["Happiness", "Psychology", "Self-Improvement", "Well-being"],
 };
