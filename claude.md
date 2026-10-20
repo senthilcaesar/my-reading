@@ -178,6 +178,12 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 - Animated amber underline expands on scroll
 - Theme toggle (Moon/Sun) + Tech Stack modal trigger
 
+### `NowReadingTag.jsx`
+
+- "What I'm reading" paper tag hanging on twine at the top left, with clipped top corners, a reinforced eyelet and a stitched edge. It uses semantic tokens (`tagBg` and `tagTwine` were added for it), the Lora, Rye and Pacifico fonts, and a book-stack SVG in the three accents. The back is a ruled library card. The books are the titles listed in `src/data/currentlyReading.js` (up to 3; an empty list hides the tag).
+- Tap flips it (3D `rotateY`) to show the books; tapping a book opens `BookDetailDrawer`. Dragging swings it about the top of the string, and it springs back into a slow idle sway. A drag only takes pointer capture once it passes 6px, so taps still reach the book buttons.
+- It's rendered inside the same `zIndex={1}` layer as `Header` (at z 99, under the header's 100), so when the reader scrolls past 120px, or on phones, it tucks up under the glass header with only its rounded bottom showing. Tapping that bottom drops it down until the reader scrolls another 320px.
+
 ### `BookOfTheDay.jsx`
 
 - Deterministic pick: seeded RNG using `year * 366 + dayOfYear`

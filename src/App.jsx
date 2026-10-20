@@ -11,6 +11,7 @@ import AskDrawer from './components/AskDrawer';
 import NewspaperBackground from './components/NewspaperBackground';
 import NoResults from './components/NoResults';
 import BackToTop from './components/BackToTop';
+import NowReadingTag from './components/NowReadingTag';
 import {
   books as initialBooks,
   categories,
@@ -214,6 +215,7 @@ function App() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
+        <NowReadingTag onBookSelect={handleBookSelect} />
         <BookOfTheDay />
         <Box pt={8}>
           <Box ref={controlsRef}>

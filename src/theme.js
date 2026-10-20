@@ -57,6 +57,14 @@ const theme = extendTheme({
         default: '#a1862a',
         _dark: '#e5c890',
       },
+      tagBg: {
+        default: '#fffdf5',
+        _dark: '#414559',
+      },
+      tagTwine: {
+        default: '#8a7a64',
+        _dark: '#a5adce',
+      },
       borderPrimary: {
         default: '#b0aea5',
         _dark: '#626880',
