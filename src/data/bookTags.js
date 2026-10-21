@@ -166,4 +166,6 @@ export const bookTags = {
   "Incorruptible": ["Startups", "Corporate Governance", "Values", "Leadership"],
   "The Insider Advantage: Moving up, Finding Success, and Building a Career That Lasts": ["Career", "Work", "Promotion", "Management"],
   "Build the Life You Want: The Art and Science of Getting Happier": ["Happiness", "Psychology", "Self-Improvement", "Well-being"],
+  "My Life in Court": ["Law", "Memoir", "Courtroom", "Libel"],
+  "Core Turnaround Strategy: The Indispensable Business Restructuring Guide": ["Turnaround", "Restructuring", "Strategy", "Business"],
 };

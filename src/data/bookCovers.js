@@ -1102,4 +1102,6 @@ export const bookCovers = {
   "Incorruptible": "https://images-na.ssl-images-amazon.com/images/P/0241692024.01.LZZZZZZZ.jpg",
   "The Insider Advantage: Moving up, Finding Success, and Building a Career That Lasts": "https://images-na.ssl-images-amazon.com/images/P/1668079178.01.LZZZZZZZ.jpg",
   "Build the Life You Want: The Art and Science of Getting Happier": "https://images-na.ssl-images-amazon.com/images/P/0593545400.01.LZZZZZZZ.jpg",
+  "My Life in Court": "https://images-na.ssl-images-amazon.com/images/P/1614273766.01.LZZZZZZZ.jpg",
+  "Core Turnaround Strategy: The Indispensable Business Restructuring Guide": "https://images-na.ssl-images-amazon.com/images/P/B0G3MN8MFV.01.LZZZZZZZ.jpg",
 };
