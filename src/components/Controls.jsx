@@ -198,6 +198,7 @@ function Controls({
 
   return (
     <Flex
+      data-controls // NowReadingTag measures this to keep clear of the search box
       direction='column'
       maxW='7xl'
       mx='auto'

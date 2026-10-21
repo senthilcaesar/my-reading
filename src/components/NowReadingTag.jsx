@@ -25,6 +25,7 @@ const SWAY_PERIOD = 3500; // ms for one full back-and-forth
 const SWAY_AMPLITUDE = 1.6; // degrees
 const SWAY_HOVER_AMPLITUDE = 5; // degrees, while the pointer is over the tag
 const SWAY_EASE = 500; // ms for the swing size to (mostly) reach a new amplitude
+const CLEARANCE = 16; // px kept between the swinging tag and the search box
 const token = (name) => `var(--chakra-colors-${name})`;
 
 // A small stack of books in the site's three accents.
@@ -128,8 +129,29 @@ function NowReadingTag({ onBookSelect }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Where the left margin is too narrow for it (laptops, tablets), it would swing
+  // over the search box and filters, so it stays tucked under the header there too.
+  const wrapperRef = useRef(null);
+  const [crowded, setCrowded] = useState(false);
+  useEffect(() => {
+    if (!isWide) return undefined;
+    const measure = () => {
+      const tag = wrapperRef.current;
+      const controls = document.querySelector('[data-controls]');
+      if (!tag || !controls) return;
+      const swing = (STRING + size.h) * Math.sin((SWAY_HOVER_AMPLITUDE * Math.PI) / 180);
+      const tagRight = tag.offsetLeft + tag.offsetWidth + swing + CLEARANCE;
+      const controlsLeft =
+        controls.getBoundingClientRect().left + parseFloat(getComputedStyle(controls).paddingLeft);
+      setCrowded(tagRight > controlsLeft);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [isWide, size.h]);
+
   // On phones it would cover the search box, so it starts tucked under the header.
-  const stowed = dropped === null && (scrolledAway || !isWide);
+  const stowed = dropped === null && (scrolledAway || !isWide || crowded);
   const showBack = flipped && !stowed;
 
   // Swing: a slow idle sway, the reader can grab and swing it, and it settles
@@ -169,7 +191,6 @@ function NowReadingTag({ onBookSelect }) {
     return () => swayRef.current?.stop();
   }, [startSway]);
 
-  const wrapperRef = useRef(null);
   const drag = useRef(null);
   const suppressClick = useRef(false);
 
