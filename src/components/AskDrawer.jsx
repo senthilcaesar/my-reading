@@ -121,7 +121,16 @@ function BookCover({ book }) {
       boxShadow="0 1px 2px rgba(0,0,0,0.25)"
     >
       {book.coverUrl ? (
-        <Image src={book.coverUrl} alt="" loading="lazy" w="full" h="full" objectFit="cover" />
+        <Image
+          src={book.coverUrl}
+          alt=""
+          loading="lazy"
+          w="full"
+          h="full"
+          objectFit="cover"
+          // A cover that fails to load leaves the plain placeholder box.
+          onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}
+        />
       ) : (
         <Flex w="full" h="full" align="center" justify="center" color="textSecondary">
           <BookOpen size={18} />

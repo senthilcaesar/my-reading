@@ -411,6 +411,7 @@ function NowReadingTag({ onBookSelect }) {
                           flexShrink={0}
                           boxShadow="0 1px 4px rgba(0,0,0,0.3)"
                           draggable={false}
+                          onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}
                         />
                       ) : (
                         <Box w={isWide ? '22px' : '20px'} h={isWide ? '33px' : '30px'} bg="surface" borderRadius="2px" flexShrink={0} />

@@ -201,8 +201,11 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
 
           {book.coverUrl && (
             <Image
+              key={book.coverUrl} // remount per book, so a hidden failed cover doesn't stick
               src={book.coverUrl}
               alt={`Cover of ${book.title}`}
+              // If the cover host is unreachable, show nothing rather than a broken image.
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
               w="220px"
               h="320px"
               maxW="full"
