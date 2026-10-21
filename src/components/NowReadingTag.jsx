@@ -1,9 +1,10 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { Box, Flex, Image, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, useBreakpointValue, useMediaQuery } from '@chakra-ui/react';
 import { animate, motion, useMotionValue, useReducedMotion } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 import { books } from '../data/parsedBooks';
 import { currentlyReading } from '../data/currentlyReading';
+import { READING_TAG_ROOMY } from './readingTagLayout';
 
 const MotionBox = motion(Box);
 const MotionG = motion.g;
@@ -15,17 +16,18 @@ const readingBooks = currentlyReading
 
 // The string starts at the very top of the viewport, behind the sticky header,
 // so the tag seems to hang from it.
+// The tag is sized to end above the first row of book cards, which keep their
+// full width even where the search box and filters are narrowed beside it.
 const STRING = 78;
 const CHAMFER = 22; // clipped top corners, like a luggage or library tag
 const SIZES = {
   base: { w: 132, h: 196, title: '24px', stowedBottom: 74 },
-  md: { w: 164, h: 240, title: '30px', stowedBottom: 84 },
+  md: { w: 164, h: 204, title: '30px', stowedBottom: 84 },
 };
 const SWAY_PERIOD = 3500; // ms for one full back-and-forth
 const SWAY_AMPLITUDE = 1.6; // degrees
 const SWAY_HOVER_AMPLITUDE = 5; // degrees, while the pointer is over the tag
 const SWAY_EASE = 500; // ms for the swing size to (mostly) reach a new amplitude
-const CLEARANCE = 16; // px kept between the swinging tag and the search box
 const token = (name) => `var(--chakra-colors-${name})`;
 
 // A small stack of books in the site's three accents.
@@ -111,6 +113,7 @@ function NowReadingTag({ onBookSelect }) {
   const reduceMotion = useReducedMotion();
   const isWide = useBreakpointValue({ base: false, md: true }, { ssr: false });
   const size = isWide ? SIZES.md : SIZES.base;
+  const [roomy] = useMediaQuery(READING_TAG_ROOMY, { ssr: false });
 
   const [flipped, setFlipped] = useState(false);
   const [scrolledAway, setScrolledAway] = useState(false);
@@ -129,29 +132,8 @@ function NowReadingTag({ onBookSelect }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Where the left margin is too narrow for it (laptops, tablets), it would swing
-  // over the search box and filters, so it stays tucked under the header there too.
-  const wrapperRef = useRef(null);
-  const [crowded, setCrowded] = useState(false);
-  useEffect(() => {
-    if (!isWide) return undefined;
-    const measure = () => {
-      const tag = wrapperRef.current;
-      const controls = document.querySelector('[data-controls]');
-      if (!tag || !controls) return;
-      const swing = (STRING + size.h) * Math.sin((SWAY_HOVER_AMPLITUDE * Math.PI) / 180);
-      const tagRight = tag.offsetLeft + tag.offsetWidth + swing + CLEARANCE;
-      const controlsLeft =
-        controls.getBoundingClientRect().left + parseFloat(getComputedStyle(controls).paddingLeft);
-      setCrowded(tagRight > controlsLeft);
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [isWide, size.h]);
-
   // On phones it would cover the search box, so it starts tucked under the header.
-  const stowed = dropped === null && (scrolledAway || !isWide || crowded);
+  const stowed = dropped === null && (scrolledAway || !isWide);
   const showBack = flipped && !stowed;
 
   // Swing: a slow idle sway, the reader can grab and swing it, and it settles
@@ -191,6 +173,7 @@ function NowReadingTag({ onBookSelect }) {
     return () => swayRef.current?.stop();
   }, [startSway]);
 
+  const wrapperRef = useRef(null);
   const drag = useRef(null);
   const suppressClick = useRef(false);
 
@@ -345,19 +328,6 @@ function NowReadingTag({ onBookSelect }) {
               textAlign="center"
             >
               <Text
-                fontFamily="'Poppins', sans-serif"
-                fontWeight="600"
-                fontSize={isWide ? '8.5px' : '7px'}
-                letterSpacing="0.3em"
-                color="textSecondary"
-                whiteSpace="nowrap"
-                pl="0.3em"
-                mb={1.5}
-              >
-                NOW READING
-              </Text>
-              <DoubleRule />
-              <Text
                 mt={isWide ? 2 : 1.5}
                 fontFamily="'Lora', Georgia, serif"
                 fontStyle="italic"
@@ -397,7 +367,7 @@ function NowReadingTag({ onBookSelect }) {
 
           {/* Back: a ruled library card */}
           <Face back hidden={!showBack} onClick={handleTagClick} cursor="pointer">
-            <Flex direction="column" h="full" pt={isWide ? '36px' : '32px'} px={isWide ? 3 : 2.5}>
+            <Flex direction="column" h="full" pt={isWide ? '35px' : '32px'} px={isWide ? 3 : 2.5}>
               <Text
                 fontFamily="'Pacifico', cursive"
                 fontSize={isWide ? '15px' : '12.5px'}
@@ -420,7 +390,7 @@ function NowReadingTag({ onBookSelect }) {
                       align="center"
                       gap={2}
                       px={1}
-                      py={isWide ? 1.5 : 1}
+                      py={isWide ? 0.5 : 1}
                       textAlign="left"
                       transition="background-color 0.15s ease"
                       _hover={{ bg: 'surfaceHover' }}
@@ -434,8 +404,8 @@ function NowReadingTag({ onBookSelect }) {
                         <Image
                           src={book.coverUrl}
                           alt=""
-                          w={isWide ? '26px' : '20px'}
-                          h={isWide ? '39px' : '30px'}
+                          w={isWide ? '22px' : '20px'}
+                          h={isWide ? '33px' : '30px'}
                           objectFit="cover"
                           borderRadius="2px"
                           flexShrink={0}
@@ -443,7 +413,7 @@ function NowReadingTag({ onBookSelect }) {
                           draggable={false}
                         />
                       ) : (
-                        <Box w={isWide ? '26px' : '20px'} h={isWide ? '39px' : '30px'} bg="surface" borderRadius="2px" flexShrink={0} />
+                        <Box w={isWide ? '22px' : '20px'} h={isWide ? '33px' : '30px'} bg="surface" borderRadius="2px" flexShrink={0} />
                       )}
                       <Box minW={0}>
                         <Text
@@ -473,7 +443,7 @@ function NowReadingTag({ onBookSelect }) {
 
               <Flex
                 mt="auto"
-                mb={isWide ? '14px' : '11px'}
+                mb={isWide ? '10px' : '11px'}
                 justify="center"
                 align="center"
                 gap={1}
@@ -490,7 +460,7 @@ function NowReadingTag({ onBookSelect }) {
         </MotionBox>
       </Box>
 
-      {isWide && (
+      {isWide && roomy && (
         <Text
           mt={3}
           textAlign="center"

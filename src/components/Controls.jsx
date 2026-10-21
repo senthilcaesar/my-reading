@@ -27,6 +27,7 @@ import {
   X,
 } from 'lucide-react';
 import RaisingHandIcon from './RaisingHandIcon';
+import { READING_TAG_CONTROLS_PL } from './readingTagLayout';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
 
@@ -198,11 +199,11 @@ function Controls({
 
   return (
     <Flex
-      data-controls // NowReadingTag measures this to keep clear of the search box
       direction='column'
       maxW='7xl'
       mx='auto'
-      px={{ base: 3, sm: 4, md: 6, lg: 8 }}
+      ps={READING_TAG_CONTROLS_PL}
+      pe={{ base: 3, sm: 4, md: 6, lg: 8 }}
       mb={{ base: 4, sm: 6, md: 8 }}
       gap={{ base: 2.5, sm: 3, md: 4 }}
     >
