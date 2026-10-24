@@ -205,4 +205,8 @@ export const bookRecommendations = {
     readingNote:
       'Suggested reading by Christopher Marquis, Professor at Cambridge. Author of “THE PROFITEERS: How Business Privatizes Profit and Socializes Cost”',
   },
+  'Multiple Intelligences': {
+    recommender: 'Senthil Palanivelu',
+    note: 'Recommended by Senthil Palanivelu',
+  },
 };
