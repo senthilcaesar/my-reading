@@ -672,7 +672,6 @@ export const bookCovers = {
   "The Autobiography of Andrew Carnegie": "https://images-na.ssl-images-amazon.com/images/P/0451530381.01.LZZZZZZZ.jpg",
   "The Autobiography of Benjamin Franklin": "https://images-na.ssl-images-amazon.com/images/P/8175993286.01.LZZZZZZZ.jpg",
   "The Battle of Bretton Woods": "https://images-na.ssl-images-amazon.com/images/P/0691149097.01.LZZZZZZZ.jpg",
-  "The Bell Curve": "https://images-na.ssl-images-amazon.com/images/P/0684824299.01.LZZZZZZZ.jpg",
   "The Best Strangers in the World": "https://images-na.ssl-images-amazon.com/images/P/0063221349.01.LZZZZZZZ.jpg",
   "The Big Print": "https://images-na.ssl-images-amazon.com/images/P/B0DVTCVX8J.01.LZZZZZZZ.jpg",
   "The Big Short": "https://images-na.ssl-images-amazon.com/images/P/0393338827.01.LZZZZZZZ.jpg",

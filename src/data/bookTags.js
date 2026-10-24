@@ -100,7 +100,6 @@ export const bookTags = {
   "A Train Near Magdeburg": ["History", "Holocaust", "World War II"],
   "In Line Behind a Billion People": ["Economics", "China", "Scarcity"],
   "Imbeciles": ["History", "Law", "Eugenics"],
-  "The Bell Curve": ["Sociology", "Psychology", "Intelligence"],
   "Neurosis and Human Growth": ["Psychology", "Mental Health", "Self-Help"],
   "A People's History of the United States": ["History", "Civil Rights", "Politics"],
   "Who Gets In and Why: A Year Inside College Admissions": ["Education", "College", "Higher Education"],
