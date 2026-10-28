@@ -20,6 +20,7 @@ Live URL (local): `http://localhost:5173` (Vite dev server)
 | Framework  | React 19 + Vite 7                                                            |
 | UI library | Chakra UI v2 (`@chakra-ui/react`)                                            |
 | Animations | Framer Motion 12                                                             |
+| Scrolling  | Lenis 1.3 (eased wheel scroll; `src/utils/smoothScroll.js`)                  |
 | Icons      | Lucide React                                                                 |
 | Language   | JavaScript (JSX) — no TypeScript                                             |
 | Styling    | Chakra semantic tokens + inline Chakra props (no Tailwind, no raw CSS files) |
@@ -116,6 +117,15 @@ This is the most nuanced part — read carefully before changing.
 **Batched rendering**: `CardList` renders the first 60 matching books and adds 60 more when an invisible sentinel comes within 1500px of the viewport (IntersectionObserver); a new search/filter/shuffle resets to 60. Each card also has `content-visibility: auto` (with transparent padding/negative margins so the hover lift isn't clipped). `CardList` is memoised separately from the fade driven by `isFiltering`, so keystrokes don't re-render cards. Rendering all 1,000+ cards made load, filtering, shuffle and theme toggles stall for ~1 s (4× CPU throttle). Heavy page sections (`BookGrid`, `Header`, `Controls`, `NewspaperBackground`) are `memo`ised so opening a drawer/modal doesn't re-render them.
 
 **Card key**: `book.title` — assumed unique. If duplicates exist, keys would need to include index.
+
+---
+
+## Smooth Scrolling (`src/utils/smoothScroll.js`)
+
+- Lenis is started once in `main.jsx` (`autoRaf`). It eases mouse-wheel/trackpad scrolling of the page; touch stays native, and it switches itself off for `prefers-reduced-motion`.
+- Wheel events inside `[role="dialog"]`, `[role="menu"]` or `[data-lenis-prevent]` are left to the browser, so drawers, modals and menus scroll on their own. Add `data-lenis-prevent` to any new inner scroll area.
+- While an `aria-modal` drawer/modal is open, Lenis is stopped so the page behind it can't scroll.
+- Programmatic scrolls go through `scrollToTop(y)` (not `window.scrollTo`) so they use the same easing. `window.scrollY` and scroll listeners keep working, because Lenis moves the real scroll position.
 
 ---
 

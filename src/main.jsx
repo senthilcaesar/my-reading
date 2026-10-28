@@ -4,6 +4,9 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import App from './App.jsx';
 import theme from './theme.js';
 import './index.css';
+import { initSmoothScroll } from './utils/smoothScroll.js';
+
+initSmoothScroll();
 
 class RootErrorBoundary extends React.Component {
   constructor(props) {

@@ -19,6 +19,7 @@ import {
 } from './data/parsedBooks';
 import { downloadBooksCsv, slugify } from './utils/exportCsv';
 import { ASK_ENABLED } from './utils/askConfig';
+import { scrollToTop } from './utils/smoothScroll';
 
 // Same matching rules as the search box: word-start match on the main fields.
 function matchesSearch(book, wordBoundaryRegex) {
@@ -200,8 +201,7 @@ function App() {
     const headerHeight = document.querySelector('header')?.offsetHeight ?? 64;
     const gridTop = grid.getBoundingClientRect().top + window.scrollY - headerHeight;
     if (window.scrollY > gridTop) {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: gridTop, behavior: reduceMotion ? 'auto' : 'smooth' });
+      scrollToTop(gridTop);
     }
   }, [debouncedSearchQuery, selectedCategory, selectedRecommender]);
 

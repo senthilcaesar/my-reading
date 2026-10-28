@@ -1,6 +1,7 @@
 import { IconButton, Tooltip } from '@chakra-ui/react';
 import { ArrowUp } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { scrollToTop } from '../utils/smoothScroll';
 
 const MotionIconButton = motion(IconButton);
 
@@ -32,7 +33,7 @@ export default function BackToTop({ visible }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
             transition={{ duration: reduceMotion ? 0 : 0.18, ease: 'easeOut' }}
-            onClick={() => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })}
+            onClick={() => scrollToTop(0)}
           />
         </Tooltip>
       )}

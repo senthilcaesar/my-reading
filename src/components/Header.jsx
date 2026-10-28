@@ -18,6 +18,7 @@ import { memo, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import TechStackModal from './TechStackModal';
 import OpenLibraryBadge from './OpenLibraryBadge';
+import { scrollToTop } from '../utils/smoothScroll';
 
 const MotionBox = motion(Box);
 
@@ -148,7 +149,7 @@ function Header({ bookCount, showSearch, searchQuery, onSearchChange }) {
               userSelect="none"
               cursor="pointer"
               textAlign="center"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => scrollToTop(0)}
               _hover={{ color: 'accentPrimary' }}
               noOfLines={1}
               flex={1}
