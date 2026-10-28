@@ -167,4 +167,13 @@ export const bookTags = {
   "Build the Life You Want: The Art and Science of Getting Happier": ["Happiness", "Psychology", "Self-Improvement", "Well-being"],
   "My Life in Court": ["Law", "Memoir", "Courtroom", "Libel"],
   "Core Turnaround Strategy: The Indispensable Business Restructuring Guide": ["Turnaround", "Restructuring", "Strategy", "Business"],
+  "High Output Management": ["Management", "Leadership", "Productivity", "Business"],
+  "Genesis: Artificial Intelligence, Hope, and the Human Spirit": ["AI", "Technology", "Future", "Geopolitics"],
+  "The Seven Daughters of Eve: The Science That Reveals Our Genetic Ancestry": ["Genetics", "Human Evolution", "Ancestry", "Science"],
+  "Neanderthal Man: In Search of Lost Genomes": ["Genetics", "Human Evolution", "Ancient DNA", "Science"],
+  "The Rational Optimist: How Prosperity Evolves": ["Economics", "Progress", "History", "Innovation"],
+  "One Day Free: A Personal History of Modern Russia and the Battle for Its Future": ["Russia", "Politics", "Memoir", "Democracy"],
+  "Leaders Eat Last: Why Some Teams Pull Together and Others Don't": ["Leadership", "Teams", "Trust", "Culture"],
+  "20 Fragments of a Ravenous Youth": ["China", "Coming of Age", "Women", "Beijing"],
+  "Lone Survivors: How We Came to Be the Only Humans on Earth": ["Human Evolution", "Anthropology", "Prehistory", "Science"],
 };

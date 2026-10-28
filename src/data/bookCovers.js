@@ -1103,4 +1103,13 @@ export const bookCovers = {
   "Build the Life You Want: The Art and Science of Getting Happier": "https://images-na.ssl-images-amazon.com/images/P/0593545400.01.LZZZZZZZ.jpg",
   "My Life in Court": "https://images-na.ssl-images-amazon.com/images/P/1614273766.01.LZZZZZZZ.jpg",
   "Core Turnaround Strategy: The Indispensable Business Restructuring Guide": "https://images-na.ssl-images-amazon.com/images/P/B0G3MN8MFV.01.LZZZZZZZ.jpg",
+  "High Output Management": "https://images-na.ssl-images-amazon.com/images/P/0679762884.01.LZZZZZZZ.jpg",
+  "Genesis: Artificial Intelligence, Hope, and the Human Spirit": "https://images-na.ssl-images-amazon.com/images/P/0316581313.01.LZZZZZZZ.jpg",
+  "The Seven Daughters of Eve: The Science That Reveals Our Genetic Ancestry": "https://images-na.ssl-images-amazon.com/images/P/0393323145.01.LZZZZZZZ.jpg",
+  "Neanderthal Man: In Search of Lost Genomes": "https://images-na.ssl-images-amazon.com/images/P/0465054951.01.LZZZZZZZ.jpg",
+  "The Rational Optimist: How Prosperity Evolves": "https://images-na.ssl-images-amazon.com/images/P/006145205X.01.LZZZZZZZ.jpg",
+  "One Day Free: A Personal History of Modern Russia and the Battle for Its Future": "https://images-na.ssl-images-amazon.com/images/P/1541706455.01.LZZZZZZZ.jpg",
+  "Leaders Eat Last: Why Some Teams Pull Together and Others Don't": "https://images-na.ssl-images-amazon.com/images/P/1591848016.01.LZZZZZZZ.jpg",
+  "20 Fragments of a Ravenous Youth": "https://images-na.ssl-images-amazon.com/images/P/1784877441.01.LZZZZZZZ.jpg",
+  "Lone Survivors: How We Came to Be the Only Humans on Earth": "https://images-na.ssl-images-amazon.com/images/P/0805088911.01.LZZZZZZZ.jpg",
 };
