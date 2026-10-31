@@ -97,6 +97,40 @@ const theme = extendTheme({
         default: '#143827',
         _dark: '#1e4f37',
       },
+      // Gradient fills for the Shuffle (clay/copper) and Ask (sage) buttons.
+      // Used via `bg`, which sets the `background` shorthand, so gradients work.
+      shuffleBg: {
+        default: 'linear-gradient(135deg, #f3d9cb 0%, #ebc3ad 100%)',
+        _dark: 'linear-gradient(135deg, #8c5c4a 0%, #6f4a45 100%)',
+      },
+      shuffleBgHover: {
+        default: 'linear-gradient(135deg, #efcdb9 0%, #e4b195 100%)',
+        _dark: 'linear-gradient(135deg, #9c6852 0%, #7b524b 100%)',
+      },
+      shuffleBorder: {
+        default: '#d9a185',
+        _dark: 'rgba(239,159,118,0.5)',
+      },
+      shuffleText: {
+        default: '#8a3f22',
+        _dark: '#fde7da',
+      },
+      askBg: {
+        default: 'linear-gradient(135deg, #dde8d6 0%, #c9dabf 100%)',
+        _dark: 'linear-gradient(135deg, #4f6e52 0%, #3d5a48 100%)',
+      },
+      askBgHover: {
+        default: 'linear-gradient(135deg, #d2e0c9 0%, #bccfb1 100%)',
+        _dark: 'linear-gradient(135deg, #5a7c5d 0%, #466652 100%)',
+      },
+      askBorder: {
+        default: '#9ab890',
+        _dark: 'rgba(166,209,137,0.5)',
+      },
+      askText: {
+        default: '#1c4c36',
+        _dark: '#e6f4da',
+      },
     }
   },
   styles: {

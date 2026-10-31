@@ -33,6 +33,10 @@ import { memo, useMemo, useState } from 'react';
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
+
+// Faint top highlight plus a soft drop shadow for the Shuffle and Ask buttons.
+const PREMIUM_BUTTON_SHADOW = 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.12)';
+const PREMIUM_BUTTON_SHADOW_HOVER = 'inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 18px rgba(0,0,0,0.18)';
 const MotionInputGroup = motion(InputGroup);
 
 function FilterMenu({
@@ -397,13 +401,14 @@ function Controls({
           }
           size={{ base: 'md', md: 'lg' }}
           borderRadius='xl'
-          shadow='sm'
+          shadow={PREMIUM_BUTTON_SHADOW}
           fontWeight='bold'
-          bg='accentPrimary'
-          color='bg'
-          // Stay orange on hover (just a touch darker) rather than switching colour.
-          _hover={{ bg: 'accentPrimary', filter: 'brightness(0.92)', transform: 'translateY(-1px)' }}
-          _active={{ bg: 'accentPrimary', filter: 'brightness(0.85)' }}
+          bg='shuffleBg'
+          color='shuffleText'
+          border='1px solid'
+          borderColor='shuffleBorder'
+          _hover={{ bg: 'shuffleBgHover', transform: 'translateY(-1px)', shadow: PREMIUM_BUTTON_SHADOW_HOVER }}
+          _active={{ bg: 'shuffleBgHover' }}
           onClick={() => {
             setIsShuffling(true);
             onShuffle();
@@ -422,9 +427,10 @@ function Controls({
           shadow='sm'
           fontWeight='bold'
           variant='outline'
-          borderColor='accentPrimary'
-          color='accentPrimary'
+          borderColor='borderPrimary'
+          color='textPrimary'
           _hover={{ bg: 'surfaceHover', transform: 'translateY(-1px)' }}
+          _active={{ bg: 'surfaceHover' }}
           onClick={onRoulette}
           w={{ base: 'full', sm: 'auto' }}
           minW={{ base: 'unset', sm: '150px' }}
@@ -453,19 +459,21 @@ function Controls({
             }
             size={{ base: 'md', md: 'lg' }}
             borderRadius='xl'
-            shadow='sm'
+            shadow={PREMIUM_BUTTON_SHADOW}
             fontWeight='bold'
-            bg='accentGreen'
-            color='white'
+            bg='askBg'
+            color='askText'
+            border='1px solid'
+            borderColor='askBorder'
             whileHover={{
               scale: 1.03,
               y: -2,
-              boxShadow: '0 6px 18px rgba(28, 76, 54, 0.45)',
+              boxShadow: PREMIUM_BUTTON_SHADOW_HOVER,
             }}
             whileTap={{ scale: 0.97, y: 0 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            _hover={{ bg: 'accentGreenHover' }}
-            _active={{ bg: 'accentGreenHover' }}
+            _hover={{ bg: 'askBgHover' }}
+            _active={{ bg: 'askBgHover' }}
             onMouseEnter={() => setIsAskHovered(true)}
             onMouseLeave={() => setIsAskHovered(false)}
             onClick={onAsk}
