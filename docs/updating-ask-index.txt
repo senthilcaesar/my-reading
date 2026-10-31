@@ -1,0 +1,25 @@
+Updating the Ask the Library index after adding books
+=====================================================
+
+Run these from the project folder, in this order. All three read OPENAI_API_KEY
+from .env, and each one only processes books it hasn't seen before.
+
+1. node scripts/enrichBooks.mjs
+
+   Writes summaries (where the CSV only has a subtitle), tags and search keywords
+   for new books into src/data/generatedBookMeta.js. Review what it wrote in
+   reports/enrichment-review.md.
+
+2. npm run generate:embeddings
+
+   Rebuilds public/embeddings.bin and public/embeddings.meta.json, re-embedding
+   only books whose text changed. Add --full (npm run generate:embeddings -- --full)
+   to re-embed every book.
+
+3. npm run eval:ask
+
+   Runs the labelled test questions and prints search quality. The "hybrid"
+   averages at the bottom should not drop compared with the previous run.
+
+Then commit and push the changed files. The push rebuilds GitHub Pages, and the
+live Ask finds the new books. The Cloudflare proxy does not need redeploying.
