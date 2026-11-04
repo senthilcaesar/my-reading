@@ -139,6 +139,12 @@ export const categoryOverrides = {
 
 export const summaryOverrides = {
   // Curated replacements for low-confidence generated summaries.
+  "Spare":
+    "Spare by Prince Harry is a memoir of his life inside the British royal family, from the death of his mother, Princess Diana, through his army service in Afghanistan to his marriage to Meghan Markle and their decision to step back from royal duties. It is a frank account of grief, family rivalry and life as the \"spare\" to the heir.",
+  "The Book of Charlie":
+    "The Book of Charlie by David Von Drehle is the story of the author's neighbour Charlie White, who lived to 109. Through Charlie's long life as a doctor and adventurer, from the 1918 flu pandemic and the Great Depression to the turn of the millennium, the book draws lessons about resilience, change and living well.",
+  "Taming the Street":
+    "Taming the Street by Diana B. Henriques is a history of how Franklin Roosevelt's New Deal set out to regulate Wall Street after the 1929 crash. It follows the reformers, the financial old guard and the political battles behind the securities laws and the SEC that reshaped American capitalism.",
   "1929: Inside the Greatest Crash in Wall Street History":
     "1929 by Andrew Ross Sorkin is a narrative history of the 1929 stock market crash, told through the bankers, speculators, regulators and politicians at its centre. It traces the easy credit and speculative mania of the late 1920s, the days of the collapse, and how the crash fed into the Great Depression.",
   "Chokepoints":

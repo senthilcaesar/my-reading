@@ -28,6 +28,7 @@ function matchesSearch(book, wordBoundaryRegex) {
     wordBoundaryRegex.test(book.author) ||
     wordBoundaryRegex.test(book.category) ||
     wordBoundaryRegex.test(book.summary) ||
+    (book.oneLiner && wordBoundaryRegex.test(book.oneLiner)) ||
     (book.recommender && wordBoundaryRegex.test(book.recommender)) ||
     (book.recommendationNote && wordBoundaryRegex.test(book.recommendationNote)) ||
     book.tags.some((tag) => wordBoundaryRegex.test(tag))

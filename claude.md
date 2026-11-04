@@ -136,7 +136,7 @@ This is the most nuanced part — read carefully before changing.
 - Escapes the query for safe regex use.
 - Splits the text string by the query (case-insensitive).
 - Wraps matching parts in a Chakra `<Box as="mark">` with `bg="accentPrimary"` styling.
-- Applied to: book `title`, `author`, and `summary` fields.
+- Applied to: book `title`, `author`, and `oneLiner` fields.
 
 The `searchQuery` prop flows: `App` → `BookGrid` → `BookCard`.
 
@@ -159,8 +159,9 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 - `categoryOverrides.js` also holds `titleOverrides` (CSV rows whose title is really a subtitle), `authorOverrides`, `excludedTitles` (duplicate rows) and `summaryOverrides`. Lookups accept the old CSV title too, so `bookCovers.js` etc. need no renames.
 - `generatedBookMeta.js` (from `scripts/enrichBooks.mjs`, gpt-4.1) supplies summaries for books whose CSV summary was only a subtitle, 2 displayed `tags`, search-only `keywords`, and category fixes only where the old category was clearly wrong. `bookTags.js` still wins for tags. Review output in `reports/enrichment-review.md`.
 - Every book object therefore has `tags` and `keywords` arrays — components read `book.tags`, not `bookTags`.
+- `bookOneLiners.js` (from `scripts/generateOneLiners.mjs`, gpt-4.1, written from the final summary) gives each book `oneLiner`: "what is this book about in one sentence". Cards show `oneLiner` (falling back to `summary`); the full `summary` is shown only in `BookDetailDrawer`. Hand edits to that file are kept on rerun.
 
-**After adding books**: `node scripts/enrichBooks.mjs` (only new titles) → `npm run generate:embeddings` → `npm run eval:ask`.
+**After adding books**: `node scripts/enrichBooks.mjs` (only new titles) → `node scripts/generateOneLiners.mjs` (only new titles) → `npm run generate:embeddings` → `npm run eval:ask`.
 
 **Warning**: `csvString.js` is ~486 KB. Vite will warn about chunk size during build. Do NOT restructure data or add dynamic imports without testing build output.
 

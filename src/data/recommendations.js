@@ -3,6 +3,10 @@
  * Add your recommendations here manually.
  */
 export const bookRecommendations = {
+  'The Power Broker': {
+    recommender: 'Dwarkesh Patel',
+    note: 'Recommended by Dwarkesh Patel',
+  },
   'The Ride of a Lifetime': {
     recommender: 'Fei-Fei Li',
     note: 'Recommended by Fei-Fei Li',

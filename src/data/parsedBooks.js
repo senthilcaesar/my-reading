@@ -12,6 +12,7 @@ import {
 } from './categoryOverrides.js';
 import { generatedCategoryOverrides } from './generatedCategoryOverrides.js';
 import { generatedBookMeta } from './generatedBookMeta.js';
+import { bookOneLiners } from './bookOneLiners.js';
 
 // UTF-8 text that was mis-decoded as Windows-1252 ("RaÃºl", "Worldâ€™s") is decoded
 // back; stray "Â" left over from non-breaking spaces is dropped.
@@ -158,6 +159,9 @@ if (parsed.length > 0) {
         lookup(summaryOverrides) ||
         meta?.summary ||
         repairText((row[headerMap['summary']] || '').replace(/^"|"$/g, '').trim()),
+      // "What is this book about in one sentence" — shown on cards; the full summary
+      // is only shown in the detail drawer.
+      oneLiner: lookup(bookOneLiners) || null,
       recommender: recommender,
       recommendationNote: recommendationNote,
       // Shown under the cover in the detail drawer (e.g. who suggested the book).

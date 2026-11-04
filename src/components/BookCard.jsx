@@ -171,9 +171,9 @@ const BookCard = memo(function BookCard({ book, searchQuery, onSelect }) {
           color="textSecondary"
           fontSize={{ base: "xs", md: "sm" }}
           lineHeight="tall"
-          noOfLines={{ base: 3, md: 4 }}
+          noOfLines={{ base: 3, md: 3 }}
         >
-          <HighlightText text={book.summary} query={searchQuery} />
+          <HighlightText text={book.oneLiner || book.summary} query={searchQuery} />
         </Text>
       </Box>
     </Box>
