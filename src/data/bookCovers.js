@@ -1147,4 +1147,9 @@ export const bookCovers = {
   "Never Give an Inch": "https://images-na.ssl-images-amazon.com/images/P/0063247445.01.LZZZZZZZ.jpg",
   "Life: A Journey through Science and Politics": "https://images-na.ssl-images-amazon.com/images/P/0300264542.01.LZZZZZZZ.jpg",
   "Tools and Weapons": "https://images-na.ssl-images-amazon.com/images/P/1984877739.01.LZZZZZZZ.jpg",
+  "You Got In! Now What?": "https://images-na.ssl-images-amazon.com/images/P/163576887X.01.LZZZZZZZ.jpg",
+  "The Mythical Man-Month": "https://images-na.ssl-images-amazon.com/images/P/0201835959.01.LZZZZZZZ.jpg",
+  "The Psychology of Software Teams": "https://images-na.ssl-images-amazon.com/images/P/1032963387.01.LZZZZZZZ.jpg",
+  "Regretting Motherhood": "https://images-na.ssl-images-amazon.com/images/P/1623171377.01.LZZZZZZZ.jpg",
+  "Dream of Ding Village": "https://images-na.ssl-images-amazon.com/images/P/0802145728.01.LZZZZZZZ.jpg",
 };

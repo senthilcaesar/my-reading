@@ -43,6 +43,7 @@ export const categoryOverrides = {
   'Capitalism and Freedom': 'Economics',
   'Careers by the People': 'Personal Development',
   'Charlie and the Great Glass Elevator': 'Fiction',
+  'Dream of Ding Village': 'Fiction',
   'Citibank, and the Rise and Fall of American Financial Supremacy': 'Finance',
   'Code Girls': 'History',
   'Communicate with Mastery': 'Self-Help',

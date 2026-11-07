@@ -211,4 +211,9 @@ export const bookTags = {
   "Never Give an Inch": ["Foreign Policy", "Memoir", "American Politics", "Diplomacy"],
   "Life: A Journey through Science and Politics": ["Memoir", "Environmentalism", "Ecology", "Science and Politics"],
   "Tools and Weapons": ["Technology Policy", "Privacy", "Cybersecurity", "Microsoft"],
+  "You Got In! Now What?": ["College", "Education", "Life Advice", "Personal Development"],
+  "The Mythical Man-Month": ["Software Engineering", "Project Management", "IBM", "Teams"],
+  "The Psychology of Software Teams": ["Software Engineering", "Psychology", "Teams", "Workplace Culture"],
+  "Regretting Motherhood": ["Motherhood", "Women", "Sociology", "Social Norms"],
+  "Dream of Ding Village": ["China", "Novel", "Public Health", "Censorship"],
 };
