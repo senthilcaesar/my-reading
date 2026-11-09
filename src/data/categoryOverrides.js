@@ -136,6 +136,12 @@ export const categoryOverrides = {
   'What the Internet Is Doing to Our Brains': 'Technology',
   'When China Rules the World': 'Politics',
   'When Sleeping Women Wake': 'Historical Fiction',
+  'Click Here': 'Business',
+  'Decision-Driven Analytics': 'Business',
+  'In the Realm of the Last Man': 'Political History',
+  'Great Speech!': 'Personal Development',
+  'The Credibility Code': 'Personal Development',
+  'Other Rivers': 'Education',
 };
 
 export const summaryOverrides = {

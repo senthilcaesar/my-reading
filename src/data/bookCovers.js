@@ -1152,4 +1152,10 @@ export const bookCovers = {
   "The Psychology of Software Teams": "https://images-na.ssl-images-amazon.com/images/P/1032963387.01.LZZZZZZZ.jpg",
   "Regretting Motherhood": "https://images-na.ssl-images-amazon.com/images/P/1623171377.01.LZZZZZZZ.jpg",
   "Dream of Ding Village": "https://images-na.ssl-images-amazon.com/images/P/0802145728.01.LZZZZZZZ.jpg",
+  "Click Here": "https://images-na.ssl-images-amazon.com/images/P/0316597597.01.LZZZZZZZ.jpg",
+  "Decision-Driven Analytics": "https://images-na.ssl-images-amazon.com/images/P/1613631715.01.LZZZZZZZ.jpg",
+  "In the Realm of the Last Man": "https://images-na.ssl-images-amazon.com/images/P/1805227998.01.LZZZZZZZ.jpg",
+  "Great Speech!": "https://images-na.ssl-images-amazon.com/images/P/1636804187.01.LZZZZZZZ.jpg",
+  "The Credibility Code": "https://images-na.ssl-images-amazon.com/images/P/0985265604.01.LZZZZZZZ.jpg",
+  "Other Rivers": "https://images-na.ssl-images-amazon.com/images/P/0593655354.01.LZZZZZZZ.jpg",
 };

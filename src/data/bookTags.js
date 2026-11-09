@@ -216,4 +216,10 @@ export const bookTags = {
   "The Psychology of Software Teams": ["Software Engineering", "Psychology", "Teams", "Workplace Culture"],
   "Regretting Motherhood": ["Motherhood", "Women", "Sociology", "Social Norms"],
   "Dream of Ding Village": ["China", "Novel", "Public Health", "Censorship"],
+  "Click Here": ["Digital Marketing", "Advertising", "Business", "Meta"],
+  "Decision-Driven Analytics": ["Data Analytics", "Decision-Making", "Business", "Strategy"],
+  "In the Realm of the Last Man": ["Memoir", "Democracy", "Liberalism", "Political Philosophy"],
+  "Great Speech!": ["Public Speaking", "Communication", "Keynotes", "Storytelling"],
+  "The Credibility Code": ["Communication", "Body Language", "Career Development", "Confidence"],
+  "Other Rivers": ["China", "Education", "Memoir", "US-China Relations"],
 };
