@@ -12,8 +12,8 @@ export const bookRecommendations = {
     note: 'Recommended by Fei-Fei Li',
   },
   'Creativity, Inc': {
-    recommender: 'Fei-Fei Li',
-    note: 'Recommended by Fei-Fei Li',
+    recommender: 'Tulsee Doshi',
+    note: 'Recommended by Tulsee Doshi',
   },
   'Build: An Unorthodox Guide to Making Things Worth Making': {
     recommender: 'Fei-Fei Li',
