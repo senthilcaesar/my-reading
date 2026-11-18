@@ -162,6 +162,13 @@ export const categoryOverrides = {
   'Antifragile': 'Philosophy',
   'They Shall Not See the Dawn': 'Military History',
   'The Mystery of Capital': 'Economics',
+  'Cod': 'History',
+  'Lab Girl': 'Memoir',
+  'Beyond Inheritance': 'Science',
+  'The Ingenuity Gap': 'Social Science',
+  'Socialism: Utopian and Scientific': 'Politics',
+  'Cracking the Class Code': 'Sociology',
+  'Beyond Belief': 'Science',
 };
 
 export const summaryOverrides = {

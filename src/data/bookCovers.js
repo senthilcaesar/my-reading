@@ -1179,4 +1179,11 @@ export const bookCovers = {
   "They Shall Not See the Dawn": "https://images-na.ssl-images-amazon.com/images/P/B0G59KGK9R.01.LZZZZZZZ.jpg",
   "The Mystery of Capital": "https://images-na.ssl-images-amazon.com/images/P/0465016154.01.LZZZZZZZ.jpg",
   "Machine Learning System Design Interview": "https://images-na.ssl-images-amazon.com/images/P/1736049127.01.LZZZZZZZ.jpg",
+  "Cod": "https://images-na.ssl-images-amazon.com/images/P/0140275010.01.LZZZZZZZ.jpg",
+  "Lab Girl": "https://images-na.ssl-images-amazon.com/images/P/1101873728.01.LZZZZZZZ.jpg",
+  "Beyond Inheritance": "https://images-na.ssl-images-amazon.com/images/P/059354191X.01.LZZZZZZZ.jpg",
+  "The Ingenuity Gap": "https://images-na.ssl-images-amazon.com/images/P/037571328X.01.LZZZZZZZ.jpg",
+  "Socialism: Utopian and Scientific": "https://images-na.ssl-images-amazon.com/images/P/B088N5G5KK.01.LZZZZZZZ.jpg",
+  "Cracking the Class Code": "https://images-na.ssl-images-amazon.com/images/P/1447377583.01.LZZZZZZZ.jpg",
+  "Beyond Belief": "https://images-na.ssl-images-amazon.com/images/P/0691207070.01.LZZZZZZZ.jpg",
 };

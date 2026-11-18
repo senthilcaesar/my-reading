@@ -243,4 +243,11 @@ export const bookTags = {
   "They Shall Not See the Dawn": ["World War II", "Nazis", "Manhunt", "Nuremberg"],
   "The Mystery of Capital": ["Property Rights", "Capitalism", "Developing World", "Poverty"],
   "Machine Learning System Design Interview": ["Machine Learning", "System Design", "Interview Prep", "MLOps"],
+  "Cod": ["Fishing", "Food History", "Atlantic", "Environment"],
+  "Lab Girl": ["Science", "Botany", "Women in Science", "Nature"],
+  "Beyond Inheritance": ["Genetics", "Mutation", "Evolution", "Health"],
+  "The Ingenuity Gap": ["Complexity", "Problem Solving", "Environment", "Future"],
+  "Socialism: Utopian and Scientific": ["Socialism", "Marxism", "Political Theory", "Classics"],
+  "Cracking the Class Code": ["Social Class", "Social Mobility", "Workplace", "Inequality"],
+  "Beyond Belief": ["Evidence-Based Medicine", "Research", "Policy", "Critical Thinking"],
 };
