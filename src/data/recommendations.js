@@ -3,6 +3,10 @@
  * Add your recommendations here manually.
  */
 export const bookRecommendations = {
+  'The Path to Power': {
+    recommender: 'Sam Altman',
+    note: 'Recommended by Sam Altman',
+  },
   'The Power Broker': {
     recommender: 'Dwarkesh Patel',
     note: 'Recommended by Dwarkesh Patel',
