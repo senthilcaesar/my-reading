@@ -11,6 +11,8 @@ import {
   Heading,
   Text,
   Image,
+  List,
+  ListItem,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -235,9 +237,20 @@ export default function BookDetailDrawer({ book, isOpen, onClose }) {
               <Box color="noteIcon" flexShrink={0} mt={0.5}>
                 <NotebookPen size={18} />
               </Box>
-              <Text fontSize="sm" color="textPrimary" lineHeight="tall">
-                {book.readingNote}
-              </Text>
+              <Box fontFamily="'Inter', sans-serif">
+                <Text fontSize="sm" color="textPrimary" lineHeight="tall">
+                  {book.readingNote}
+                </Text>
+                {book.readingNotePoints?.length > 0 && (
+                  <List styleType="disc" pl={5} mt={1.5} spacing={0.5}>
+                    {book.readingNotePoints.map((point) => (
+                      <ListItem key={point} fontSize="sm" color="textPrimary" lineHeight="tall">
+                        {point}
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+              </Box>
             </Box>
           )}
 

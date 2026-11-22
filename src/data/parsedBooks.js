@@ -166,6 +166,8 @@ if (parsed.length > 0) {
       recommendationNote: recommendationNote,
       // Shown under the cover in the detail drawer (e.g. who suggested the book).
       readingNote: lookupRec?.readingNote || null,
+      // Optional bullet points shown under the reading note.
+      readingNotePoints: lookupRec?.readingNotePoints || [],
       coverUrl: lookup(bookCovers) || null,
       tags: lookup(bookTags) || meta?.tags || [],
       // Search-only topic terms (not displayed).

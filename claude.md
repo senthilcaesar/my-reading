@@ -77,6 +77,7 @@ All colors are **semantic tokens** that auto-switch between light and dark mode.
 - Headings → `'Outfit', sans-serif`
 - Body → `'Inter', sans-serif`
 - Book of the Day banner → `'Libre Baskerville', serif`
+- Reading notes in `BookDetailDrawer` → `'Inter', sans-serif`
 - App title → `'Franklin Gothic', serif`
 
 Google Fonts are loaded externally (check `index.html`).
@@ -191,10 +192,10 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 ### `NowReadingTag.jsx`
 
-- "What I'm reading" paper tag hanging on twine at the top left, with clipped top corners, a reinforced eyelet and a stitched edge. It uses semantic tokens (`tagBg` and `tagTwine` were added for it), the Lora, Rye and Pacifico fonts, and a book-stack SVG in the three accents. The back is a ruled library card. The books are the titles listed in `src/data/currentlyReading.js` (up to 3; an empty list hides the tag).
+- "What I'm reading" paper tag hanging on twine at the top left, with clipped top corners, a reinforced eyelet and a stitched edge. It uses semantic tokens (`tagBg` and `tagTwine` were added for it), the Lora, Rye and Pacifico fonts, and a book-stack SVG in the three accents. The back is a ruled library card. The books are the titles listed in `src/data/currentlyReading.js` (up to 4; the card is sized for 3; with 4 it grows 40px while flipped to the list and shrinks back when flipped to the front; an empty list hides the tag).
 - Tap flips it (3D `rotateY`) to show the books; tapping a book opens `BookDetailDrawer`. Dragging swings it about the top of the string, and it springs back into a slow idle sway. A drag only takes pointer capture once it passes 6px, so taps still reach the book buttons.
 - It's rendered inside the same `zIndex={1}` layer as `Header` (at z 99, under the header's 100), so when the reader scrolls past 120px, or on phones, it tucks up under the glass header with only its rounded bottom showing. Tapping that bottom drops it down until the reader scrolls another 320px.
-- Below ~1680px wide (md+), the page margin can't hold it, so `Controls.jsx` takes its left padding from `READING_TAG_CONTROLS_PL` (`src/components/readingTagLayout.js`), narrowing the search box and filters to start 232px from the edge. The tag (204px tall on md+) is sized to end above the first row of cards, which keeps its full width. Update `readingTagLayout.js` if the tag's size/position or the controls' `maxW`/padding change.
+- Below ~1680px wide (md+), the page margin can't hold it, so `Controls.jsx` takes its left padding from `READING_TAG_CONTROLS_PL` (`src/components/readingTagLayout.js`), narrowing the search box and filters to start 232px from the edge. The tag (204px tall on md+; 244px while showing 4 books on its back) is sized to end above the first row of cards, which keeps its full width. Update `readingTagLayout.js` if the tag's size/position or the controls' `maxW`/padding change.
 
 ### `BookOfTheDay.jsx`
 
@@ -220,7 +221,7 @@ csvString.js  →  parsedBooks.js  →  App.jsx (booksList state)
 
 - Chakra `<Drawer placement="right">` rendered once in `App.jsx`; `selectedBook` state + `useDisclosure` control it
 - Shows category badge, title, author, tags, full summary; footer has Close + "Visit Link" (external)
-- An optional `readingNote` (set in `recommendations.js`, e.g. who suggested the book) shows under the cover in a yellow callout (`noteBg`/`noteBorder`/`noteIcon` tokens) with a notebook icon
+- An optional `readingNote` (set in `recommendations.js`, e.g. who suggested the book) shows under the cover in a yellow callout (`noteBg`/`noteBorder`/`noteIcon` tokens) with a notebook icon; an optional `readingNotePoints` array is listed as bullets under it
 - The "Surprise Me" button in `Controls.jsx` picks a random book from `filteredBooks` (respects active search/category filters) and opens it here
 
 ---

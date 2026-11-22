@@ -12,7 +12,11 @@ const MotionG = motion.g;
 const readingBooks = currentlyReading
   .map((title) => books.find((book) => book.title.toLowerCase() === title.toLowerCase()))
   .filter(Boolean)
-  .slice(0, 3);
+  .slice(0, 4);
+
+// The card is sized for three books; when flipped to the list, each one beyond
+// that makes it a row taller (the front keeps its usual height).
+const EXTRA_ROWS_H = Math.max(0, readingBooks.length - 3) * 40;
 
 // The string starts at the very top of the viewport, behind the sticky header,
 // so the tag seems to hang from it.
@@ -298,7 +302,14 @@ function NowReadingTag({ onBookSelect }) {
 
       <Box h={`${restingTop}px`} />
 
-      <Box position="relative" w={`${size.w}px`} h={`${size.h}px`} sx={{ perspective: '900px' }}>
+      <MotionBox
+        position="relative"
+        w={`${size.w}px`}
+        sx={{ perspective: '900px' }}
+        initial={false}
+        animate={{ height: size.h + (showBack ? EXTRA_ROWS_H : 0) }}
+        transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 90, damping: 14 }}
+      >
         <MotionBox
           position="relative"
           w="full"
@@ -370,13 +381,13 @@ function NowReadingTag({ onBookSelect }) {
             <Flex direction="column" h="full" pt={isWide ? '35px' : '32px'} px={isWide ? 3 : 2.5}>
               <Text
                 fontFamily="'Pacifico', cursive"
-                fontSize={isWide ? '15px' : '12.5px'}
+                fontSize={isWide ? '11.5px' : '9.5px'}
                 color="accentMagenta"
                 textAlign="center"
                 lineHeight={1.3}
                 mb={1}
               >
-                On my nightstand
+                Currently Between Pages
               </Text>
               <Box h="2px" bg="accentPrimary" opacity={0.7} mb={1} />
 
@@ -459,7 +470,7 @@ function NowReadingTag({ onBookSelect }) {
             </Flex>
           </Face>
         </MotionBox>
-      </Box>
+      </MotionBox>
 
       {isWide && roomy && (
         <Text

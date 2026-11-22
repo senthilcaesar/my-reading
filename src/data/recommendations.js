@@ -216,5 +216,16 @@ export const bookRecommendations = {
   'Multiple Intelligences': {
     recommender: 'Senthil Palanivelu',
     note: 'Recommended by Senthil Palanivelu',
+  },  'The Infinity Machine': {
+    readingNote:
+      'I highly recommend Chapter 12: “The Agent and the Transformer”. It’s a must-read, and my favourite chapter in the book. It tells the story of:',
+    readingNotePoints: [
+      'Reinforcement Learning',
+      'Seq2Seq sequence-to-sequence learning models',
+      'Residual Neural Networks (ResNets)',
+      'Recurrent Neural Networks (RNNs)',
+      'The Transformer model',
+      'The Attention mechanism',
+    ],
   },
 };
